@@ -1,22 +1,19 @@
 // userrouter.js
 import { Router } from "express";
 import {
+  getCustomerCount,
+  getUserStats,
   login,
   register,
-  updateProfileImage,
 } from "../controller/UserController.js";
 import verifyToken from "../controller/middleware.js";
-// import upload from "../controller/multer.js";
 
 const router = Router();
 
 // Auth routes
-router.post("/auth/register", register);
-router.post("/auth/login", login);
-router.put(
-  "/auth/upload-profile/:id",
-  verifyToken,
+router.post("/user/register", register);
+router.post("/user/login", login);
+router.get("/user-stats", getUserStats);
+router.get("/customer-count", getCustomerCount);
 
-  updateProfileImage
-);
 export default router;

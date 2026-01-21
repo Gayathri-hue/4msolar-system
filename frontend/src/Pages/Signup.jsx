@@ -10,17 +10,22 @@ import {
   Spin,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 
 function Signup() {
   const navigate = useNavigate();
   const { Option } = Select;
   const [loading, setLoading] = useState(false);
+  const [showCustomReferrer, setShowCustomReferrer] = useState(false);
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
       const dob = values.dob.format("YYYY-MM-DD");
+
+      // If custom referrer is shown, take that value
+      const referrerValue = showCustomReferrer
+        ? values.referrerDetails
+        : values.referrer;
 
       const payload = {
         name: values.name,
@@ -28,12 +33,11 @@ function Signup() {
         phone: values.phone,
         email: values.email,
         password: values.password,
-        role: values.role,
-        employeeId: values.employeeId || "", // blank for auto-generate
-        branch: values.branch,
+        referrer: showCustomReferrer ? "Other" : values.referrer,
+        referrerDetails: showCustomReferrer ? values.referrerDetails : "",
       };
 
-      const res = await fetch("http://localhost:8000/api/auth/register", {
+      const res = await fetch("http://localhost:8000/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,8 +48,10 @@ function Signup() {
       const data = await res.json();
 
       if (res.ok) {
-        message.success(`${data.msg}. Employee ID: ${data.employeeId}`);
-        setTimeout(() => navigate("/"), 1000);
+        message.success(`${data.msg}`);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       } else {
         message.error(data.msg);
       }
@@ -55,6 +61,11 @@ function Signup() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleReferrerChange = (value) => {
+    // Show input if user selects "Other"
+    setShowCustomReferrer(value === "Other");
   };
 
   return (
@@ -71,16 +82,12 @@ function Signup() {
       <Spin spinning={loading}>
         <Card
           title="Sign Up"
-          headStyle={{
-            textAlign: "center",
-            fontWeight: "600",
-            fontSize: "18px",
-          }}
+          headStyle={{ textAlign: "center", fontWeight: 600, fontSize: 18 }}
           style={{
-            width: "400px",
-            borderRadius: "12px",
+            width: 400,
+            borderRadius: 12,
             boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-            padding: "20px",
+            padding: 20,
           }}
         >
           <Form layout="vertical" onFinish={onFinish}>
@@ -108,7 +115,7 @@ function Signup() {
                 { len: 10, message: "Phone number must be 10 digits" },
               ]}
             >
-              <Input placeholder="Enter phone number" />
+              <Input placeholder="Enter phone number" maxLength={10} />
             </Form.Item>
 
             <Form.Item
@@ -150,35 +157,34 @@ function Signup() {
               <Input.Password placeholder="Confirm password" />
             </Form.Item>
 
-            <Form.Item
-              label="Role"
-              name="role"
-              rules={[{ required: true, message: "Select role" }]}
-            >
-              <Select placeholder="Select role">
-                <Option value="admin">Admin</Option>
-                <Option value="staff">Staff</Option>
+            {/* Referrer dropdown */}
+            <Form.Item label="Referrer" name="referrer" initialValue="Other">
+              <Select onChange={handleReferrerChange}>
+                <Option value="Instagram">Instagram</Option>
+                <Option value="Facebook">Facebook</Option>
+                <Option value="Twitter">Twitter</Option>
+                <Option value="Youtube">Youtube</Option>
+                <Option value="Other">Other</Option>
               </Select>
             </Form.Item>
 
-            <Form.Item label="Employee ID" name="employeeId">
-              <Input placeholder="Leave blank for auto-generate" />
-            </Form.Item>
-
-            <Form.Item
-              label="Branch"
-              name="branch"
-              rules={[{ required: true, message: "Enter branch" }]}
-            >
-              <Input placeholder="Enter branch" />
-            </Form.Item>
+            {/* Custom input for referrer */}
+            {showCustomReferrer && (
+              <Form.Item
+                label="Referrer Details"
+                name="referrerDetails"
+                rules={[{ required: true, message: "Enter referrer details" }]}
+              >
+                <Input placeholder="Enter referrer name or phone" />
+              </Form.Item>
+            )}
 
             <Button type="primary" htmlType="submit" block>
               Sign Up
             </Button>
 
-            <p style={{ marginTop: "12px", textAlign: "center" }}>
-              Already have an account? <Link to="/">Login</Link>
+            <p style={{ marginTop: 12, textAlign: "center" }}>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </Form>
         </Card>
