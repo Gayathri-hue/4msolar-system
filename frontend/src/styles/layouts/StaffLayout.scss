@@ -1,0 +1,379 @@
+// /* ====== MAIN LAYOUT ====== */
+// .crm-layout {
+//   display: flex;
+//   height: 100vh;
+//   width: 100%;
+//   overflow: hidden;
+// }
+
+// /* ====== SIDEBAR ====== */
+// .crm-sidebar {
+//   background: rgb(131 65 11 / 91%);
+//   color: white;
+//   height: 100vh;
+//   transition: width 0.3s ease;
+//   position: relative;
+// }
+
+// .crm-sidebar.open {
+//   width: 220px;
+//   padding: 20px;
+// }
+
+// .crm-sidebar.close {
+//   width: 55px;
+//   padding: 10px;
+// }
+
+// .logo {
+//   margin-bottom: 30px;
+//   font-size: 22px;
+//   font-weight: bold;
+// }
+
+// /* Toggle Icon */
+// .sidebar-toggle {
+//   position: absolute;
+//   right: -15px;
+//   top: 20px;
+//   background: white;
+//   color: #1e6fff;
+//   border-radius: 50%;
+//   padding: 6px;
+//   cursor: pointer;
+//   box-shadow: 0 0 5px rgba(0,0,0,0.2);
+// }
+
+// /* Sidebar Links */
+// .crm-sidebar a {
+//   display: block;
+//   color: white;
+//   text-decoration: none;
+//   margin: 8px 0;
+//   font-weight: 500;
+//   padding: 8px;
+//   border-radius: 6px;
+// }
+
+// .crm-sidebar a:hover {
+//   background: rgba(255,255,255,0.2);
+// }
+
+// /* ====== MAIN CONTENT ====== */
+// .crm-main {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// /* ====== HEADER ====== */
+// .crm-header {
+//   height: 60px;
+//   background: rgb(131 65 11 / 91%);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 0 20px;
+//   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+// }
+
+// .crm-header h3 {
+//   margin: 0;
+//   color: #1e6fff;
+// }
+
+// /* Logout Button */
+// .logout-btn {
+//   background: #ff4d4f;
+//   border: none;
+//   color: white;
+//   padding: 8px 14px;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   font-size: 14px;
+// }
+
+// .logout-btn:hover {
+//   background: #d9363e;
+// }
+
+// /* ====== PAGE BODY ====== */
+// .crm-content {
+//   flex: 1;
+//   padding: 20px;
+//   background: #f5f7fb;
+//   overflow-y: auto;
+// }
+
+
+// //sidebar image
+
+// .closed-text {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 80px;
+
+//   .round-img {
+//     width: 45px;
+//     height: 45px;
+//     border-radius: 50%;
+//     object-fit: cover;
+//   }
+
+//   .upload-circle {
+//     width: 45px;
+//     height: 45px;
+//     border-radius: 50%;
+//     background: #444;
+//     color: #fff;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     cursor: pointer;
+//   }
+// }
+
+// .sidebar-menu {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;   
+//   justify-content: center; 
+// }
+
+// .menu-link {
+//   display: block;
+//   width: 100%;
+//   text-align: center;
+//   padding: 10px 0;
+ 
+
+//   color: white;
+//   text-decoration: none;
+// }
+
+// .menu-link:hover {
+//   background-color: #555;
+// }
+
+// .menu-link.active {
+//   background-color: #c06d6d82;
+// }
+
+
+// .icons-space {
+//   margin-right: 8px;      
+//   font-weight: bold;     
+//   font-size: 18px;         
+// }
+
+
+/* =============================================
+   MOBILE FIRST APPROACH
+============================================= */
+
+/* ── Layout ── */
+.crm-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.crm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.crm-header {
+  height: 60px;
+  background: rgb(131 65 11 / 91%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: block;           // always visible on mobile
+}
+
+@media (min-width: 1025px) {
+  .mobile-toggle-btn {
+    display: none;          // hide on large desktop
+  }
+}
+
+.header-logo {
+  height: 40px;
+}
+
+.header-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.logout-btn {
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ── Sidebar ── */
+.crm-sidebar {
+  background: rgb(131 65 11 / 91%);
+  color: white;
+  transition: transform 0.3s ease, width 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 0;                    // default mobile closed
+  overflow: hidden;
+}
+
+.crm-sidebar.open,
+.crm-sidebar.collapsed {
+  width: 240px;                // full width when open
+}
+
+.crm-sidebar.collapsed {
+  width: 68px;                 // icon-only mode (desktop)
+}
+
+.sidebar-toggle {
+  position: absolute;
+  right: -18px;
+  top: 18px;
+  background: white;
+  color: rgb(131 65 11);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 1001;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+}
+
+/* Mobile open → slide from left */
+@media (max-width: 1024px) {
+  .crm-sidebar {
+    transform: translateX(-100%);
+    width: 280px;               // wider on mobile
+  }
+
+  .crm-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .crm-sidebar.collapsed {
+    width: 280px;               // force full on mobile
+  }
+}
+
+/* Desktop collapsed mode (icons only) */
+@media (min-width: 1025px) {
+  .crm-sidebar {
+    position: relative;
+    transform: none !important;
+    width: 68px;                // start collapsed
+  }
+
+  .crm-sidebar.open {
+    width: 240px;
+  }
+}
+
+/* Menu styles */
+.sidebar-content {
+  padding: 20px 12px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-profile-section {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.menu-link.icon-only {
+  justify-content: center;
+  padding: 12px;
+}
+
+.menu-link:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.menu-link.active {
+  background: rgba(255,255,255,0.25);
+  font-weight: 600;
+}
+
+// /* Content margin when sidebar is visible */
+// @media (min-width: 1025px) {
+//   .crm-main {
+//     margin-left: 68px;          /* collapsed sidebar width */
+//   }
+
+//   .crm-sidebar.open + .crm-main {
+//     margin-left: 240px;
+//   }
+// }
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .crm-header {
+    padding: 0 12px;
+  }
+}
