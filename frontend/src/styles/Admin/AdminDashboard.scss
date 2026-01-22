@@ -1,0 +1,50 @@
+.admin-dashboard {
+  padding: 20px;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.stat-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card {
+  text-align: center;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 25px;
+}
+
+.stat-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.stat-card h1 {
+  font-size: 32px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.chart-card {
+  border-radius: 12px;
+  text-align: center;
+}
+
+.pie-wrapper,
+.bar-wrapper {
+  height: 300px;
+}
+
+.bar-row {
+  margin-top: 20px;
+}

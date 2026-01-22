@@ -114,10 +114,11 @@ function User() {
     >
       <h2
         style={{
-          textAlign: "center",
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "center",
           fontSize: "22px",
           fontWeight: "bold",
-          marginBottom: "20px",
         }}
       >
         Customer List

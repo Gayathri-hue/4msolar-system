@@ -17,6 +17,7 @@ export async function createEnquiry(req, res) {
       fullName: data.fullName,
       mobile: data.mobile,
       email: data.email,
+      image: data.image,
       address: data.address,
       enquiryType: data.enquiryType,
       systemType: data.systemType,
@@ -30,7 +31,7 @@ export async function createEnquiry(req, res) {
       appliedDate: data.appliedDate || Date.now(),
 
       // Referral info
-      referral: data.referral || { type: "Other", name: "" },
+      // referral: data.referral || { type: "Other", name: "" },
     };
 
     const enquiry = await enquiryfromModel.create(enquiryDetails);
@@ -129,6 +130,37 @@ export async function deleteEnquiry(req, res) {
     res.json({ msg: "Enquiry deleted successfully" });
   } catch (err) {
     console.error("Error deleting enquiry:", err);
+    res.status(500).json({ msg: "Server Error" });
+  }
+}
+
+// GET overall user status
+export async function getEnquiryStats(req, res) {
+  try {
+    // Aggregate counts by status
+    const stats = await enquiryfromModel.aggregate([
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Format response
+    const result = {
+      Assigned: 0,
+      "In Progress": 0,
+      Completed: 0,
+    };
+
+    stats.forEach((s) => {
+      result[s._id] = s.count;
+    });
+
+    res.json(result);
+  } catch (err) {
+    console.error("Error getting enquiry stats:", err);
     res.status(500).json({ msg: "Server Error" });
   }
 }

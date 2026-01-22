@@ -6,6 +6,8 @@ import {
   LogoutOutlined,
   MenuOutlined,
   CloseOutlined,
+  RadiusUprightOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import "../../styles/Admin/Admin.scss";
 
@@ -34,7 +36,7 @@ const AdminLayout = () => {
   const sidebarContent = (
     <>
       <NavLink to="dashboard" onClick={closeDrawer}>
-        <UserOutlined /> <span>Dashboard</span>
+        <RadiusUprightOutlined /> <span>Dashboard</span>
       </NavLink>
       <NavLink to="users" onClick={closeDrawer}>
         <UserOutlined /> <span>Customers</span>
@@ -43,7 +45,8 @@ const AdminLayout = () => {
         <TeamOutlined /> <span>Employees</span>
       </NavLink>
       <NavLink to="enquriyform" onClick={closeDrawer}>
-        <TeamOutlined /> <span>Customer Enquiry Form</span>
+        <FormOutlined />
+        <span>Customer Enquiry Form</span>
       </NavLink>
 
       {/* You can add more links here */}

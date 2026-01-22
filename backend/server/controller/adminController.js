@@ -58,6 +58,7 @@ export const createEmployee = async (req, res) => {
     res.status(201).json({
       message: "Employee created successfully",
       employee: {
+        _id: employee._id,
         name: employee.name,
         email: employee.email,
         phone: employee.phone,
@@ -72,6 +73,63 @@ export const createEmployee = async (req, res) => {
   }
 };
 
+export const getAllEmployees = async (req, res) => {
+  const employees = await Employee.find().select("-password");
+  res.json(employees);
+};
+
+export const updateEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, employeeId, dob, branch, location, email, phone, status } =
+      req.body;
+
+    const employee = await Employee.findByIdAndUpdate(
+      id,
+      {
+        name,
+        employeeId,
+        dob,
+        branch,
+        location,
+        email,
+        phone,
+      },
+      { new: true },
+    ).select("-password");
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.json({
+      message: "Employee updated successfully",
+      employee,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const employee = await Employee.findByIdAndDelete(id);
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.json({ message: "Employee deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+//employee count
 export const getEmployeeCount = async (req, res) => {
   try {
     const totalEmployees = await Employee.countDocuments();

@@ -56,14 +56,14 @@ const enquirySchema = new mongoose.Schema(
     appliedDate: { type: Date, default: Date.now },
 
     // Referral Info
-    referral: {
-      type: {
-        type: String,
-        enum: ["Facebook", "Instagram", "Twitter", "Person", "Other"],
-        default: "Other",
-      },
-      name: { type: String, default: "" }, // Only required if type === "Person"
-    },
+    // referral: {
+    //   type: {
+    //     type: String,
+    //     enum: ["Facebook", "Instagram", "Twitter", "Person", "Other"],
+    //     default: "Other",
+    //   },
+    //   name: { type: String, default: "" }, // Only required if type === "Person"
+    // },
   },
   { timestamps: true },
 );

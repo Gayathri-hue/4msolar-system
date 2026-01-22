@@ -5,6 +5,7 @@ import {
   getAllEnquiries,
   getEnquiriesByCustomerId,
   getEnquiryById,
+  getEnquiryStats,
   updateEnquiry,
 } from "../controller/enquiryformController.js";
 
@@ -12,6 +13,8 @@ const router = express.Router();
 
 router.post("/createenquiry", createEnquiry);
 router.get("/getallenquiry", getAllEnquiries);
+router.get("/getallstatus", getEnquiryStats);
+
 router.get("/getoneenquiry/:id", getEnquiryById);
 router.get("/getcustomerenquiries/:customerId", getEnquiriesByCustomerId);
 
