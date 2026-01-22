@@ -71,3 +71,13 @@ export const createEmployee = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const getEmployeeCount = async (req, res) => {
+  try {
+    const totalEmployees = await Employee.countDocuments();
+    res.status(200).json({ totalEmployees });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

@@ -101,10 +101,41 @@ export const getUserStats = async (req, res) => {
 // Total customers
 export const getCustomerCount = async (req, res) => {
   try {
-    const totalCustomers = await User.countDocuments({ role: "customer" });
+    const totalCustomers = await User.countDocuments(); // no filter
     res.status(200).json({ totalCustomers });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+// Get all users
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // password hide panna
+    res.status(200).json(users);
+  } catch (err) {
+    console.error("Get All Users Error:", err.message);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ msg: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const updated = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updated);
+  } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
 };

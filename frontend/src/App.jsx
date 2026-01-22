@@ -18,6 +18,8 @@ import User from "./Pages/Admin/User";
 import AdminLayout from "./Pages/Admin/AdminLayout";
 import Employee from "./Pages/Admin/Employee";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import HomePage from "./Pages/HomePage";
+import CustomerEnquiryForm from "./Pages/Admin/CustomerEnquiryForm";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo = "/adminlogin" }) => {
@@ -39,6 +41,8 @@ function App() {
     <>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
 
@@ -49,6 +53,7 @@ function App() {
 
             <Route path="users" element={<User />} />
             <Route path="employee" element={<Employee />} />
+            <Route path="enquriyform" element={<CustomerEnquiryForm />} />
           </Route>
         </Route>
 

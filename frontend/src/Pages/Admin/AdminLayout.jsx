@@ -42,6 +42,9 @@ const AdminLayout = () => {
       <NavLink to="employee" onClick={closeDrawer}>
         <TeamOutlined /> <span>Employees</span>
       </NavLink>
+      <NavLink to="enquriyform" onClick={closeDrawer}>
+        <TeamOutlined /> <span>Customer Enquiry Form</span>
+      </NavLink>
 
       {/* You can add more links here */}
     </>

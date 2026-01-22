@@ -24,6 +24,7 @@ function AdminDashboard() {
   const [stats, setStats] = useState([]);
   const [totalCustomers, setTotalCustomers] = useState("");
   console.log("totalcust", totalCustomers);
+  const [employeeCount, setEmployeeCount] = useState(0);
 
   useEffect(() => {
     // Fetch chart stats
@@ -37,6 +38,15 @@ function AdminDashboard() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    Api.get("/admin/getemployeecount")
+      .then((res) => {
+        setEmployeeCount(res.data.totalEmployees);
+      })
+      .catch((err) => {
+        console.error("Error fetching employee count", err);
+      });
+  }, []);
   const data = {
     labels: [
       "Jan",
@@ -71,6 +81,7 @@ function AdminDashboard() {
       >
         Total Customers: {totalCustomers}
       </div>
+      <h2>Total Employees: {employeeCount}</h2>
 
       {/* Chart */}
       <Bar data={data} />
