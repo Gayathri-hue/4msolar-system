@@ -13,7 +13,16 @@ const UserSchema = new mongoose.Schema(
       default: "Other",
     },
     referrerDetails: { type: String }, // store custom input here
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "employee",
+    },
+    status: {
+      type: String,
+      default: "New Lead",
+    },
   },
+
   { timestamps: true },
 );
 

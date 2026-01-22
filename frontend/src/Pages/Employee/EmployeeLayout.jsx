@@ -8,11 +8,12 @@ import {
   CloseOutlined,
   RadiusUprightOutlined,
   FormOutlined,
+  WechatWorkOutlined,
 } from "@ant-design/icons";
 import "../../styles/Admin/Admin.scss";
 import { Modal } from "antd";
 
-const AdminLayout = () => {
+const EmployeeLayout = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false); // desktop collapse
   const [drawerVisible, setDrawerVisible] = useState(false); // mobile drawer
@@ -25,7 +26,7 @@ const AdminLayout = () => {
       cancelText: "No",
       onOk: () => {
         localStorage.clear();
-        navigate("/adminlogin");
+        navigate("/");
       },
     });
   };
@@ -47,15 +48,9 @@ const AdminLayout = () => {
       <NavLink to="dashboard" onClick={closeDrawer}>
         <RadiusUprightOutlined /> <span>Dashboard</span>
       </NavLink>
-      <NavLink to="users" onClick={closeDrawer}>
-        <UserOutlined /> <span>Customers</span>
-      </NavLink>
-      <NavLink to="employee" onClick={closeDrawer}>
-        <TeamOutlined /> <span>Employees</span>
-      </NavLink>
-      <NavLink to="enquriyform" onClick={closeDrawer}>
-        <FormOutlined />
-        <span>Customer Enquiry Form</span>
+      <NavLink to="mylead" onClick={closeDrawer}>
+        <WechatWorkOutlined />
+        <span>My Leads</span>
       </NavLink>
 
       {/* You can add more links here */}
@@ -68,7 +63,7 @@ const AdminLayout = () => {
       <header className="admin-header">
         <div className="header-left">
           <MenuOutlined className="toggle-btn" onClick={toggleSidebar} />
-          <h2>Admin Dashboard</h2>
+          <h2>Employee Dashboard</h2>
         </div>
         <button className="logout-btn" onClick={handleLogout}>
           <LogoutOutlined /> Logout
@@ -109,4 +104,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default EmployeeLayout;

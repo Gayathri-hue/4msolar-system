@@ -21,6 +21,7 @@ function AdminLogin() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
       localStorage.setItem("adminEmail", res.data.email);
+      localStorage.setItem("role", "admin");
 
       navigate("/admin"); // go to admin dashboard
     } catch (err) {

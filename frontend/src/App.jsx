@@ -20,9 +20,14 @@ import Employee from "./Pages/Admin/Employee";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import HomePage from "./Pages/HomePage";
 import CustomerEnquiryForm from "./Pages/Admin/CustomerEnquiryForm";
+import EmployeeLogin from "./Pages/Employee/EmployeeLogin";
+import EmployeeDashboard from "./Pages/Employee/EmployeeDashboard";
+import EmployeeLayout from "./Pages/Employee/EmployeeLayout";
+import MyLead from "./Pages/Employee/MyLead";
+import SeparateLead from "./Pages/Employee/SeparateLead";
 
 function App() {
-  const ProtectedRoute = ({ requiredRole, redirectTo = "/adminlogin" }) => {
+  const ProtectedRoute = ({ requiredRole, redirectTo }) => {
     const role = localStorage.getItem("role");
     const location = useLocation();
 
@@ -31,7 +36,9 @@ function App() {
     }
 
     if (requiredRole && role !== requiredRole) {
-      return <Navigate to="/" replace state={{ from: location }} />;
+      if (role === "admin") return <Navigate to="/admin" replace />;
+      if (role === "employee") return <Navigate to="/employee" replace />;
+      return <Navigate to="/" replace />;
     }
 
     return <Outlet />;
@@ -45,15 +52,35 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/employeelogin" element={<EmployeeLogin />} />
 
-        <Route element={<ProtectedRoute requiredRole="admin" />}>
+        <Route
+          element={
+            <ProtectedRoute requiredRole="admin" redirectTo="/adminlogin" />
+          }
+        >
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<User />} />
+            <Route index element={<AdminDashboard />} />
             <Route path="dashboard" element={<AdminDashboard />} />
-
             <Route path="users" element={<User />} />
             <Route path="employee" element={<Employee />} />
             <Route path="enquriyform" element={<CustomerEnquiryForm />} />
+          </Route>
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute
+              requiredRole="employee"
+              redirectTo="/employeelogin"
+            />
+          }
+        >
+          <Route path="/employee" element={<EmployeeLayout />}>
+            <Route index element={<EmployeeDashboard />} />
+            <Route path="dashboard" element={<EmployeeDashboard />} />
+            <Route path="mylead" element={<MyLead />} />
+            <Route path="lead/:leadId" element={<SeparateLead />} />
           </Route>
         </Route>
 

@@ -1,5 +1,7 @@
 import User from "../model/UserModel.js";
 import bcrypt from "bcryptjs";
+import Employee from "../model/employeeModel.js";
+
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
@@ -16,6 +18,9 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    const employees = await Employee.find();
+    const assignedEmployee =
+      employees[Math.floor(Math.random() * employees.length)];
     // Create new user
     const newUser = new User({
       name,
@@ -24,6 +29,7 @@ export const register = async (req, res) => {
       phone,
       referrer,
       password: hashedPassword,
+      assignedTo: assignedEmployee._id,
     });
 
     await newUser.save();
