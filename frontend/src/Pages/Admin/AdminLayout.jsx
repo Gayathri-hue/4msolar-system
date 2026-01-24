@@ -57,6 +57,10 @@ const AdminLayout = () => {
         <FormOutlined />
         <span>Customer Enquiry Form</span>
       </NavLink>
+      <NavLink to="employeework" onClick={closeDrawer}>
+        <FormOutlined />
+        <span>Employee Leads</span>
+      </NavLink>
 
       {/* You can add more links here */}
     </>

@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import Employee from "../model/employeeModel.js";
 
 const verifyToken = (req, res, next) => {
   const token =
@@ -14,6 +15,31 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     res.status(400).json({ msg: "Token is not valid" });
+  }
+};
+
+export const protectEmployee = async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      req.user = await Employee.findById(decoded.id).select("-password");
+
+      next();
+    } catch (error) {
+      return res.status(401).json({ message: "Not authorized, token failed" });
+    }
+  }
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authorized, no token" });
   }
 };
 

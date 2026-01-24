@@ -1,0 +1,141 @@
+.solar-footer {
+  background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+  padding: 80px 10% 30px;
+  border-top: 4px solid #52c41a; /* Professional green accent line */
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #434343;
+}
+
+.footer-col h5 {
+  color: #003a8c !important; /* Deep blue for solar professionalism */
+  font-weight: 700 !important;
+  margin-bottom: 25px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px !important;
+}
+
+.brand-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 50px;
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.footer-desc {
+  display: block;
+  color: #595959;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Links Section */
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+      color: #282626;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.design-size
+{
+      color: #282626;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.footer-links a:hover {
+  color: #52c41a;
+  transform: translateX(8px);
+}
+
+/* Contact Items */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-icon {
+  color: #52c41a;
+  font-size: 22px;
+  text-shadow: 0 0 1px #52c41a;
+}
+
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social-icons a {
+  font-size: 24px;
+  color: #bfbfbf;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+  transform: translateY(-5px);
+}
+
+.social-icons .fb:hover { color: #1877f2; }
+.social-icons .ig:hover { color: #e4405f; }
+.social-icons .li:hover { color: #0a66c2; }
+.social-icons .tw:hover { color: #1da1f2; }
+
+.eco-badge {
+  background: rgba(82, 196, 26, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e8e8;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .solar-footer {
+    padding: 50px 5% 20px;
+    text-align: center;
+  }
+  .brand-box, .contact-item, .social-icons {
+    justify-content: center;
+  }
+  .footer-links a {
+    justify-content: center;
+  }
+}

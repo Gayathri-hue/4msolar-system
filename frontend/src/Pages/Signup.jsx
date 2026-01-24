@@ -31,6 +31,8 @@ function Signup() {
         name: values.name,
         dob,
         phone: values.phone,
+        role: values.role,
+
         email: values.email,
         password: values.password,
         referrer: showCustomReferrer ? "Other" : values.referrer,

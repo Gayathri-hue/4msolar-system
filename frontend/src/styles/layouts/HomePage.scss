@@ -1,0 +1,352 @@
+// .hero-wrapper {
+//   position: relative;
+//   width: 100vw;
+//   height: 100vh;
+//   overflow: hidden;           
+// }
+
+// .hero-background {
+//   position: absolute;
+//   inset: -8%;                 
+//   width: 116%;
+//   height: 116%;
+//   background: url("https://4msolarsolutions.com/wp-content/uploads/al_opt_content/IMAGE/4msolarsolutions.com/wp-content/uploads/2025/11/Screenshot-2025-12-06-142054.png.bv.webp?bv_host=4msolarsolutions.com")
+//     center center / cover no-repeat;
+  
+//   animation: kenBurns 16s ease-in-out infinite;  
+//   transform-origin: center center;
+//   will-change: transform;
+//    z-index: 0;
+// }
+
+// @keyframes kenBurns {
+//   0% {
+//     transform: scale(1.08) translate(0, 0);
+//   }
+//   25% {
+//     transform: scale(1.22) translate(-4%, 3%);
+//   }
+//   50% {
+//     transform: scale(1.28) translate(5%, -4%);
+//   }
+//   75% {
+//     transform: scale(1.22) translate(4%, 3%);
+//   }
+//   100% {
+//     transform: scale(1.08) translate(0, 0);
+//   }
+// }
+
+// .hero-overlay {
+//   position: absolute;
+//   inset: 0;
+//      background: linear-gradient(135deg, rgb(188 109 31 / 9%) 0%, rgb(189 155 77 / 52%) 100%);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 1;
+// }
+
+// .hero-content {
+//   text-align: center;
+//   color: white;
+//   max-width: 900px;
+//   padding: 0 20px;
+// }
+
+// .title-animate {
+//   color: #ffffff !important;
+//   font-size: 5.5rem !important;   
+//   font-weight: 800;
+//   letter-spacing: 3px;
+//   margin-bottom: 1.2rem;
+//   animation: zoomIn 1.8s ease-out forwards;
+// }
+
+// .subtitle {
+//   font-size: 1.45rem;
+//   line-height: 1.6;
+//   color: #e8f0ff;
+//   opacity: 0.95;
+// }
+
+
+
+// @keyframes zoomIn {
+//   from {
+//     transform: scale(0.7);
+//     opacity: 0;
+//   }
+//   to {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .title-animate {
+//     font-size: 3.8rem !important;
+//   }
+//   .subtitle {
+//     font-size: 1.15rem;
+//   }
+  
+//   .hero-background {
+//     animation-duration: 32s;   
+//   }
+// }
+
+// .hero-content {
+//   text-align: left; // Align text left
+//   color: white;
+//   max-width: 900px;
+//   padding: 0 20px;
+// }
+
+// .left-text {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.2rem;
+// }
+
+// .main-title {
+//   font-size: 4.5rem;
+//   font-weight: 700;
+//   color: #fff;
+//   margin: 0;
+
+//   .first-letter {
+//     font-weight: 900;
+//     font-size: 5.5rem;
+//     color: #ff9800; // Highlight first letter
+//     margin-right: 6px;
+//   }
+// }
+
+// .subtitle {
+//   font-size: 1.45rem;
+//   line-height: 1.6;
+//   color: #e8f0ff;
+//   opacity: 0.95;
+// }
+
+// .services {
+//   display: flex;
+//   gap: 1rem;
+//   margin-top: 1rem;
+
+//   .service-btn {
+//     background: rgba(255, 255, 255, 0.2);
+//     color: #fff;
+//     border: 1px solid #fff;
+//     padding: 0.6rem 1.2rem;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     transition: 0.3s;
+
+//     &:hover {
+//       background: rgba(255, 255, 255, 0.4);
+//     }
+
+//     &.active {
+//       background: #ff9800;
+//       border-color: #ff9800;
+//     }
+//   }
+// }
+
+// .selected-service {
+//   margin-top: 0.8rem;
+//   font-size: 1.2rem;
+//   font-weight: 600;
+//   color: #ffd700;
+// }
+
+// @media (max-width: 768px) {
+//   .main-title {
+//     font-size: 3.2rem;
+
+//     .first-letter {
+//       font-size: 3.8rem;
+//     }
+//   }
+
+//   .subtitle {
+//     font-size: 1.15rem;
+//   }
+
+//   .services {
+//     flex-direction: column;
+//     gap: 0.8rem;
+//   }
+// }
+
+
+// .service-box {
+//   animation: slideFade 1s ease;
+// }
+
+// @keyframes slideFade {
+//   from {
+//     opacity: 0;
+//     transform: translateY(30px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+
+// .whatsapp-float {
+//   position: fixed;
+//   bottom: 25px;
+//   right: 25px;
+//   width: 60px;
+//   height: 60px;
+//   background: #25d366;
+//   color: #fff;
+//   border-radius: 50%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 32px;
+//   z-index: 9999;
+//   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+//   transition: transform 0.3s ease;
+
+//   &:hover {
+//     transform: scale(1.1);
+//     color: #fff;
+//   }
+// }
+/* Container & Layout */
+
+/* Layout & Background Wrapper */
+.hero-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
+  background: url("https://4msolarsolutions.com/wp-content/uploads/al_opt_content/IMAGE/4msolarsolutions.com/wp-content/uploads/2025/11/Screenshot-2025-12-06-142054.png.bv.webp?bv_host=4msolarsolutions.com")
+    center center / cover no-repeat;
+  animation: kenBurns 16s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* Soft gradient to ensure text is readable */
+  // background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Content Styling */
+.hero-content {
+  text-align: center;
+  color: white;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.title-animate {
+  color: #ffffff !important;
+  font-size: 5.5rem !important;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 1.2rem;
+  animation: zoomIn 1.8s ease-out forwards;
+}
+
+.first-letter {
+  color: #52c41a; /* Solar Green */
+}
+
+.subtitle {
+  font-size: 1.45rem;
+  line-height: 1.6;
+  color: #e8f0ff !important;
+  opacity: 0.95;
+  margin-bottom: 20px !important;
+}
+
+/* Rotating Text */
+.rotating-text-container {
+  height: 50px;
+  overflow: hidden;
+}
+
+.rotating-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #52c41a;
+}
+
+.hidden { display: none; }
+.fade-in {
+  display: block;
+  animation: slideUpFade 0.8s forwards;
+}
+
+/* Keyframes */
+@keyframes kenBurns {
+  0% { transform: scale(1.08) translate(0, 0); }
+  25% { transform: scale(1.22) translate(-4%, 3%); }
+  50% { transform: scale(1.28) translate(5%, -4%); }
+  75% { transform: scale(1.22) translate(4%, 3%); }
+  100% { transform: scale(1.08) translate(0, 0); }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* WhatsApp Icon & Pulse */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  z-index: 1000;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title-animate { font-size: 3rem !important; }
+  .subtitle { font-size: 1.1rem; }
+  .hero-background { animation-duration: 32s; }
+}

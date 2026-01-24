@@ -24,7 +24,8 @@ import EmployeeLogin from "./Pages/Employee/EmployeeLogin";
 import EmployeeDashboard from "./Pages/Employee/EmployeeDashboard";
 import EmployeeLayout from "./Pages/Employee/EmployeeLayout";
 import MyLead from "./Pages/Employee/MyLead";
-import SeparateLead from "./Pages/Employee/SeparateLead";
+import EmployeeWork from "./Pages/Admin/EmployeeWork";
+import PostEnquiryForm from "./Pages/StaffLayout/PostEnquiryForm";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo }) => {
@@ -38,6 +39,8 @@ function App() {
     if (requiredRole && role !== requiredRole) {
       if (role === "admin") return <Navigate to="/admin" replace />;
       if (role === "employee") return <Navigate to="/employee" replace />;
+      if (role === "user") return <Navigate to="/userlogin" replace />;
+
       return <Navigate to="/" replace />;
     }
 
@@ -65,6 +68,7 @@ function App() {
             <Route path="users" element={<User />} />
             <Route path="employee" element={<Employee />} />
             <Route path="enquriyform" element={<CustomerEnquiryForm />} />
+            <Route path="employeework" element={<EmployeeWork />} />
           </Route>
         </Route>
 
@@ -80,20 +84,29 @@ function App() {
             <Route index element={<EmployeeDashboard />} />
             <Route path="dashboard" element={<EmployeeDashboard />} />
             <Route path="mylead" element={<MyLead />} />
-            <Route path="lead/:leadId" element={<SeparateLead />} />
           </Route>
         </Route>
 
+        <Route
+          element={<ProtectedRoute requiredRole="user" redirectTo="/login" />}
+        >
+          <Route path="/user" element={<StaffLayout />}>
+            <Route index element={<DashboardChart />} />
+            <Route path="dashboard" element={<DashboardChart />} />
+            <Route path="enquiryform" element={<Leads />} />
+            <Route path="postform" element={<PostEnquiryForm />} />
+            <Route path="trackstatus" element={<TrackStatus />} />
+          </Route>
+        </Route>
+        {/* 
         <Route path="/user" element={<StaffLayout />}>
           <Route index element={<DashboardChart />} />{" "}
           <Route path="dashboard" element={<DashboardChart />} />{" "}
-          <Route path="leads" element={<Leads />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="enquiryform" element={<Leads />} />
+          <Route path="postform" element={<PostEnquiryForm />} />
           <Route path="trackstatus" element={<TrackStatus />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="document" element={<Document />} />
-          <Route path="payment" element={<Payment />} />
-        </Route>
+        
+        </Route> */}
 
         <Route path="*" element={<div>404 - Page Not Found</div>} />
       </Routes>

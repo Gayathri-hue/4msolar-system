@@ -1,7 +1,7 @@
 import Employee from "../model/employeeModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../model/UserModel.js";
+import enquiryfromModel from "../model/enquiryfromModel.js";
 
 export const employeeLogin = async (req, res) => {
   const { emailOrPhone, password } = req.body;
@@ -36,24 +36,17 @@ export const employeeLogin = async (req, res) => {
   }
 };
 
+// GET My Leads (Employee)
 export const getMyLeads = async (req, res) => {
   try {
-    const employeeId = req.params.id;
-    const leads = await User.find({ assignedTo: employeeId });
-    res.status(200).json(leads);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
-};
+    const employeeId = req.user.id;
 
-//getleadbyid
+    const leads = await enquiryfromModel.find({
+      assignedEmployee: employeeId,
+    });
 
-export const getLeadById = async (req, res) => {
-  try {
-    const lead = await User.findById(req.params.id);
-    if (!lead) return res.status(404).json({ message: "Lead not found" });
-    res.json(lead);
+    res.json(leads);
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ msg: "Server Error" });
   }
 };

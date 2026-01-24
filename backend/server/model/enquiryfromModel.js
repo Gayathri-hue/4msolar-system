@@ -36,7 +36,7 @@ const enquirySchema = new mongoose.Schema(
     roofArea: { type: String },
 
     issueDescription: { type: String },
-    image: { type: String }, // Cloudinary URL
+    image: { type: String },
 
     preferredTime: {
       type: String,
@@ -55,15 +55,14 @@ const enquirySchema = new mongoose.Schema(
     // Applied Date/Time
     appliedDate: { type: Date, default: Date.now },
 
-    // Referral Info
-    // referral: {
-    //   type: {
-    //     type: String,
-    //     enum: ["Facebook", "Instagram", "Twitter", "Person", "Other"],
-    //     default: "Other",
-    //   },
-    //   name: { type: String, default: "" }, // Only required if type === "Person"
-    // },
+    assignedEmployee: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "employee",
+    },
+
+    dueDate: {
+      type: Date,
+    },
   },
   { timestamps: true },
 );

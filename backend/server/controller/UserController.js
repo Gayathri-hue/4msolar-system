@@ -1,12 +1,13 @@
 import User from "../model/UserModel.js";
 import bcrypt from "bcryptjs";
-import Employee from "../model/employeeModel.js";
+// import Employee from "../model/employeeModel.js";
+import nodemailer from "nodemailer";
 
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, dob, phone, referrer } = req.body; // include dob and phone
+    const { name, email, password, dob, phone, role, referrer } = req.body; // include dob and phone
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -18,9 +19,9 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const employees = await Employee.find();
-    const assignedEmployee =
-      employees[Math.floor(Math.random() * employees.length)];
+    // const employees = await Employee.find();
+    // const assignedEmployee =
+    //   employees[Math.floor(Math.random() * employees.length)];
     // Create new user
     const newUser = new User({
       name,
@@ -29,7 +30,8 @@ export const register = async (req, res) => {
       phone,
       referrer,
       password: hashedPassword,
-      assignedTo: assignedEmployee._id,
+      role: "user",
+      // assignedTo: assignedEmployee._id,
     });
 
     await newUser.save();
@@ -58,9 +60,13 @@ export const login = async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      },
+    );
 
     res.json({
       token,
@@ -68,6 +74,7 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (err) {
@@ -142,6 +149,73 @@ export const updateUser = async (req, res) => {
     });
     res.json(updated);
   } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export const resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
+
+    // Save OTP and expiry
+    user.resetOTP = otp;
+    user.resetOTPExpire = Date.now() + 5 * 60 * 1000; // 5 minutes
+    await user.save();
+
+    // Log OTP in backend terminal
+    console.log(`Resent OTP for ${email}: ${otp}`);
+
+    // Configure nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "pgayathri488@gmail.com",
+        pass: "cxlv njul ayqt ytwv", // Use app password
+      },
+    });
+
+    // Send OTP via email
+    await transporter.sendMail({
+      from: "pgayathri488@gmail.com",
+      to: email,
+      subject: "Resent OTP for Password Reset",
+      text: `Your new OTP is ${otp}. Valid for 5 minutes.`,
+    });
+
+    res.json({ msg: "OTP resent successfully" });
+  } catch (error) {
+    console.error("Error in resendOtp:", error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export const resetPasswordWithOtp = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    if (user.resetOTP != otp || user.resetOTPExpire < Date.now()) {
+      return res.status(400).json({ msg: "Invalid or expired OTP" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    user.resetOTP = null;
+    user.resetOTPExpire = null;
+    await user.save();
+
+    res.json({ msg: "Password reset successful" });
+  } catch (err) {
+    console.error("Error in resetPasswordWithOtp:", err);
     res.status(500).json({ msg: "Server error" });
   }
 };

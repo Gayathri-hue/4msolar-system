@@ -1,18 +1,14 @@
 import express from "express";
-import {
-  employeeLogin,
-  getLeadById,
-  getMyLeads,
-} from "../controller/employeeController.js";
+import { employeeLogin, getMyLeads } from "../controller/employeeController.js";
+import { protectEmployee } from "../controller/middleware.js";
 
 const router = express.Router();
 
 router.post("/login", employeeLogin);
-//employeelead
-router.get("/get/mylead/:id", getMyLeads);
 
-//leadid
+router.get("/myleads", protectEmployee, getMyLeads);
 
-router.get("/lead/:id", getLeadById);
+// enquiryformrouter.js
+// router.get("/getemployeeworks/:employeeId", getEnquiriesByEmployee);
 
 export default router;

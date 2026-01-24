@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import Employee from "../model/employeeModel.js";
+import enquiryfromModel from "../model/enquiryfromModel.js";
 
 export const adminLogin = (req, res) => {
   const { email, password } = req.body;
@@ -137,5 +138,51 @@ export const getEmployeeCount = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getEmployeeWorkSummary = async (req, res) => {
+  try {
+    const data = await Employee.aggregate([
+      {
+        $lookup: {
+          from: "enquiryforms",
+          localField: "_id",
+          foreignField: "assignedEmployee",
+          as: "works",
+        },
+      },
+      {
+        $project: {
+          name: 1,
+          phone: 1,
+          email: 1,
+          totalWorks: { $size: "$works" },
+          completed: {
+            $size: {
+              $filter: {
+                input: "$works",
+                as: "w",
+                cond: { $eq: ["$$w.status", "Completed"] },
+              },
+            },
+          },
+          pending: {
+            $size: {
+              $filter: {
+                input: "$works",
+                as: "w",
+                cond: { $ne: ["$$w.status", "Completed"] },
+              },
+            },
+          },
+        },
+      },
+    ]);
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server Error" });
   }
 };

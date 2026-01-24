@@ -12,15 +12,15 @@ const UserSchema = new mongoose.Schema(
       enum: ["Instagram", "Facebook", "Twitter", "Youtube", "Other"],
       default: "Other",
     },
-    referrerDetails: { type: String }, // store custom input here
-    assignedTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "employee",
-    },
-    status: {
+    referrerDetails: { type: String },
+    role: {
       type: String,
-      default: "New Lead",
+      default: "user", // default role
     },
+
+    // OTP Fields
+    resetOTP: String,
+    resetOTPExpire: Date,
   },
 
   { timestamps: true },

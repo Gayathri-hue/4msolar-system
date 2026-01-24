@@ -49,6 +49,27 @@ function CustomerEnquiry() {
     }
   };
 
+  const downloadEnquiry = async (enquiryId) => {
+    try {
+      const res = await Api.get(`/enquiry/download/${enquiryId}`, {
+        responseType: "blob", // PDF binary
+      });
+
+      const blob = new Blob([res.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "My_Enquiry.pdf";
+      link.click();
+
+      message.success("PDF downloaded successfully");
+    } catch (err) {
+      console.error(err);
+      message.error("Failed to download PDF");
+    }
+  };
+
   // Open edit modal
   const handleEdit = (record) => {
     setEditEnquiry(record);
@@ -146,6 +167,14 @@ function CustomerEnquiry() {
       title: "Action",
       render: (_, record) => (
         <Space>
+          <Popconfirm
+            title="Are you sure you want to download your enquiry?"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={() => downloadEnquiry(record._id)}
+          >
+            <Button type="primary">Download Customer enquiry</Button>
+          </Popconfirm>
           <Button type="primary" onClick={() => handleEdit(record)}>
             Edit
           </Button>

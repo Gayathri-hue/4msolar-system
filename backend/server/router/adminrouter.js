@@ -5,6 +5,7 @@ import {
   deleteEmployee,
   getAllEmployees,
   getEmployeeCount,
+  getEmployeeWorkSummary,
   updateEmployee,
 } from "../controller/adminController.js";
 
@@ -19,5 +20,8 @@ router.delete("/employee/:id", deleteEmployee);
 
 // Admin creates employee
 router.get("/getemployeecount", getEmployeeCount);
+//work summery
+
+router.get("/employee-work-summary", getEmployeeWorkSummary);
 
 export default router;
