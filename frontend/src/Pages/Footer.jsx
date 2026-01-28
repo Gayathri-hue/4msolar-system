@@ -10,7 +10,7 @@ import {
   MailOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
-import logo from "../../public/Image/4m logo.webp";
+import logo from "../../src/assets/Image/4M Solar Solutions Logo.png";
 import "../styles/layouts/Footer.scss";
 
 const { Title, Text } = Typography;

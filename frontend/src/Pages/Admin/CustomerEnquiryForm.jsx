@@ -121,9 +121,15 @@ function CustomerEnquiry() {
     { title: "Enquiry Type", dataIndex: "enquiryType" },
     { title: "System Type", dataIndex: "systemType" },
     { title: "Capacity", dataIndex: "capacity" },
-    { title: "Monthly EB Bill", dataIndex: "monthlyEBBill" },
+    { title: " EB ServiceNo", dataIndex: "ebServiceNo" },
     { title: "Roof Type", dataIndex: "roofType" },
     { title: "Roof Area", dataIndex: "roofArea" },
+    { title: "Site Visit", dataIndex: "siteVisit" },
+    { title: "Site Visit Date&Time", dataIndex: "siteVisitDateTime" },
+    { title: "Product Type", dataIndex: "productType" },
+
+    { title: "Google Location", dataIndex: "googleLocation" },
+
     { title: "Issue Description", dataIndex: "issueDescription" },
     {
       title: "Image",
@@ -139,6 +145,8 @@ function CustomerEnquiry() {
     },
 
     { title: "Preferred Time", dataIndex: "preferredTime" },
+    { title: "Preferred Date&Time", dataIndex: "preferredDateTime" },
+
     { title: "Message", dataIndex: "message" },
     {
       title: "Status",
@@ -235,33 +243,84 @@ function CustomerEnquiry() {
         onCancel={() => setEditEnquiry(null)}
         width={800}
       >
-        <Form form={form} layout="vertical">
-          <Form.Item name="fullName" label="Full Name">
+        <Form layout="vertical" form={form}>
+          <Form.Item name="customer" label="Customer ID">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="_id" label="Order ID">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="appliedDate" label="Applied Date">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="dueDate" label="Due Date">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="fullName" label="Customer Name">
             <Input />
           </Form.Item>
+
           <Form.Item name="mobile" label="Mobile">
             <Input />
           </Form.Item>
+
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>
-          <Form.Item name="address" label="Address">
+
+          <Form.Item name="capacity" label="Capacity (kW)">
             <Input />
           </Form.Item>
+
+          <Form.Item name="roofType" label="Roof Type">
+            <Select>
+              <Option value="RCC">RCC</Option>
+              <Option value="Sheet">Sheet</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="roofArea" label="Roof Area">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="ebServiceNo" label="EB Service No">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="googleLocation" label="Google Location">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="issueDescription" label="Issue Description">
+            <Input.TextArea rows={3} />
+          </Form.Item>
+
+          <Form.Item name="preferredTime" label="Preferred Time">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="message" label="Message">
+            <Input.TextArea rows={2} />
+          </Form.Item>
+
           <Form.Item name="enquiryType" label="Enquiry Type">
             <Select>
-              <Option value="New Solar Installation">
-                New Solar Installation
+              <Option value="  New Solar Power Plan Installation">
+                New Solar Power Plan Installation
               </Option>
-              <Option value="Solar Repair / Service">
-                Solar Repair / Service
+              <Option value="  Solar Power Plan Service">
+                Solar Power Plan Service
               </Option>
-              <Option value="Rooftop Inspection">Rooftop Inspection</Option>
-              <Option value="Battery / Inverter Issue">
-                Battery / Inverter Issue
+              <Option value="Operation & Maintanence Service">
+                Operation & Maintanence Service
               </Option>
             </Select>
           </Form.Item>
+
           <Form.Item name="systemType" label="System Type">
             <Select>
               <Option value="On-Grid">On-Grid</Option>
@@ -269,44 +328,13 @@ function CustomerEnquiry() {
               <Option value="Hybrid">Hybrid</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="capacity" label="Capacity">
-            <Input />
-          </Form.Item>
-          <Form.Item name="monthlyEBBill" label="Monthly EB Bill">
-            <Input />
-          </Form.Item>
-          <Form.Item name="roofType" label="Roof Type">
-            <Select>
-              <Option value="Concrete">Concrete</Option>
-              <Option value="Sheet">Sheet</Option>
-              <Option value="Tile">Tile</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="roofArea" label="Roof Area">
-            <Input />
-          </Form.Item>
-          <Form.Item name="issueDescription" label="Issue Description">
-            <Input.TextArea />
-          </Form.Item>
-          <Form.Item name="preferredTime" label="Preferred Time">
-            <Select>
-              <Option value="Morning">Morning</Option>
-              <Option value="Afternoon">Afternoon</Option>
-              <Option value="Evening">Evening</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="message" label="Message">
-            <Input.TextArea />
-          </Form.Item>
+
           <Form.Item name="status" label="Status">
             <Select>
               <Option value="Assigned">Assigned</Option>
               <Option value="In Progress">In Progress</Option>
               <Option value="Completed">Completed</Option>
             </Select>
-          </Form.Item>
-          <Form.Item name="appliedDate" label="Applied Date">
-            <DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} />
           </Form.Item>
         </Form>
       </Modal>

@@ -16,23 +16,37 @@ const enquirySchema = new mongoose.Schema(
     enquiryType: {
       type: String,
       enum: [
-        "New Solar Installation",
-        "Solar Repair / Service",
-        "Rooftop Inspection",
-        "Battery / Inverter Issue",
+        "New Solar Power Plan Installation",
+        "Solar Power Plan Service",
+        "Operation & Maintanence Service",
       ],
       required: true,
+    },
+    productType: {
+      type: String,
+      enum: [
+        "Solar Panel",
+        "Inverter",
+        "DB Box",
+        "Cable",
+        "Module Mounting Structure",
+        "Other",
+      ],
     },
 
     systemType: {
       type: String,
       enum: ["On-Grid", "Off-Grid", "Hybrid"],
     },
+    category: {
+      type: String,
+      enum: ["residential", "commercial", "industrial"],
+    },
 
     capacity: { type: String }, // 1KW, 3KW, 5KW, 10KW
-    monthlyEBBill: { type: String },
+    ebServiceNo: { type: String },
 
-    roofType: { type: String, enum: ["Concrete", "Sheet", "Tile"] },
+    roofType: { type: String, enum: ["rcc", "Sheet"] },
     roofArea: { type: String },
 
     issueDescription: { type: String },
@@ -42,8 +56,23 @@ const enquirySchema = new mongoose.Schema(
       type: String,
       enum: ["Morning", "Afternoon", "Evening"],
     },
+    preferredDateTime: {
+      type: Date,
+    },
 
     message: { type: String },
+    siteVisit: {
+      type: Boolean, // true / false
+      default: false,
+    },
+
+    siteVisitDateTime: {
+      type: Date,
+    },
+
+    googleLocation: {
+      type: String,
+    },
 
     status: {
       type: String,
@@ -67,4 +96,10 @@ const enquirySchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+enquirySchema.pre("save", function (next) {
+  if (this.capacity && !this.capacity.toUpperCase().includes("KW")) {
+    this.capacity = `${this.capacity} KW`;
+  }
+  next();
+});
 export default mongoose.model("enquiryform", enquirySchema);

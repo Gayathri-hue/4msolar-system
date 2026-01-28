@@ -1,0 +1,88 @@
+.filter-create-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px; 
+
+
+    .btn-create-enquiry
+    {
+        width: 200px;
+    }
+  }
+}
+
+
+
+
+.enquiry-form {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background-color: aliceblue;
+
+  h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+  }
+}
+
+.submit-postenquiry {
+  width: 150px;               
+  align-self: flex-end;        
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.submit-postenquiry:hover {
+  background-color: darkgreen;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 1024px) {
+ 
+
+  .enquiry-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .submit-postenquiry {
+    width: 100%;
+    align-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+ 
+  .enquiry-image,
+  .enquiry-form {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .submit-postenquiry {
+    width: 100%;
+    align-self: center;
+    padding: 12px 0;
+  }
+}
+

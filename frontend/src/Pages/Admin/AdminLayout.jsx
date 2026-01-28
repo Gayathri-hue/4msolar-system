@@ -8,6 +8,7 @@ import {
   CloseOutlined,
   RadiusUprightOutlined,
   FormOutlined,
+  FileWordOutlined,
 } from "@ant-design/icons";
 import "../../styles/Admin/Admin.scss";
 import { Modal } from "antd";
@@ -58,7 +59,7 @@ const AdminLayout = () => {
         <span>Customer Enquiry Form</span>
       </NavLink>
       <NavLink to="employeework" onClick={closeDrawer}>
-        <FormOutlined />
+        <FileWordOutlined />
         <span>Employee Leads</span>
       </NavLink>
 

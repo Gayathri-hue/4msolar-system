@@ -258,34 +258,64 @@ function MyLead() {
   };
 
   const columns = [
+    { title: "Customer ID", dataIndex: "customer" },
+    { title: "Order ID", dataIndex: "_id" },
+
     { title: "Customer Name", dataIndex: "fullName" },
     { title: "Mobile", dataIndex: "mobile" },
     { title: "Email", dataIndex: "email" },
     { title: "System Type", dataIndex: "systemType" },
     { title: "Enquiry Type", dataIndex: "enquiryType" },
     { title: "Capacity", dataIndex: "capacity" },
-    { title: "Monthly EB Bill", dataIndex: "monthlyEBBill" },
+    { title: " EB ServiceNo", dataIndex: "ebServiceNo" },
     { title: "Roof Type", dataIndex: "roofType" },
     { title: "Roof Area", dataIndex: "roofArea" },
+    { title: "Site Visit", dataIndex: "siteVisit" },
+
+    { title: "Site Visit Date&Time", dataIndex: "siteVisitDateTime" },
+
+    { title: "Google Location", dataIndex: "googleLocation" },
+
     { title: "Issue Description", dataIndex: "issueDescription" },
+    { title: "Product Type", dataIndex: "productType" },
+
     {
       title: "Image",
       dataIndex: "image",
       render: (url) =>
         url ? (
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            View
-          </a>
+          <span
+            style={{
+              color: "#1677ff",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+            onClick={(e) => {
+              e.stopPropagation(); // row click block pannum
+              window.open(url, "_blank", "noopener,noreferrer");
+            }}
+          >
+            View Image
+          </span>
         ) : (
           "No Image"
         ),
     },
 
     { title: "Preferred Time", dataIndex: "preferredTime" },
-    { title: "Message", dataIndex: "message" },
-    { title: "Applied Date", dataIndex: "appliedDate" },
+    { title: "Preferred Date&Time", dataIndex: "preferredDateTime" },
 
-    { title: "Due Date", dataIndex: "dueDate" },
+    { title: "Message", dataIndex: "message" },
+    {
+      title: "Applied Date & Time",
+      dataIndex: "appliedDate",
+      render: (text) => new Date(text).toLocaleString(),
+    },
+    {
+      title: "Due Date & Time",
+      dataIndex: "dueDate",
+      render: (text) => new Date(text).toLocaleString(),
+    },
 
     {
       title: "Status",
@@ -338,7 +368,6 @@ function MyLead() {
         scroll={{ x: "max-content" }}
       />
 
-      {/* EDIT MODAL */}
       <Modal
         title="Edit Lead"
         open={isModalOpen}
@@ -347,6 +376,22 @@ function MyLead() {
         okText="Update"
       >
         <Form layout="vertical" form={form}>
+          <Form.Item name="customer" label="Customer ID">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="_id" label="Order ID">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="appliedDate" label="Applied Date">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item name="dueDate" label="Due Date">
+            <Input disabled />
+          </Form.Item>
+
           <Form.Item name="fullName" label="Customer Name">
             <Input />
           </Form.Item>
@@ -359,17 +404,51 @@ function MyLead() {
             <Input />
           </Form.Item>
 
+          <Form.Item name="capacity" label="Capacity (kW)">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="roofType" label="Roof Type">
+            <Select>
+              <Option value="RCC">RCC</Option>
+              <Option value="Sheet">Sheet</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="roofArea" label="Roof Area">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="ebServiceNo" label="EB Service No">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="googleLocation" label="Google Location">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="issueDescription" label="Issue Description">
+            <Input.TextArea rows={3} />
+          </Form.Item>
+
+          <Form.Item name="preferredTime" label="Preferred Time">
+            <Input />
+          </Form.Item>
+
+          <Form.Item name="message" label="Message">
+            <Input.TextArea rows={2} />
+          </Form.Item>
+
           <Form.Item name="enquiryType" label="Enquiry Type">
             <Select>
-              <Option value="New Solar Installation">
-                New Solar Installation
+              <Option value="  New Solar Power Plan Installation">
+                New Solar Power Plan Installation
               </Option>
-              <Option value="Solar Repair / Service">
-                Solar Repair / Service
+              <Option value="  Solar Power Plan Service">
+                Solar Power Plan Service
               </Option>
-              <Option value="Rooftop Inspection">Rooftop Inspection</Option>
-              <Option value="Battery / Inverter Issue">
-                Battery / Inverter Issue
+              <Option value="Operation & Maintanence Service">
+                Operation & Maintanence Service
               </Option>
             </Select>
           </Form.Item>

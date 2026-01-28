@@ -23,7 +23,7 @@ function EmployeeWork() {
       setEmployees(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
-      message.error("Failed to fetch employee data");
+      // message.error("Failed to fetch employee data");
       setEmployees([]);
     } finally {
       setLoading(false);
@@ -58,7 +58,7 @@ function EmployeeWork() {
       setSelectedEmployeeWorks(data);
     } catch (err) {
       console.error(err);
-      message.error("Failed to fetch employee works");
+      // message.error("Failed to fetch employee works");
       setSelectedEmployeeWorks([]);
     } finally {
       setModalLoading(false);
@@ -164,7 +164,7 @@ function EmployeeWork() {
               { title: "System Type", dataIndex: "systemType" },
               { title: "Enquiry Type", dataIndex: "enquiryType" },
               { title: "Capacity", dataIndex: "capacity" },
-              { title: "Monthly EB Bill", dataIndex: "monthlyEBBill" },
+              { title: " EB ServiceNo", dataIndex: "ebServiceNo" },
               { title: "Roof Type", dataIndex: "roofType" },
               { title: "Roof Area", dataIndex: "roofArea" },
               { title: "Issue Description", dataIndex: "issueDescription" },

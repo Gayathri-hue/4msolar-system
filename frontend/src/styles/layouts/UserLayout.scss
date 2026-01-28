@@ -1,0 +1,284 @@
+.user-admin-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.user-sidebar-profile {
+  text-align: center;
+  padding: 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-profile-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(77, 69, 69);
+}
+
+.user-profile-email {
+  font-size: 11px;
+  color: #2c2c30;
+  
+}
+
+
+.user-profile-id {
+  font-size: 10px;
+  color: #37373a;
+ 
+}
+
+
+
+.user-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  height: 64px;
+  background-color: #001529;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .user-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .user-toggle-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+
+  .user-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ede8e8;
+    border: none;
+    color: #0c0909;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #e4c8c8;
+    }
+  }
+}
+
+.user-admin-body {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.user-desktop-sidebar.collapsed {
+  width: 64px;
+
+  .user-sidebar-profile {
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .ant-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 18px !important;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .user-profile-name,
+  .user-profile-id {
+    display: none;
+  }
+
+  a {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .menu-text{
+    display: none;  
+  }
+}
+
+
+.user-desktop-sidebar {
+  width: 200px;
+  background: #fafafa;
+  border-right: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  transition: width 0.3s ease;
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #595959;
+    font-weight: 500;
+    gap: 12px;
+    transition: all 0.3s;
+    text-decoration: auto;
+
+
+    span {
+      transition: opacity 0.2s;
+    }
+
+    &:hover {
+      background: #e6f7ff;
+      color: #1890ff;
+    }
+
+    &.active {
+      background: #1890ff;
+      color: #fff;
+    }
+  }
+
+  &.collapsed {
+    width: 64px;
+
+    a {
+      justify-content: center;
+      padding: 12px;
+
+     
+    }
+      
+
+  }
+}
+
+
+.user-mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.user-mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100%;
+  background: #fafafa;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.25);
+  transition: left 0.3s ease;
+  z-index: 1000;
+
+  &.visible {
+    left: 0;
+  }
+
+  .user-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e8e8e8;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .user-close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      color: #595959;
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    color: #595959;
+    font-weight: 500;
+    gap: 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:hover,
+    &.active {
+      background: #e6f7ff;
+      color: #1890ff;
+    }
+  }
+}
+
+ .user-admin-content {
+   flex: 1;              
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  overflow-x: auto;    
+  box-sizing: border-box;
+    
+  }
+
+@media (max-width: 992px) {
+  .user-desktop-sidebar {
+    display: none;           
+  }
+
+  .user-admin-content {
+    padding: 16px;
+
+  }
+}
+
+@media (min-width: 993px) {
+  .user-mobile-drawer-overlay,
+  .user-mobile-drawer {
+    display: none;          
+  }
+}
+
+@media (max-width: 576px) {
+  .user-admin-header {
+
+    .user-header-left {
+      h2 {
+        font-size: 14px;  
+        margin-left: -18px; 
+      }
+    }
+
+    .user-logout-btn {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
+}

@@ -13,6 +13,9 @@ const employeeSchema = new mongoose.Schema({
   role: { type: String, default: "employee" },
   status: { type: String, enum: ["active", "inactive"], default: "active" },
   createdAt: { type: Date, default: Date.now },
+
+  resetOTP: { type: String },
+  resetOTPExpire: { type: Date },
 });
 
 // Hash password before save

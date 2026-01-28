@@ -45,14 +45,21 @@ export async function createEnquiry(req, res) {
       image: data.image,
       address: data.address,
       enquiryType: data.enquiryType,
+      productType: data.productType,
+
       systemType: data.systemType,
+      category: data.category,
       capacity: data.capacity,
-      monthlyEBBill: data.monthlyEBBill,
+      ebServiceNo: data.ebServiceNo,
       roofType: data.roofType,
       roofArea: data.roofArea,
       issueDescription: data.issueDescription,
       preferredTime: data.preferredTime,
+      preferredDateTime: data.preferredDateTime,
       message: data.message,
+      siteVisit: data.siteVisit,
+      siteVisitDateTime: data.siteVisitDateTime,
+      googleLocation: data.googleLocation,
       appliedDate: data.appliedDate || Date.now(),
 
       assignedEmployee: assignedEmployee._id,
@@ -102,28 +109,6 @@ export async function getEnquiryById(req, res) {
     res.status(500).json({ msg: "Server Error" });
   }
 }
-
-// GET customer by ID// GET all enquiries by customer ID
-
-// GET enquiries by customer ID
-// export async function getEnquiriesByCustomerId(req, res) {
-//   try {
-//     const { customerId } = req.params;
-
-//     const enquiries = await enquiryfromModel.find({ customer: customerId });
-
-//     if (!enquiries || enquiries.length === 0) {
-//       return res
-//         .status(404)
-//         .json({ msg: "No enquiries found for this customer" });
-//     }
-
-//     res.json(enquiries);
-//   } catch (err) {
-//     console.error("Error fetching enquiries by customer:", err);
-//     res.status(500).json({ msg: "Server Error" });
-//   }
-// }
 
 export async function getEnquiriesByCustomerId(req, res) {
   try {
@@ -315,7 +300,7 @@ export async function downloadEnquiryPDF(req, res) {
       ["Enquiry Type", enquiry.enquiryType],
       ["System Type", enquiry.systemType],
       ["Capacity", enquiry.capacity],
-      ["Monthly EB Bill", enquiry.monthlyEBBill || "-"],
+
       ["Roof Type", enquiry.roofType || "-"],
       ["Status", enquiry.status],
     ];
@@ -350,10 +335,6 @@ export async function downloadEnquiryPDF(req, res) {
       );
 
     doc.moveDown(2);
-
-    doc.fontSize(11).text("Customer Signature: __________________________", 50);
-    doc.moveDown(1);
-    doc.text("Authorized Signatory: ________________________", 50);
 
     doc.end();
   } catch (err) {

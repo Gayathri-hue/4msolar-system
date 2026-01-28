@@ -1,13 +1,13 @@
 .solar-footer {
   background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
   padding: 80px 10% 30px;
-  border-top: 4px solid #52c41a; /* Professional green accent line */
+  border-top: 4px solid #52c41a; 
   font-family: 'Segoe UI', Roboto, sans-serif;
   color: #434343;
 }
 
 .footer-col h5 {
-  color: #003a8c !important; /* Deep blue for solar professionalism */
+  color: #0052cc !important; 
   font-weight: 700 !important;
   margin-bottom: 25px !important;
   text-transform: uppercase;
@@ -18,12 +18,13 @@
 .brand-box {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  // gap: 12px;
+  // margin-bottom: 20px;
 }
 
 .footer-logo {
-  width: 50px;
+  width: 100px;
+  height: 100px;
   filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
   transition: transform 0.3s ease;
 }
@@ -39,7 +40,7 @@
   font-size: 16px;
 }
 
-/* Links Section */
+
 .footer-links {
   list-style: none;
   padding: 0;
@@ -70,11 +71,11 @@
     font-weight: 600;
 }
 .footer-links a:hover {
-  color: #52c41a;
+  color: #3a8017e6;
   transform: translateX(8px);
 }
 
-/* Contact Items */
+
 .contact-item {
   display: flex;
   align-items: center;
@@ -82,13 +83,14 @@
 }
 
 .contact-icon {
-  color: #52c41a;
+  color: #3a8017e6;
   font-size: 22px;
+  
   text-shadow: 0 0 1px #52c41a;
 }
 
 
-/* Social Icons */
+
 .social-icons {
   display: flex;
   gap: 15px;
@@ -118,7 +120,7 @@
   border: 1px solid rgba(82, 196, 26, 0.3);
 }
 
-/* Bottom Bar */
+
 .footer-bottom {
   margin-top: 60px;
   padding-top: 20px;
@@ -126,7 +128,7 @@
   text-align: center;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .solar-footer {
     padding: 50px 5% 20px;

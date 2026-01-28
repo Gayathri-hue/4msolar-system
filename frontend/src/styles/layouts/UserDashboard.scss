@@ -1,0 +1,108 @@
+.dashboard-chart-container {
+  padding: 20px;
+//   background: #f0f4ff;
+  min-height: 100vh;
+
+  .pie-card {
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    height: 100%;
+    border: none;
+
+    &.normal {
+      background: #ffffff;
+      text-align: center;
+
+      .stats-row {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 0 10px;
+
+        .stat-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+          }
+
+          h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+          }
+
+          p {
+            margin: 4px 0 0;
+            font-size: 22px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    &.round {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      text-align: center;
+
+      .recharts-text recharts-label {
+        font-weight: bold;
+        fill: white;
+      }
+
+      .round-stats {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        .stat-item {
+          .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1;
+          }
+
+          .stat-label {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-top: 6px;
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ant-col-xs-24 {
+      padding: 0 8px !important;
+
+      .pie-card {
+        margin-bottom: 20px;
+
+        &.round {
+          .round-stats .stat-item {
+            flex: 1;
+            min-width: 80px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .ant-col-md-12 {
+      padding: 0 12px;
+    }
+  }
+}

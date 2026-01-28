@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Tag, Spin, Select, Button, Space, Popconfirm } from "antd";
 import Api from "../../Api";
 import { useNavigate } from "react-router-dom";
+import "../../styles/layouts/EnquiryForm.scss";
 
 const { Option } = Select;
 
@@ -68,6 +69,8 @@ function Leads() {
     { title: "Enquiry Type", dataIndex: "enquiryType" },
     { title: "System", dataIndex: "systemType" },
     { title: "Capacity", dataIndex: "capacity" },
+    { title: "Roof Type", dataIndex: "roofType" },
+
     {
       title: "Status",
       dataIndex: "status",
@@ -109,14 +112,7 @@ function Leads() {
     <div style={{ padding: 20 }}>
       <h2>My Enquiries</h2>
 
-      {/* Filter and Create Button */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 20,
-        }}
-      >
+      <div className="filter-create-wrapper">
         {/* Status Filter */}
         <Select
           placeholder="Filter by status"
@@ -131,7 +127,11 @@ function Leads() {
         </Select>
 
         {/* Create Enquiry Button */}
-        <Button type="primary" onClick={() => navigate("/user/postform")}>
+        <Button
+          type="primary"
+          onClick={() => navigate("/user/postform")}
+          className="btn-create-enquiry"
+        >
           Create Enquiry
         </Button>
       </div>

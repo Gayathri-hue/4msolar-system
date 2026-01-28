@@ -1,67 +1,327 @@
-// .header {
+
+
+// // .home-main-header {
+// //   width: 100%;
+// //   height: 72px;
+// //   position: fixed;
+// //   top: 0;
+// //   left: 0;
+// //   z-index: 1000;
+// //   background: rgba(255, 255, 255, 0.05); /* Very light glass effect */
+// //   backdrop-filter: blur(12px);
+// //   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+// //   display: flex;
+// //   justify-content: center;
+// //   transition: all 0.3s ease;
+// //  &.scrolled {
+// //     background: #ffffff; // solid white on scroll
+// //     border-bottom: 1px solid #e0e0e0;
+// //     backdrop-filter: none;
+
+// //     .home-logo-text {
+// //       color: #3a8017e6;
+// //     }
+
+// //     .home-user-name
+// //     {
+// //       color: #333 !important;
+// //     }
+// // .home-login-nav-btn {
+// //  color: #333 !important;
+// // }
+// //     .home-signup-nav-btn {
+// //       background: #3a8017e6 !important;
+// //       color: #333  !important;
+// //     }}
+// //   .home-header-container {
+// //     width: 100%;
+// //     max-width: 1200px;
+// //     padding: 0 24px;
+// //     display: flex;
+// //     align-items: center;
+// //     justify-content: space-between;
+// //   }
+
+// //   .home-logo-section {
+// //     display: flex;
+// //     align-items: center;
+// //     gap: 10px;
+// //     cursor: pointer;
+
+// //     .home-logo-text {
+// //       font-size: 20px;
+// //       font-weight: 800;
+// //       color: #ffffff;
+// //       letter-spacing: 1.5px;
+
+// //       .home-highlight {
+// //         color: #3a8017e6; /* Solar Green */
+// //       }
+// //     }
+// //   }
+
+// //   .home-user-profile {
+// //     display: flex;
+// //     align-items: center;
+// //     gap: 10px;
+// //     cursor: pointer;
+// //     padding: 4px 12px;
+// //     border-radius: 20px;
+// //     transition: background 0.3s;
+
+// //     &:hover {
+// //       background: rgba(255, 255, 255, 0.1);
+// //     }
+
+// //     .home-user-avatar {
+// //       background: #3a8017e6;
+// //     }
+
+// //     .home-user-name {
+// //       color: #ffffff;
+// //       font-weight: 600;
+// //       font-size: 16px;
+// //     }
+// //   }
+
+// //   .home-header-divider {
+// //     background: rgba(255, 255, 255, 0.2);
+// //     height: 20px;
+// //   }
+
+// //   .home-logout-btn {
+// //     color: white !important;
+// //     font-weight: 600;
+// //     font-size: 16px;
+
+// //     &:hover {
+// //       color: #c5d8c7 !important;
+// //     }
+// //   }
+
+// //   /* Non-logged in buttons */
+// //   .home-login-nav-btn {
+// //     font-size: 17px;
+// //     color: #ffffff !important;
+// //     &:hover {
+// //       color: #3a8017e6 !important;
+// //     }
+// //   }
+
+// //   .home-signup-nav-btn {
+// //     background: #3a8017e6 !important;
+// //     border-color: #3a8017e6 !important;
+// //     border-radius: 6px;
+// //     font-weight: 600;
+// //     font-size: 16px;
+
+// //     &:hover {
+// //       background: #3a8017e6 !important;
+// //       transform: translateY(-1px);
+// //       box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+// //     }
+// //   }
+// // }
+
+// // /* Mobile Responsive */
+// // @media (max-width: 768px) {
+// //   .home-main-header {
+// //     height: 64px;
+
+// //     .home-logo-text {
+// //       font-size: 10px !important;
+// //       margin-left: -10px;
+// //     }
+
+// //     .home-user-name {
+// //       display: none; /* Hide name on mobile to save space */
+// //     }
+
+// //     .home-header-container {
+// //       padding: 0 16px;
+// //     }
+// //   }
+// //   .home-login-nav-btn {
+// //     font-size: 12px !important;
+
+// //     margin-left: -10px !important;
+// //   }
+// //   .home-signup-nav-btn {
+// //     font-size: 10px;
+// //     width: 80px;
+// //     margin-left: -10px;
+// //   }
+// //   .home-header-container {
+// //     justify-content: center !important;
+// //   }
+// // }
+
+
+// .home-main-header {
 //   width: 100%;
-//   height: 70px;
-//   padding: 0 40px;
-//   background: rgba(0, 0, 0, 0.6);
-//   backdrop-filter: blur(10px);
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
+//   height: 72px;
 //   position: fixed;
 //   top: 0;
+//   left: 0;
 //   z-index: 1000;
+//   background: rgba(255, 255, 255, 0.05); /* Very light glass effect */
+//   backdrop-filter: blur(12px);
+//   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+//   display: flex;
+//   justify-content: center;
+//   transition: all 0.3s ease;
 
-//   .logo {
-//     font-size: 24px;
-//     font-weight: 700;
-//     color: #ffffff;
-//     letter-spacing: 1px;
-//     cursor: pointer;
-//     transition: all 0.3s ease;
+//   &.scrolled {
+//     background: #ffffff; /* solid white on scroll */
+//     border-bottom: 1px solid #e0e0e0;
+//     backdrop-filter: none;
 
-//     &:hover {
-//       color: #00bfff;
+//     .home-logo-text {
+//     color: #ce943e !important; // SOLAR text dark color
+
+//     .home-highlight {
+//       color: #3a8017e6; // 4M green
 //     }
 //   }
 
-//   .auth-buttons {
+//     .home-user-name {
+//       color: #333 !important;
+//     }
+
+//     .home-login-nav-btn {
+//       color: #3a8017e6 !important;
+//     }
+
+//     .home-signup-nav-btn {
+//       background: #3a8017e6 !important;
+//       color: #fff !important;
+//     }
+
+//     .home-logout-btn {
+//       color: #3a8017e6 !important;
+//     }
+//   }
+
+//   .home-header-container {
+//     width: 100%;
+//     max-width: 1200px;
+//     padding: 0 24px;
 //     display: flex;
-//     gap: 12px;
+//     align-items: center;
+//     justify-content: space-between;
+//   }
 
-//     .ant-btn {
+//   .home-logo-section {
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     cursor: pointer;
+
+//     .home-logo-text {
+//       font-size: 20px;
+//       font-weight: 800;
+//       color: #ffffff;
+//       letter-spacing: 1.5px;
+
+//       .home-highlight {
+//         color: #3a8017e6; /* Solar Green */
+//       }
+//     }
+//   }
+
+//   .home-user-profile {
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     cursor: pointer;
+//     padding: 4px 12px;
+//     border-radius: 20px;
+//     transition: background 0.3s;
+
+//     &:hover {
+//       background: rgba(255, 255, 255, 0.1);
+//     }
+
+//     .home-user-avatar {
+//       background: #3a8017e6;
+//     }
+
+//     .home-user-name {
+//       color: #ffffff;
 //       font-weight: 600;
-//       transition: all 0.3s ease;
+//       font-size: 16px;
 //     }
+//   }
 
-//     .ant-btn-primary:hover {
-//       background-color: #005bb5;
-//       border-color: #005bb5;
+//   .home-header-divider {
+//     background: rgba(255, 255, 255, 0.2);
+//     height: 20px;
+//   }
+
+//   .home-logout-btn {
+//     color: white !important;
+//     font-weight: 600;
+//     font-size: 16px;
+
+//     &:hover {
+//       color: #c5d8c7 !important;
 //     }
+//   }
 
-//     .ant-btn-default:hover {
-//       background-color: rgba(255, 255, 255, 0.1);
-//       color: #00bfff;
+//   /* Non-logged in buttons */
+//   .home-login-nav-btn {
+//     font-size: 17px;
+//     color: #ffffff !important;
+
+//     &:hover {
+//       color: #3a8017e6 !important;
+//     }
+//   }
+
+//   .home-signup-nav-btn {
+//     background: #3a8017e6 !important;
+//     border-color: #3a8017e6 !important;
+//     border-radius: 6px;
+//     font-weight: 600;
+//     font-size: 16px;
+
+//     &:hover {
+//       background: #3a8017e6 !important;
+//       transform: translateY(-1px);
+//       box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
 //     }
 //   }
 // }
 
-// /* Mobile */
-// @media (max-width: 576px) {
-//   .header {
-//     padding: 0 15px;
+// /* Mobile Responsive */
+// @media (max-width: 768px) {
+//   .home-main-header {
+//     height: 64px;
 
-//     .logo {
-//       font-size: 18px;
+//     .home-logo-text {
+//       font-size: 10px !important;
+//       margin-left: -10px;
 //     }
 
-//     .auth-buttons {
-//       gap: 8px;
-
-//       .ant-btn {
-//         font-size: 12px;
-//         padding: 3px 8px;
-//       }
+//     .home-user-name {
+//       display: none; /* Hide name on mobile */
 //     }
+
+//     .home-header-container {
+//       padding: 0 16px;
+//       justify-content: center !important;
+//     }
+//   }
+
+//   .home-login-nav-btn {
+//     font-size: 12px !important;
+//     margin-left: -10px !important;
+//   }
+
+//   .home-signup-nav-btn {
+//     font-size: 10px;
+//     width: 80px;
+//     margin-left: -10px;
 //   }
 // }
 
@@ -73,119 +333,163 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.05); /* Very light glass effect */
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
   transition: all 0.3s ease;
+}
 
-  .home-header-container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.home-main-header.scrolled {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  backdrop-filter: none;
+}
+
+.home-main-header.scrolled .home-logo-text {
+  color: #ce943e !important;
+}
+
+.home-main-header.scrolled .home-logo-text .home-highlight {
+  color: #3a8017e6;
+}
+
+.home-main-header.scrolled .home-user-name,
+.home-main-header.scrolled .home-login-nav-btn,
+.home-main-header.scrolled .home-logout-btn {
+  color: #3a8017e6 !important;
+}
+
+.home-main-header.scrolled .home-signup-nav-btn {
+  background: #3a8017e6 !important;
+  color: #fff !important;
+}
+
+.home-header-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.home-logo-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+}
+
+.home-logo-text .home-highlight {
+  color: #3a8017e6;
+}
+
+.home-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.home-user-profile:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-user-avatar {
+  background: #3a8017e6;
+}
+
+.home-user-name {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.home-header-divider {
+  background: rgba(255, 255, 255, 0.2);
+  height: 20px;
+}
+
+.home-logout-btn {
+  color: white !important;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.home-login-nav-btn {
+  font-size: 17px;
+  color: #ffffff !important;
+}
+
+.home-signup-nav-btn {
+  background: #3a8017e6 !important;
+  border-color: #3a8017e6 !important;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .home-main-header {
+    height: 64px;
   }
 
-  .home-logo-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-
-    .home-logo-icon {
-      font-size: 24px;
-      filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.6));
-    }
-
-    .home-logo-text {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 1.5px;
-      
-      .home-highlight {
-        color: #52c41a; /* Solar Green */
-      }
-    }
+  .home-logo-text {
+    font-size: 16px;
   }
 
-  .home-user-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    padding: 4px 12px;
-    border-radius: 20px;
-    transition: background 0.3s;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .home-user-avatar {
-      background: #52c41a;
-    }
-
-    .home-user-name {
-      color: #ffffff;
-      font-weight: 500;
-      font-size: 14px;
-    }
+  .home-user-name {
+    font-size: 14px;
   }
 
-  .home-header-divider {
-    background: rgba(255, 255, 255, 0.2);
-    height: 20px;
-  }
-
-  .home-logout-btn {
-    color: rgba(255, 255, 255, 0.7) !important;
-    &:hover {
-      color: #ff4d4f !important;
-    }
-  }
-
-  /* Non-logged in buttons */
   .home-login-nav-btn {
-    font-size: 17px;
-    color: #ffffff !important;
-    &:hover {
-      color: #52c41a !important;
-    }
+    font-size: 14px !important;
   }
 
   .home-signup-nav-btn {
-    background: #52c41a !important;
-    border-color: #52c41a !important;
-    border-radius: 6px;
-    font-weight: 600;
-    
-    &:hover {
-      background: #73d13d !important;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
-    }
+    font-size: 14px;
+    width: 100px;
   }
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .home-main-header {
     height: 64px;
-    
-    .home-logo-text {
-      font-size: 16px;
-    }
-    
-    .home-user-name {
-      display: none; /* Hide name on mobile to save space */
-    }
-    
-    .home-header-container {
-      padding: 0 16px;
-    }
+  }
+
+  .home-logo-text {
+    display: none;
+  }
+
+  .home-user-name {
+    display: none;
+  }
+
+  .home-header-container {
+    padding: 0 16px;
+    justify-content: center;
+  }
+
+  .home-login-nav-btn {
+    font-size: 12px !important;
+    margin-left: 0 !important;
+  }
+
+  .home-signup-nav-btn {
+    font-size: 10px;
+    width: 80px;
+    margin-left: 0;
   }
 }

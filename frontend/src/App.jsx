@@ -26,6 +26,10 @@ import EmployeeLayout from "./Pages/Employee/EmployeeLayout";
 import MyLead from "./Pages/Employee/MyLead";
 import EmployeeWork from "./Pages/Admin/EmployeeWork";
 import PostEnquiryForm from "./Pages/StaffLayout/PostEnquiryForm";
+import Followup from "./Pages/StaffLayout/Followup";
+import OurServices from "./Pages/OurServices";
+import AboutUs from "./Pages/AboutUs";
+import GetQuote from "./Pages/GetQuote";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo }) => {
@@ -52,6 +56,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/ourservices" element={<OurServices />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/getquote" element={<GetQuote />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
@@ -93,6 +100,8 @@ function App() {
           <Route path="/user" element={<StaffLayout />}>
             <Route index element={<DashboardChart />} />
             <Route path="dashboard" element={<DashboardChart />} />
+            <Route path="followup" element={<Followup />} />
+
             <Route path="enquiryform" element={<Leads />} />
             <Route path="postform" element={<PostEnquiryForm />} />
             <Route path="trackstatus" element={<TrackStatus />} />
