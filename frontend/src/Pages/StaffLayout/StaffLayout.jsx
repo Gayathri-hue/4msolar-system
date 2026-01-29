@@ -177,6 +177,8 @@ import {
   WomanOutlined,
   PlusCircleOutlined,
   WeiboOutlined,
+  ToolOutlined,
+  DownOutlined,
 } from "@ant-design/icons";
 import "../../styles/layouts/UserLayout.scss";
 import { Avatar, Modal } from "antd";
@@ -187,6 +189,7 @@ function StaffLayout() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
 
   const [user, setUser] = useState({
     id: null,
@@ -233,6 +236,16 @@ function StaffLayout() {
 
   const closeDrawer = () => setDrawerVisible(false);
 
+  const isEnquiryActive =
+    location.pathname.includes("/new-installation") ||
+    location.pathname.includes("/service") ||
+    location.pathname.includes("/operation-maintenance");
+
+  useEffect(() => {
+    if (isEnquiryActive) {
+      setEnquiryOpen(true);
+    }
+  }, [location.pathname, isEnquiryActive]);
   const sidebarMenu = (
     <>
       <div className="user-sidebar-profile">
@@ -265,19 +278,51 @@ function StaffLayout() {
         <PlusCircleOutlined />
         <span className="menu-text">Raise an Enquiry</span>
       </NavLink>
-      <NavLink
-        to="/user/enquiryform"
-        onClick={closeDrawer}
-        // className={
-        //   location.pathname.startsWith("/user/enquiryform") ||
-        //   location.pathname.startsWith("/user/postform")
-        //     ? "active"
-        //     : ""
-        // }
+      <div
+        className={`submenu-parent user-menu-link ${
+          isEnquiryActive ? "active" : ""
+        } ${enquiryOpen ? "open" : ""}`}
+        onClick={() => setEnquiryOpen((prev) => !prev)}
       >
         <MenuUnfoldOutlined />
         <span className="menu-text">My Enquiry</span>
-      </NavLink>
+        <DownOutlined className="submenu-arrow" />
+      </div>
+      {/* SUB MENU */}
+      <div className={`submenu-children ${enquiryOpen ? "open" : ""}`}>
+        <NavLink
+          to="enquiryform"
+          className={({ isActive }) =>
+            `submenu-item ${isActive ? "active" : ""}`
+          }
+          onClick={closeDrawer}
+        >
+          <PlusCircleOutlined />
+          <span>New Solar Power Plan Installation</span>
+        </NavLink>
+
+        <NavLink
+          to="services"
+          className={({ isActive }) =>
+            `submenu-item ${isActive ? "active" : ""}`
+          }
+          onClick={closeDrawer}
+        >
+          <SwapOutlined />
+          <span>Solar Power Plan Service</span>
+        </NavLink>
+
+        <NavLink
+          to="operation-maintenance"
+          className={({ isActive }) =>
+            `submenu-item ${isActive ? "active" : ""}`
+          }
+          onClick={closeDrawer}
+        >
+          <ToolOutlined />
+          <span>Operation & Maintanence Service</span>
+        </NavLink>
+      </div>
       <NavLink to="trackstatus" onClick={closeDrawer}>
         <SwapOutlined />
         <span className="menu-text">My Status</span>

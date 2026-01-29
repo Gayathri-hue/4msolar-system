@@ -284,19 +284,9 @@ function MyLead() {
       dataIndex: "image",
       render: (url) =>
         url ? (
-          <span
-            style={{
-              color: "#1677ff",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-            onClick={(e) => {
-              e.stopPropagation(); // row click block pannum
-              window.open(url, "_blank", "noopener,noreferrer");
-            }}
-          >
-            View Image
-          </span>
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            View
+          </a>
         ) : (
           "No Image"
         ),
@@ -358,7 +348,7 @@ function MyLead() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2>My Assigned Leads</h2>
+      <h2 className="front-title">My Assigned Leads</h2>
 
       <Table
         columns={columns}

@@ -30,6 +30,8 @@ import Followup from "./Pages/StaffLayout/Followup";
 import OurServices from "./Pages/OurServices";
 import AboutUs from "./Pages/AboutUs";
 import GetQuote from "./Pages/GetQuote";
+import SolarServices from "./Pages/StaffLayout/SolarServices";
+import OperationMaintanence from "./Pages/StaffLayout/OperationMaintanence";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo }) => {
@@ -103,6 +105,12 @@ function App() {
             <Route path="followup" element={<Followup />} />
 
             <Route path="enquiryform" element={<Leads />} />
+            <Route path="services" element={<SolarServices />} />
+            <Route
+              path="operation-maintenance"
+              element={<OperationMaintanence />}
+            />
+
             <Route path="postform" element={<PostEnquiryForm />} />
             <Route path="trackstatus" element={<TrackStatus />} />
           </Route>

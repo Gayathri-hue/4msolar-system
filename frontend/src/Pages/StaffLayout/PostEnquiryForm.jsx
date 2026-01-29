@@ -152,8 +152,28 @@ function PostEnquiryForm() {
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      values.customer = userId;
-      await Api.post("/enquiry/createenquiry", values);
+
+      const formData = new FormData();
+
+      // Append all fields EXCEPT image
+      for (const key in values) {
+        if (key !== "image" && values[key] !== undefined) {
+          formData.append(key, values[key]);
+        }
+      }
+
+      // Append real file
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput && fileInput.files[0]) {
+        formData.append("image", fileInput.files[0]);
+      }
+
+      formData.append("customer", userId);
+
+      await Api.post("/enquiry/createenquiry", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       message.success("Enquiry submitted successfully");
       navigate("/user/enquiryform");
     } catch (err) {
@@ -166,16 +186,14 @@ function PostEnquiryForm() {
 
   return (
     <>
-      <BackButton />
-
       <div style={{ padding: "40px 20px", maxWidth: 1200, margin: "0 auto" }}>
-        <div className="enquiry-form">
-          <h2>Post Enquiry</h2>
+        <h2 className="front-title">Post Enquiry</h2>
 
+        <div className="enquiry-form">
           <Form layout="vertical" onFinish={onFinish} form={form}>
-            <Form.Item name="customer" initialValue={userId} hidden>
+            {/* <Form.Item name="customer" initialValue={userId} hidden>
               <Input />
-            </Form.Item>
+            </Form.Item> */}
 
             {/* Row 1 - 3 columns */}
             <Row gutter={[16, 24]}>
@@ -329,8 +347,8 @@ function PostEnquiryForm() {
                   </Col>
 
                   <Col xs={24} sm={12} md={8}>
-                    <Form.Item name="image" label="Site Photo">
-                      <Input type="file" accept="image/*" />
+                    <Form.Item name="image" label="Site / Problem Photo">
+                      <Input type="file" accept="image/*" name="image" />
                     </Form.Item>
                   </Col>
 
@@ -467,8 +485,8 @@ function PostEnquiryForm() {
                   </Col>
 
                   <Col xs={24} sm={12} md={8}>
-                    <Form.Item name="image" label="Site / Problem Photo">
-                      <Input type="file" accept="image/*" />
+                    <Form.Item label="Upload Image" name="image">
+                      <Input type="file" />
                     </Form.Item>
                   </Col>
 

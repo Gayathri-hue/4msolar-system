@@ -1,0 +1,171 @@
+// OurServices.scss - Compact + Responsive Version
+
+.solar-services-hero {
+  padding: 80px 20px;           // reduced from 100px
+  background: linear-gradient(to bottom, #f0f9ff, #ecfdf5);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 60px 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 50px 12px;
+  }
+}
+
+.hero-main-title {
+  font-size: 2.6rem;            // reduced from 3rem
+  font-weight: 900;
+  color: #1a5c1a;
+  margin-bottom: 1rem;
+  letter-spacing: -0.8px;
+
+  @media (max-width: 768px)  { font-size: 2.2rem; }
+  @media (max-width: 576px)  { font-size: 1.9rem; }
+  @media (max-width: 480px)  { font-size: 1.75rem; }
+}
+
+.hero-subtitle {
+  max-width: 760px;             // slightly narrower
+  margin: 0 auto 4rem;
+  font-size: 1.05rem;           // reduced
+  color: #334155;
+  line-height: 1.7;
+
+  @media (max-width: 768px) {
+    font-size: 0.98rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.93rem;
+  }
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  // smaller min-width
+  gap: 2rem;                   // reduced from 2.5rem
+  max-width: 1100px;           // narrower container
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    gap: 1.6rem;
+  }
+}
+
+.service-item {
+  perspective: 1000px;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: translateY(-14px);  // slightly less lift
+  }
+}
+
+.blob-card-outer {
+  position: relative;
+  height: 100%;
+  border-radius: 26px;          // slightly smaller radius
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.09);
+  transition: all 0.45s ease;
+}
+
+.blob-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s ease;
+
+  .service-item:hover & {
+    transform: scale(1.12);
+  }
+}
+
+.blob-bg-1 { background: linear-gradient(135deg, #86efac 0%, #22c55e 100%); }
+.blob-bg-2 { background: linear-gradient(135deg, #7dd3fc 0%, #3b82f6 100%); }
+.blob-bg-3 { background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%); }
+
+.blob-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 36px 24px;           // reduced padding (was 48/32)
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+
+  @media (max-width: 576px) {
+    padding: 28px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 24px 18px;
+  }
+}
+
+.service-emoji {
+  font-size: 4.5rem;            // reduced from 5.5rem
+  margin-bottom: 1.4rem;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+  transition: transform 0.5s;
+
+  .service-item:hover & {
+    transform: scale(1.15) rotate(8deg);
+  }
+
+  @media (max-width: 576px) { font-size: 4rem; }
+  @media (max-width: 480px) { font-size: 3.5rem; }
+}
+
+.service-heading {
+  font-size: 1.5rem;            // reduced from 1.75rem
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+
+  @media (max-width: 768px)  { font-size: 1.4rem; }
+  @media (max-width: 576px)  { font-size: 1.3rem; }
+  @media (max-width: 480px)  { font-size: 1.22rem; }
+}
+
+.service-info {
+  font-size: 0.98rem;           // reduced from 1.08rem
+  line-height: 1.6;
+  opacity: 0.94;
+  margin-bottom: 1.6rem;
+  max-width: 92%;
+
+  @media (max-width: 576px)  { font-size: 0.94rem; }
+  @media (max-width: 480px)  { font-size: 0.9rem; line-height: 1.55; }
+}
+
+.explore-btn {
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;           // smaller button text
+  padding: 10px 26px;           // smaller button
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(5px);
+
+  &:hover {
+    background: white;
+    color: #1e293b;
+    transform: translateY(-3px) scale(1.06);
+  }
+
+  @media (max-width: 480px) {
+    padding: 9px 22px;
+    font-size: 0.9rem;
+  }
+}

@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
-import { Row, Col, Card } from "antd";
-
-const primaryGreen = "#3a8017";
-const hoverGreen = "rgba(58, 128, 23, 0.92)";
-const textDark = "#1f2937";
-const textLight = "#ffffff";
+import "aos/dist/aos.css";
+import "../styles/Ourservices.scss";
+import { useNavigate } from "react-router-dom";
 
 const servicesData = [
   {
@@ -30,129 +26,60 @@ const servicesData = [
 ];
 
 function OurServices() {
-  const [hovered, setHovered] = useState(null);
-
-  // Initialize AOS
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
-      duration: 800,
-      once: true, // animate only once
-      easing: "ease-out",
-      offset: 80, // start animation a bit earlier
+      duration: 900,
+      once: true,
+      easing: "ease-out-cubic",
+      offset: 100,
     });
   }, []);
 
+  const handleExplore = () => {
+    const token = localStorage.getItem("token"); // or employeeToken / authToken
+
+    if (token) {
+      navigate("/user/dashboard"); // already logged in
+    } else {
+      navigate("/login"); // not logged in
+    }
+  };
+
   return (
-    <section
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      style={{
-        padding: "80px 24px",
-        backgroundColor: "#f8f9fa",
-        textAlign: "center",
-      }}
-    >
-      <h2
-        data-aos="fade-up"
-        data-aos-delay="100"
-        style={{
-          fontSize: "2.5rem",
-          fontWeight: 700,
-          color: primaryGreen,
-          marginBottom: "1rem",
-        }}
-      >
+    <section className="solar-services-hero">
+      <h2 className="hero-main-title" data-aos="fade-up">
         Our Solar Services
       </h2>
 
-      <p
-        data-aos="fade-up"
-        data-aos-delay="200"
-        style={{
-          maxWidth: "760px",
-          margin: "0 auto 3rem",
-          fontSize: "1.1rem",
-          color: "#4b5563",
-          lineHeight: 1.7,
-        }}
-      >
+      <p className="hero-subtitle" data-aos="fade-up" data-aos-delay="150">
         We deliver reliable, high-quality solar solutions — from initial
         installation to long-term care — helping Chennai homes and businesses
         save money while embracing clean energy.
       </p>
 
-      <Row gutter={[24, 32]} justify="center">
-        {servicesData.map((service, index) => {
-          const isHovered = hovered === index;
-
-          return (
-            <Col xs={24} sm={12} md={8} key={index}>
-              <Card
-                hoverable
-                data-aos="fade-up"
-                data-aos-delay={index * 150} // stagger: 0ms, 150ms, 300ms
-                onMouseEnter={() => setHovered(index)}
-                onMouseLeave={() => setHovered(null)}
-                style={{
-                  borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
-                  padding: "32px 24px",
-                  position: "relative",
-                  overflow: "hidden",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  background: "#ffffff",
-                  color: textDark,
-                }}
-              >
-                {/* Hover overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: hoverGreen,
-                    opacity: isHovered ? 1 : 0,
-                    transition: "opacity 0.3s ease",
-                    zIndex: 1,
-                  }}
-                />
-
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div
-                    style={{
-                      fontSize: "2.8rem",
-                      color: isHovered ? textLight : primaryGreen,
-                      marginBottom: "1.25rem",
-                    }}
-                  >
-                    {service.icon}
-                  </div>
-                  <h3
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: 700,
-                      marginBottom: "1rem",
-                      color: isHovered ? textLight : textDark,
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "1rem",
-                      lineHeight: 1.6,
-                      margin: 0,
-                      color: isHovered ? textLight : textDark,
-                    }}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-              </Card>
-            </Col>
-          );
-        })}
-      </Row>
+      <div className="services-grid">
+        {servicesData.map((service, index) => (
+          <div
+            key={index}
+            className="service-item"
+            data-aos="zoom-in"
+            data-aos-delay={index * 200}
+          >
+            <div className="blob-card-outer">
+              <div className={`blob-bg blob-bg-${index + 1}`} />
+              <div className="blob-card-content">
+                <div className="service-emoji">{service.icon}</div>
+                <h3 className="service-heading">{service.title}</h3>
+                <p className="service-info">{service.description}</p>
+                <button className="explore-btn" onClick={handleExplore}>
+                  Read More →
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

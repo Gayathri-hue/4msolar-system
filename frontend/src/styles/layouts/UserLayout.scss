@@ -282,3 +282,65 @@
     }
   }
 }
+
+
+.user-menu-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  color: #595959;
+  font-weight: 500;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+
+  &:hover {
+    background: #e6f7ff;
+    color: #1890ff;
+  }
+
+  &.active {
+    background: #1890ff;
+    color: #fff;
+  }
+
+  .submenu-arrow {
+    margin-left: auto;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  &.open .submenu-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+.submenu-children {
+  display: none;
+  flex-direction: column;
+
+  &.open {
+    display: block;
+  }
+}
+
+.submenu-item {
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #595959;
+
+  &:hover {
+    background: #e6f7ff;
+    color: #1890ff;
+  }
+
+  &.active {
+    background: #bae7ff;
+    color: #0050b3;
+  }
+}
+

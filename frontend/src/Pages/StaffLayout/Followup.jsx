@@ -13,7 +13,7 @@ function Followup() {
 
   return (
     <div style={{ padding: "24px", background: "#fff", borderRadius: 12 }}>
-      <Title level={4}>
+      <Title level={4} className="front-title">
         <CustomerServiceOutlined style={{ marginRight: 8, color: "#1890ff" }} />
         Need Help? Call Our Support Team
       </Title>

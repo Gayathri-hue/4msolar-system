@@ -15,7 +15,7 @@ import "../styles/layouts/Footer.scss";
 
 const { Title, Text } = Typography;
 
-function Footer() {
+function Footer({ scrollToServices, scrollToAbout, scrollToContact }) {
   return (
     <footer className="solar-footer">
       <Row gutter={[32, 32]} justify="center">
@@ -46,22 +46,17 @@ function Footer() {
           <Title level={5}>Quick Links</Title>
           <ul className="footer-links">
             <li>
-              <a href="#services">
+              <a onClick={scrollToServices}>
                 <ArrowRightOutlined /> Our Services
               </a>
             </li>
             <li>
-              <a href="#projects">
-                <ArrowRightOutlined /> Solar Projects
-              </a>
-            </li>
-            <li>
-              <a href="#about">
+              <a onClick={scrollToAbout}>
                 <ArrowRightOutlined /> About Us
               </a>
             </li>
             <li>
-              <a href="#contact">
+              <a onClick={scrollToContact}>
                 <ArrowRightOutlined /> Get a Quote
               </a>
             </li>

@@ -3,10 +3,8 @@ import { Table, Tag, Spin, Select, Button, Space, Popconfirm } from "antd";
 import Api from "../../Api";
 import { useNavigate } from "react-router-dom";
 import "../../styles/layouts/EnquiryForm.scss";
-
 const { Option } = Select;
-
-function Leads() {
+function OperationMaintanence() {
   const [loading, setLoading] = useState(false);
   const [enquiries, setEnquiries] = useState([]);
   const [filteredEnquiries, setFilteredEnquiries] = useState([]);
@@ -33,7 +31,7 @@ function Leads() {
       const res = await Api.get(`/enquiry/getcustomerenquiries/${userId}`);
 
       const onlySolarPlan = res.data.filter(
-        (enq) => enq.enquiryType === "New Solar Power Plan Installation",
+        (enq) => enq.enquiryType === "Operation & Maintanence Service",
       );
 
       setEnquiries(onlySolarPlan);
@@ -91,13 +89,11 @@ function Leads() {
     { title: "Address", dataIndex: "address" },
 
     { title: "Enquiry Type", dataIndex: "enquiryType" },
-    { title: "EB Service No", dataIndex: "ebServiceNo" },
     { title: "Category", dataIndex: "category" },
 
     { title: "System", dataIndex: "systemType" },
     { title: "Capacity", dataIndex: "capacity" },
     { title: "Roof Type", dataIndex: "roofType" },
-    { title: "Roof Area", dataIndex: "roofArea" },
 
     {
       title: "Site Visit",
@@ -123,19 +119,6 @@ function Leads() {
 
     { title: "Google Location", dataIndex: "googleLocation" },
     { title: "Message", dataIndex: "message" },
-
-    {
-      title: "Image",
-      dataIndex: "image",
-      render: (url) =>
-        url ? (
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            View
-          </a>
-        ) : (
-          "No Image"
-        ),
-    },
 
     {
       title: "Status",
@@ -176,7 +159,7 @@ function Leads() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2 className="front-title">New Solar Power Plan Installation</h2>
+      <h2 className="front-title">Operation & Maintanence Service</h2>
 
       <div className="filter-create-wrapper">
         {/* Status Filter */}
@@ -217,4 +200,4 @@ function Leads() {
   );
 }
 
-export default Leads;
+export default OperationMaintanence;

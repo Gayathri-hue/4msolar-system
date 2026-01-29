@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
 
 import registerRouter from "./server/router/userrouter.js";
 import enquiryformrouter from "./server/router/enquiryformrouter.js";
@@ -18,5 +19,6 @@ app.use("/api/admin", adminrouter);
 app.use("/api/employee", employeerouter);
 
 app.use("/api/enquiry", enquiryformrouter);
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 export default app;

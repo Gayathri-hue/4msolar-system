@@ -6,7 +6,7 @@ import "../../styles/layouts/EnquiryForm.scss";
 
 const { Option } = Select;
 
-function Leads() {
+function SolarServices() {
   const [loading, setLoading] = useState(false);
   const [enquiries, setEnquiries] = useState([]);
   const [filteredEnquiries, setFilteredEnquiries] = useState([]);
@@ -33,7 +33,7 @@ function Leads() {
       const res = await Api.get(`/enquiry/getcustomerenquiries/${userId}`);
 
       const onlySolarPlan = res.data.filter(
-        (enq) => enq.enquiryType === "New Solar Power Plan Installation",
+        (enq) => enq.enquiryType === "Solar Power Plan Service",
       );
 
       setEnquiries(onlySolarPlan);
@@ -84,42 +84,21 @@ function Leads() {
   const columns = [
     { title: "Customer ID", dataIndex: "customer" },
     { title: "Order ID", dataIndex: "_id" },
-
     { title: "Name", dataIndex: "fullName" },
     { title: "Mobile", dataIndex: "mobile" },
     { title: "Email", dataIndex: "email" },
     { title: "Address", dataIndex: "address" },
-
     { title: "Enquiry Type", dataIndex: "enquiryType" },
-    { title: "EB Service No", dataIndex: "ebServiceNo" },
     { title: "Category", dataIndex: "category" },
+    { title: "Product Type", dataIndex: "productType" },
 
     { title: "System", dataIndex: "systemType" },
     { title: "Capacity", dataIndex: "capacity" },
     { title: "Roof Type", dataIndex: "roofType" },
-    { title: "Roof Area", dataIndex: "roofArea" },
+    { title: "Preferrred Time", dataIndex: "preferredTime" },
+    { title: "Preferred Date&Time", dataIndex: "preferredDateTime" },
 
-    {
-      title: "Site Visit",
-      dataIndex: "siteVisit",
-      render: (value) => (value ? "Yes" : "No"),
-    },
-
-    {
-      title: "Site Visit Date & Time",
-      dataIndex: "siteVisitDateTime",
-      render: (dateTime) =>
-        dateTime
-          ? new Date(dateTime).toLocaleString("en-IN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            })
-          : "Not Scheduled",
-    },
+    { title: "Issue Description", dataIndex: "issueDescription" },
 
     { title: "Google Location", dataIndex: "googleLocation" },
     { title: "Message", dataIndex: "message" },
@@ -176,7 +155,7 @@ function Leads() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2 className="front-title">New Solar Power Plan Installation</h2>
+      <h2 className="front-title">Solar Power Plan Service</h2>
 
       <div className="filter-create-wrapper">
         {/* Status Filter */}
@@ -216,5 +195,4 @@ function Leads() {
     </div>
   );
 }
-
-export default Leads;
+export default SolarServices;

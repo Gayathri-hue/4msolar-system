@@ -36,13 +36,19 @@ export async function createEnquiry(req, res) {
     // 5 days deadline
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 5);
+    let imageUrl = null;
+    if (req.file) {
+      // localhost URL
+      imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+    }
 
     const enquiryDetails = {
       customer: customerId,
       fullName: data.fullName,
       mobile: data.mobile,
       email: data.email,
-      image: data.image,
+      // image: data.image,
+      image: imageUrl,
       address: data.address,
       enquiryType: data.enquiryType,
       productType: data.productType,

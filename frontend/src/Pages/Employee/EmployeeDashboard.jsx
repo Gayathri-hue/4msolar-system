@@ -99,17 +99,7 @@ function EmployeeDashboard() {
     <div>
       {" "}
       <div style={{ padding: "20px" }}>
-        <h2
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "center",
-            fontSize: "22px",
-            fontWeight: "bold",
-          }}
-        >
-          Employee Dashboard
-        </h2>
+        <h2 className="front-title">Employee Dashboard</h2>
 
         {/* First Row */}
         <Row gutter={[16, 16]}>
