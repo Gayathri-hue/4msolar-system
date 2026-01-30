@@ -78,9 +78,20 @@ function User() {
     { title: "Phone", dataIndex: "phone" },
     {
       title: "Referrer",
-      render: (_, record) =>
-        record.referrer === "Other" ? record.referrerDetails : record.referrer,
+      dataIndex: "referrer",
+      render: (_, record) => {
+        if (record.referrer === "Other") {
+          return (
+            <span>
+              <b>Other</b>
+              {record.referrerDetails ? ` (${record.referrerDetails})` : ""}
+            </span>
+          );
+        }
+        return record.referrer;
+      },
     },
+
     {
       title: "Action",
       render: (_, record) => (

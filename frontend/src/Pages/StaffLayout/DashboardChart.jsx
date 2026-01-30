@@ -1,161 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import {
-//   PieChart,
-//   Pie,
-//   Cell,
-//   Tooltip,
-//   Legend,
-//   ResponsiveContainer,
-// } from "recharts";
-// import {
-//   PhoneOutlined,
-//   ClockCircleOutlined,
-//   UserOutlined,
-// } from "@ant-design/icons";
-// import { Row, Col, Card, Typography, Tag, Input, Button } from "antd";
-// import Api from "../../Api.js";
-// // import "../../styles/layouts/UserDashboard.scss";
-// const { Title, Text } = Typography;
-
-// const COLORS = ["#FFA500", "#007BFF", "#28a745"]; // Assigned, In Progress, Completed
-
-// function DashboardChart() {
-//   const [overallData, setOverallData] = useState([]);
-//   const [overallStats, setOverallStats] = useState({
-//     Assigned: 0,
-//     "In Progress": 0,
-//     Completed: 0,
-//   });
-
-//   const [customerData, setCustomerData] = useState([]);
-//   const [customerStats, setCustomerStats] = useState({
-//     Assigned: 0,
-//     "In Progress": 0,
-//     Completed: 0,
-//   });
-
-//   // Customer ID from localStorage
-//   const customerId = localStorage.getItem("UserID");
-
-//   useEffect(() => {
-//     // Fetch overall stats
-//     const fetchOverallStats = async () => {
-//       try {
-//         const res = await Api.get("/enquiry/getallstatus"); // overall stats API
-//         const stats = res.data;
-
-//         const chartData = [
-//           { name: "Assigned", value: stats.Assigned || 0 },
-//           { name: "In Progress", value: stats["In Progress"] || 0 },
-//           { name: "Completed", value: stats.Completed || 0 },
-//         ];
-
-//         setOverallData(chartData);
-//         setOverallStats(stats);
-//       } catch (err) {
-//         console.error("Error fetching overall stats:", err);
-//       }
-//     };
-
-//     // Fetch customer-specific stats
-//     const fetchCustomerStats = async () => {
-//       if (!customerId) return;
-//       try {
-//         const res = await Api.get(`/enquiry/getstatus/${customerId}`); // customer stats API
-//         const stats = res.data;
-
-//         const chartData = [
-//           { name: "Assigned", value: stats.Assigned || 0 },
-//           { name: "In Progress", value: stats["In Progress"] || 0 },
-//           { name: "Completed", value: stats.Completed || 0 },
-//         ];
-
-//         setCustomerData(chartData);
-//         setCustomerStats(stats);
-//       } catch (err) {
-//         console.error("Error fetching customer stats:", err);
-//       }
-//     };
-
-//     fetchOverallStats();
-//     fetchCustomerStats();
-//   }, [customerId]);
-
-//   // Function to render a pie chart card
-//   const renderPieCard = (title, data, stats) => (
-//     <Card
-//       title={title}
-//       bordered={false}
-//       style={{ height: "350px", textAlign: "center" }}
-//     >
-//       <ResponsiveContainer width="100%" height={250}>
-//         <PieChart>
-//           <Pie
-//             data={data}
-//             dataKey="value"
-//             nameKey="name"
-//             cx="50%"
-//             cy="50%"
-//             outerRadius={80}
-//             label
-//           >
-//             {data.map((entry, index) => (
-//               <Cell
-//                 key={`cell-${index}`}
-//                 fill={COLORS[index % COLORS.length]}
-//               />
-//             ))}
-//           </Pie>
-//           <Tooltip />
-//           <Legend verticalAlign="bottom" height={36} />
-//         </PieChart>
-//       </ResponsiveContainer>
-
-//       <div
-//         style={{
-//           marginTop: "45px",
-//           display: "flex",
-//           justifyContent: "space-around",
-//         }}
-//       >
-//         <div>
-//           <h3>Assigned</h3>
-//           <p style={{ fontSize: "20px", fontWeight: "bold", color: COLORS[0] }}>
-//             {stats.Assigned}
-//           </p>
-//         </div>
-//         <div>
-//           <h3>In Progress</h3>
-//           <p style={{ fontSize: "20px", fontWeight: "bold", color: COLORS[1] }}>
-//             {stats["In Progress"]}
-//           </p>
-//         </div>
-//         <div>
-//           <h3>Completed</h3>
-//           <p style={{ fontSize: "20px", fontWeight: "bold", color: COLORS[2] }}>
-//             {stats.Completed}
-//           </p>
-//         </div>
-//       </div>
-//     </Card>
-//   );
-
-//   return (
-//     <div style={{ padding: "10px" }}>
-//       <Row gutter={[16, 16]}>
-//         <Col xs={24} lg={12}>
-//           {renderPieCard("Overall Enquiry Status", overallData, overallStats)}
-//         </Col>
-//         <Col xs={24} lg={12}>
-//           {renderPieCard("Your Enquiry Status", customerData, customerStats)}
-//         </Col>
-//       </Row>
-//     </div>
-//   );
-// }
-
-// export default DashboardChart;import React, { useEffect, useState } from "react";
-
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { Card, Row, Col, Typography } from "antd";
 import Api from "../../Api.js";
@@ -179,8 +21,11 @@ function DashboardChart() {
     Completed: 0,
   });
   const [greeting, setGreeting] = useState("");
+
   const userName = localStorage.getItem("name");
   const customerId = localStorage.getItem("UserID");
+
+  // Greeting based on time
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) setGreeting("Good Morning");
@@ -189,27 +34,24 @@ function DashboardChart() {
     else setGreeting("Good Night");
   }, []);
 
+  // Helper to format data for PieChart (remove 0 values)
   const formatPieData = (stats) => {
     return [
       { name: "Assigned", value: stats.Assigned || 0 },
       { name: "In Progress", value: stats["In Progress"] || 0 },
       { name: "Completed", value: stats.Completed || 0 },
-    ].filter((item) => item.value > 0); // 0 irundha remove
+    ].filter((item) => item.value > 0);
   };
 
+  // Fetch overall & customer stats
   useEffect(() => {
     const fetchOverallStats = async () => {
       try {
         const res = await Api.get("/enquiry/getallstatus");
         const stats = res.data;
-        // setOverallData([
-        //   { name: "Assigned", value: stats.Assigned || 0 },
-        //   { name: "In Progress", value: stats["In Progress"] || 0 },
-        //   { name: "Completed", value: stats.Completed || 0 },
-        // ]);
-        setOverallData(formatPieData(stats));
 
-        // setOverallStats(stats);
+        setOverallStats(stats); // <-- Update numeric counts
+        setOverallData(formatPieData(stats)); // <-- Pie chart data
       } catch (err) {
         console.error(err);
       }
@@ -220,13 +62,9 @@ function DashboardChart() {
       try {
         const res = await Api.get(`/enquiry/getstatus/${customerId}`);
         const stats = res.data;
-        // setCustomerData([
-        //   { name: "Assigned", value: stats.Assigned || 0 },
-        //   { name: "In Progress", value: stats["In Progress"] || 0 },
-        //   { name: "Completed", value: stats.Completed || 0 },
-        // ]);
-        // setCustomerStats(stats);
-        setCustomerData(formatPieData(stats));
+
+        setCustomerStats(stats); // <-- Update numeric counts
+        setCustomerData(formatPieData(stats)); // <-- Pie chart data
       } catch (err) {
         console.error(err);
       }
@@ -236,6 +74,7 @@ function DashboardChart() {
     fetchCustomerStats();
   }, [customerId]);
 
+  // Normal Pie Card
   const renderNormalPieCard = (title, data, stats) => (
     <Card className="pie-card normal">
       <Title level={4}>{title}</Title>
@@ -272,6 +111,7 @@ function DashboardChart() {
     </Card>
   );
 
+  // Round Pie Card
   const renderRoundPieCard = (title, data, stats) => (
     <Card className="pie-card round">
       <Title level={4} style={{ color: "#fff", marginBottom: 20 }}>

@@ -1,102 +1,149 @@
 import ExcelJS from "exceljs";
-import fs from "fs";
+import fs from "fs/promises";
+import path from "path";
+
+const filePath = path.join(process.cwd(), "enquiries.xlsx"); // change back when testing done
 
 export async function saveEnquiryToExcel(enquiry) {
-  const filePath = `enquiries_${new Date().toISOString().slice(0, 10)}.xlsx`;
-
   const workbook = new ExcelJS.Workbook();
+  const SHEET_NAME = "Enquiries";
+
   let worksheet;
 
-  const columns = [
-    { header: "Customer ID", key: "customer" },
-    { header: "Order ID", key: "id" },
-    { header: "Full Name", key: "fullName" },
-    { header: "Mobile", key: "mobile" },
-    { header: "Email", key: "email" },
-    { header: "Address", key: "address" },
+  try {
+    // 1. Check if file exists
+    const fileExists = await fs
+      .access(filePath)
+      .then(() => true)
+      .catch(() => false);
 
-    { header: "Enquiry Type", key: "enquiryType" },
-    { header: "Product Type", key: "productType" },
-    { header: "System Type", key: "systemType" },
-    { header: "Category", key: "category" },
-    { header: "Capacity", key: "capacity" },
-    { header: "EB Service No", key: "ebServiceNo" },
+    if (fileExists) {
+      // Read existing file
+      await workbook.xlsx.readFile(filePath);
+      worksheet = workbook.getWorksheet(SHEET_NAME);
 
-    { header: "Roof Type", key: "roofType" },
-    { header: "Roof Area", key: "roofArea" },
+      if (!worksheet) {
+        worksheet = workbook.addWorksheet(SHEET_NAME);
+        addHeaders(worksheet);
+      }
+    } else {
+      // Brand new file
+      worksheet = workbook.addWorksheet(SHEET_NAME);
+      addHeaders(worksheet);
+    }
 
-    { header: "Issue Description", key: "issueDescription" },
-    { header: "Image", key: "image" },
+    // 2. Prepare clean row data
+    const rowData = [
+      enquiry.customer?.toString() || "",
+      enquiry._id?.toString() || "",
+      enquiry.fullName || "",
+      enquiry.mobile || "",
+      enquiry.email || "",
+      enquiry.address || "",
+      enquiry.enquiryType || "",
+      enquiry.productType || "",
+      enquiry.systemType || "",
+      enquiry.category || "",
+      enquiry.capacity || "",
+      enquiry.ebServiceNo || "",
+      enquiry.roofType || "",
+      enquiry.roofArea || "",
+      enquiry.issueDescription || "",
+      enquiry.image || "",
+      enquiry.preferredTime || "",
+      enquiry.preferredDateTime
+        ? new Date(enquiry.preferredDateTime).toISOString()
+        : "",
+      enquiry.message || "",
+      enquiry.siteVisit ? "Yes" : "No",
+      enquiry.siteVisitDateTime
+        ? new Date(enquiry.siteVisitDateTime).toISOString()
+        : "",
+      enquiry.googleLocation || "",
+      enquiry.status || "Assigned",
+      enquiry.assignedEmployee?.toString() || "",
+      enquiry.dueDate ? new Date(enquiry.dueDate).toISOString() : "",
+      enquiry.appliedDate ? new Date(enquiry.appliedDate).toISOString() : "",
+      enquiry.createdAt ? new Date(enquiry.createdAt).toISOString() : "",
+      enquiry.updatedAt ? new Date(enquiry.updatedAt).toISOString() : "",
+    ];
 
-    { header: "Preferred Time", key: "preferredTime" },
-    { header: "Preferred DateTime", key: "preferredDateTime" },
+    // 3. Add the row (using array → more reliable)
+    const newRow = worksheet.addRow(rowData);
 
-    { header: "Message", key: "message" },
-    { header: "Site Visit", key: "siteVisit" },
-    { header: "Site Visit DateTime", key: "siteVisitDateTime" },
+    // 4. Optional: make new row visible / style if needed
+    // newRow.commit();   // usually not needed anymore in recent ExcelJS
 
-    { header: "Google Location", key: "googleLocation" },
+    // 5. Auto-fit AFTER adding the row
+    worksheet.columns.forEach((col, idx) => {
+      let maxLength = 0;
+      // Check header + data
+      const headerLength = col.header ? col.header.toString().length : 0;
+      maxLength = Math.max(maxLength, headerLength);
 
-    { header: "Status", key: "status" },
-    { header: "Assigned Employee", key: "assignedEmployee" },
-    { header: "Due Date", key: "dueDate" },
+      worksheet.eachRow({ includeEmpty: false }, (row) => {
+        const val = row.getCell(idx + 1).value;
+        const len = val ? val.toString().length : 0;
+        if (len > maxLength) maxLength = len;
+      });
 
-    { header: "Applied Date", key: "appliedDate" },
-    { header: "Created At", key: "createdAt" },
-    { header: "Updated At", key: "updatedAt" },
+      col.width = Math.min(Math.max(maxLength + 3, 12), 70);
+    });
+
+    // 6. Save
+    await workbook.xlsx.writeFile(filePath);
+
+    console.log(
+      `Enquiry ${enquiry._id} saved → total rows: ${worksheet.rowCount}`,
+    );
+  } catch (err) {
+    console.error("Excel write failed:", err.message);
+    throw err;
+  }
+}
+
+function addHeaders(worksheet) {
+  const headers = [
+    "Customer ID",
+    "Order ID",
+    "Full Name",
+    "Mobile",
+    "Email",
+    "Address",
+    "Enquiry Type",
+    "Product Type",
+    "System Type",
+    "Category",
+    "Capacity",
+    "EB Service No",
+    "Roof Type",
+    "Roof Area",
+    "Issue Description",
+    "Image",
+    "Preferred Time",
+    "Preferred DateTime",
+    "Message",
+    "Site Visit",
+    "Site Visit DateTime",
+    "Google Location",
+    "Status",
+    "Assigned Employee",
+    "Due Date",
+    "Applied Date",
+    "Created At",
+    "Updated At",
   ];
 
-  if (fs.existsSync(filePath)) {
-    await workbook.xlsx.readFile(filePath);
-    worksheet = workbook.getWorksheet("Enquiries");
+  const headerRow = worksheet.addRow(headers);
+  headerRow.font = { bold: true };
+  headerRow.commit();
 
-    if (!worksheet) {
-      worksheet = workbook.addWorksheet("Enquiries");
-      worksheet.columns = columns;
-    }
-  } else {
-    worksheet = workbook.addWorksheet("Enquiries");
-    worksheet.columns = columns;
-  }
+  // Set column keys & initial widths
+  worksheet.columns = headers.map((h, i) => ({
+    header: h,
+    key: h.toLowerCase().replace(/\s+/g, ""),
+    width: 15,
+  }));
 
-  worksheet.addRow({
-    customer: enquiry.customer,
-    id: enquiry._id,
-    fullName: enquiry.fullName,
-    mobile: enquiry.mobile,
-    email: enquiry.email,
-    address: enquiry.address,
-
-    enquiryType: enquiry.enquiryType,
-    productType: enquiry.productType,
-    systemType: enquiry.systemType,
-    category: enquiry.category,
-    capacity: enquiry.capacity,
-    ebServiceNo: enquiry.ebServiceNo,
-
-    roofType: enquiry.roofType,
-    roofArea: enquiry.roofArea,
-
-    issueDescription: enquiry.issueDescription,
-    image: enquiry.image,
-
-    preferredTime: enquiry.preferredTime,
-    preferredDateTime: enquiry.preferredDateTime,
-
-    message: enquiry.message,
-    siteVisit: enquiry.siteVisit ? "Yes" : "No",
-    siteVisitDateTime: enquiry.siteVisitDateTime,
-
-    googleLocation: enquiry.googleLocation,
-
-    status: enquiry.status,
-    assignedEmployee: enquiry.assignedEmployee,
-    dueDate: enquiry.dueDate,
-
-    appliedDate: enquiry.appliedDate,
-    createdAt: enquiry.createdAt,
-    updatedAt: enquiry.updatedAt,
-  });
-
-  await workbook.xlsx.writeFile(filePath);
+  worksheet.views = [{ state: "frozen", ySplit: 1 }];
 }

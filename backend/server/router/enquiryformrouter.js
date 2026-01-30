@@ -1,6 +1,8 @@
+import { config } from "dotenv";
+
+config();
 import express from "express";
-import multer from "multer";
-import path from "path";
+
 import {
   createEnquiry,
   deleteEnquiry,
@@ -13,21 +15,10 @@ import {
   getEnquiryStatsByCustomer,
   updateEnquiry,
 } from "../controller/enquiryformController.js";
+import upload from "../middleware/multer.js";
 
 const router = express.Router();
 
-// ===== Multer setup =====
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // folder already create panniten da
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueName + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage }); // <--- must define this
 // router.post("/createenquiry", createEnquiry);
 router.post("/createenquiry", upload.single("image"), createEnquiry);
 

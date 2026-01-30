@@ -3,6 +3,7 @@ import Employee from "../model/employeeModel.js";
 import mongoose from "mongoose";
 import PDFDocument from "pdfkit";
 import fs from "fs";
+import cloudinary from "../utils/cloudinary.js";
 
 import { saveEnquiryToExcel } from "../utils/excel.js";
 
@@ -36,12 +37,23 @@ export async function createEnquiry(req, res) {
     // 5 days deadline
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 5);
-    let imageUrl = null;
-    if (req.file) {
-      // localhost URL
-      imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-    }
 
+    let imageUrl = null;
+
+    if (req.file) {
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "enquiries" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          },
+        );
+        stream.end(req.file.buffer); // 🔥 memory buffer
+      });
+
+      imageUrl = result.secure_url; // ✅ cloud image URL
+    }
     const enquiryDetails = {
       customer: customerId,
       fullName: data.fullName,
@@ -250,6 +262,7 @@ export async function getEnquiriesByEmployee(req, res) {
     res.status(500).json({ msg: "Server Error" });
   }
 }
+
 export async function downloadEnquiryPDF(req, res) {
   try {
     const { id } = req.params;

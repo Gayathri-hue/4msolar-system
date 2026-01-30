@@ -132,7 +132,7 @@
 // export default PostEnquiryForm;
 
 import React, { useState } from "react";
-import { Form, Input, Button, Select, message, Row, Col } from "antd";
+import { Form, Input, Button, Select, message, Row, Col, Upload } from "antd";
 import Api from "../../Api";
 import { useNavigate } from "react-router-dom";
 import BackButton from "./BackButton";
@@ -170,12 +170,10 @@ function PostEnquiryForm() {
 
       formData.append("customer", userId);
 
-      await Api.post("/enquiry/createenquiry", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await Api.post("/enquiry/createenquiry", formData);
 
       message.success("Enquiry submitted successfully");
-      navigate("/user/enquiryform");
+      navigate("/user/dashboard");
     } catch (err) {
       console.error(err);
       message.error("Failed to submit enquiry");
@@ -488,6 +486,16 @@ function PostEnquiryForm() {
                     <Form.Item label="Upload Image" name="image">
                       <Input type="file" />
                     </Form.Item>
+                    {/* <Form.Item
+                      name="image"
+                      label="Site / Problem Photo"
+                      valuePropName="file"
+                      getValueFromEvent={(e) => e}
+                    >
+                      <Upload beforeUpload={() => false} maxCount={1}>
+                        <Button>Select Image</Button>
+                      </Upload>
+                    </Form.Item> */}
                   </Col>
 
                   <Col xs={24} sm={12} md={8}>

@@ -1,18 +1,4 @@
 import multer from "multer";
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
+const storage = multer.memoryStorage(); // local-la save aagathu
 const upload = multer({ storage });
-
-router.post(
-  "/createenquiry",
-  upload.single("image"),
-  enquiryController.createEnquiry,
-);
+export default upload;
