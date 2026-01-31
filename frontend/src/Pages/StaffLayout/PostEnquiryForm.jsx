@@ -248,11 +248,11 @@ function PostEnquiryForm() {
                     placeholder="Select enquiry type"
                     onChange={(value) => setEnquiryType(value)}
                   >
-                    <Option value="New Solar Power Plan Installation">
-                      New Solar Power Plan Installation
+                    <Option value="New Solar Power Plant Installation">
+                      New Solar Power Plant Installation
                     </Option>
-                    <Option value="Solar Power Plan Service">
-                      Solar Power Plan Service
+                    <Option value="Solar Power Plant Service">
+                      Solar Power Plant Service
                     </Option>
                     <Option value="Operation & Maintanence Service">
                       Operation & Maintanence Service
@@ -294,7 +294,7 @@ function PostEnquiryForm() {
               </Col>
             </Row>
 
-            {enquiryType === "New Solar Power Plan Installation" && (
+            {enquiryType === "New Solar Power Plant Installation" && (
               <>
                 <Row gutter={[16, 24]}>
                   <Col xs={24} sm={12} md={8}>
@@ -425,7 +425,7 @@ function PostEnquiryForm() {
               </>
             )}
 
-            {enquiryType === "Solar Power Plan Service" && (
+            {enquiryType === "Solar Power Plant Service" && (
               <>
                 <Row gutter={[16, 24]}>
                   <Col xs={24} sm={12} md={8}>

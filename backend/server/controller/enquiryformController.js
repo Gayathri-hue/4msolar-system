@@ -1,13 +1,14 @@
 import enquiryfromModel from "../model/enquiryfromModel.js";
 import Employee from "../model/employeeModel.js";
+
 import mongoose from "mongoose";
 import PDFDocument from "pdfkit";
 import fs from "fs";
 import cloudinary from "../utils/cloudinary.js";
+import bcrypt from "bcrypt";
 
 import { saveEnquiryToExcel } from "../utils/excel.js";
 
-// CREATE new enquiry
 export async function createEnquiry(req, res) {
   try {
     const data = req.body;
@@ -19,24 +20,9 @@ export async function createEnquiry(req, res) {
       return res.status(400).json({ msg: "Customer ID is required" });
     }
 
-    const employees = await Employee.find({ status: "active" }).sort({
-      createdAt: 1,
-    });
-
-    if (!employees.length) {
-      return res.status(400).json({ msg: "No employees available" });
-    }
-
-    // Total enquiries count
-    const enquiryCount = await enquiryfromModel.countDocuments();
-
-    // Round robin index
-    const assignedIndex = enquiryCount % employees.length;
-    const assignedEmployee = employees[assignedIndex];
-
-    // 5 days deadline
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 5);
+    // // 5 days deadline
+    // const dueDate = new Date();
+    // dueDate.setDate(dueDate.getDate() + 5);
 
     let imageUrl = null;
 
@@ -80,9 +66,9 @@ export async function createEnquiry(req, res) {
       googleLocation: data.googleLocation,
       appliedDate: data.appliedDate || Date.now(),
 
-      assignedEmployee: assignedEmployee._id,
+      assignedEmployee: null,
 
-      dueDate: dueDate,
+      dueDate: null,
     };
 
     const enquiry = await enquiryfromModel.create(enquiryDetails);
@@ -263,21 +249,134 @@ export async function getEnquiriesByEmployee(req, res) {
   }
 }
 
+// export async function downloadEnquiryPDF(req, res) {
+//   try {
+//     const { id } = req.params;
+//     const enquiry = await enquiryfromModel.findById(id);
+//     if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
+
+//     const doc = new PDFDocument({ margin: 50 });
+//     res.setHeader("Content-Type", "application/pdf");
+//     res.setHeader(
+//       "Content-Disposition",
+//       "attachment; filename=Solar_Enquiry.pdf",
+//     );
+//     doc.pipe(res);
+
+//     const pageWidth = doc.page.width - 100; // usable width
+
+//     // ===== Title =====
+//     doc.fontSize(18).text("Solar Enquiry Document", 50, 40, {
+//       align: "center",
+//       width: pageWidth,
+//     });
+
+//     doc.moveDown(2);
+
+//     // ===== Top Left & Right =====
+//     const y = doc.y;
+
+//     doc.fontSize(11).text(`Order ID : ${enquiry._id}`, 50, y);
+//     doc.text(`Customer ID : ${enquiry.customer}`, 50, y + 15);
+
+//     doc.text(`Applied Date : ${enquiry.appliedDate.toDateString()}`, 350, y);
+//     doc.text(`Issue Date : ${enquiry.dueDate.toDateString()}`, 350, y + 15);
+
+//     doc.moveDown(3);
+
+//     // ===== Enquiry Details Heading (Center) =====
+//     doc.fontSize(13).text("Enquiry Details", 50, doc.y, {
+//       align: "center",
+//       underline: true,
+//       width: pageWidth,
+//     });
+
+//     doc.moveDown(1);
+
+//     // ===== Centered 2-Column Table =====
+//     const tableWidth = 300;
+//     const startX = (doc.page.width - tableWidth) / 2;
+//     let rowY = doc.y;
+
+//     const rows = [
+//       ["Name", enquiry.fullName],
+//       ["Mobile", enquiry.mobile],
+//       ["Email", enquiry.email],
+//       ["Enquiry Type", enquiry.enquiryType],
+//       ["System Type", enquiry.systemType],
+//       ["Capacity", enquiry.capacity],
+
+//       ["Roof Type", enquiry.roofType || "-"],
+//       ["Status", enquiry.status],
+//     ];
+
+//     rows.forEach(([label, value]) => {
+//       doc.fontSize(11).text(label, startX, rowY, { width: 180 });
+//       doc.text(value, startX + 200, rowY, { width: 200 });
+//       rowY += 22;
+//     });
+
+//     doc.y = rowY + 20;
+
+//     // ===== Declaration (Perfect Center) =====
+//     doc.fontSize(13).text("Declaration", 50, doc.y, {
+//       align: "center",
+//       underline: true,
+//       width: pageWidth,
+//     });
+
+//     doc.moveDown(0.8);
+
+//     doc
+//       .fontSize(11)
+//       .text(
+//         "I hereby declare that the above furnished enquiry details are true and correct to the best of my knowledge. I agree to proceed further based on the information provided in this document.",
+//         50,
+//         doc.y,
+//         {
+//           align: "center",
+//           width: pageWidth,
+//         },
+//       );
+
+//     doc.moveDown(2);
+
+//     doc.end();
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ msg: "PDF generation failed" });
+//   }
+// }
+
 export async function downloadEnquiryPDF(req, res) {
   try {
     const { id } = req.params;
     const enquiry = await enquiryfromModel.findById(id);
-    if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
+
+    if (!enquiry) {
+      return res.status(404).json({ msg: "Enquiry not found" });
+    }
 
     const doc = new PDFDocument({ margin: 50 });
+
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
       "attachment; filename=Solar_Enquiry.pdf",
     );
+
     doc.pipe(res);
 
-    const pageWidth = doc.page.width - 100; // usable width
+    const pageWidth = doc.page.width - 100;
+
+    // ✅ SAFE DATE HANDLING
+    const appliedDate = enquiry.appliedDate
+      ? new Date(enquiry.appliedDate).toDateString()
+      : "N/A";
+
+    const dueDate = enquiry.dueDate
+      ? new Date(enquiry.dueDate).toDateString()
+      : "N/A";
 
     // ===== Title =====
     doc.fontSize(18).text("Solar Enquiry Document", 50, 40, {
@@ -287,18 +386,16 @@ export async function downloadEnquiryPDF(req, res) {
 
     doc.moveDown(2);
 
-    // ===== Top Left & Right =====
     const y = doc.y;
 
     doc.fontSize(11).text(`Order ID : ${enquiry._id}`, 50, y);
     doc.text(`Customer ID : ${enquiry.customer}`, 50, y + 15);
 
-    doc.text(`Applied Date : ${enquiry.appliedDate.toDateString()}`, 350, y);
-    doc.text(`Issue Date : ${enquiry.dueDate.toDateString()}`, 350, y + 15);
+    doc.text(`Applied Date : ${appliedDate}`, 350, y);
+    doc.text(`Issue Date : ${dueDate}`, 350, y + 15);
 
     doc.moveDown(3);
 
-    // ===== Enquiry Details Heading (Center) =====
     doc.fontSize(13).text("Enquiry Details", 50, doc.y, {
       align: "center",
       underline: true,
@@ -307,7 +404,6 @@ export async function downloadEnquiryPDF(req, res) {
 
     doc.moveDown(1);
 
-    // ===== Centered 2-Column Table =====
     const tableWidth = 300;
     const startX = (doc.page.width - tableWidth) / 2;
     let rowY = doc.y;
@@ -319,20 +415,18 @@ export async function downloadEnquiryPDF(req, res) {
       ["Enquiry Type", enquiry.enquiryType],
       ["System Type", enquiry.systemType],
       ["Capacity", enquiry.capacity],
-
       ["Roof Type", enquiry.roofType || "-"],
-      ["Status", enquiry.status],
+      ["Status", enquiry.status || "-"],
     ];
 
     rows.forEach(([label, value]) => {
       doc.fontSize(11).text(label, startX, rowY, { width: 180 });
-      doc.text(value, startX + 200, rowY, { width: 200 });
+      doc.text(String(value), startX + 200, rowY, { width: 200 });
       rowY += 22;
     });
 
     doc.y = rowY + 20;
 
-    // ===== Declaration (Perfect Center) =====
     doc.fontSize(13).text("Declaration", 50, doc.y, {
       align: "center",
       underline: true,
@@ -344,20 +438,17 @@ export async function downloadEnquiryPDF(req, res) {
     doc
       .fontSize(11)
       .text(
-        "I hereby declare that the above furnished enquiry details are true and correct to the best of my knowledge. I agree to proceed further based on the information provided in this document.",
+        "I hereby declare that the above furnished enquiry details are true and correct to the best of my knowledge.",
         50,
         doc.y,
-        {
-          align: "center",
-          width: pageWidth,
-        },
+        { align: "center", width: pageWidth },
       );
 
-    doc.moveDown(2);
-
-    doc.end();
+    doc.end(); // ✅ ONLY THIS
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "PDF generation failed" });
+    console.error("PDF Error:", err);
+    if (!res.headersSent) {
+      res.status(500).json({ msg: "PDF generation failed" });
+    }
   }
 }

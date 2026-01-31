@@ -1,3 +1,210 @@
+// import React, { useEffect, useState } from "react";
+// import {
+//   Table,
+//   Button,
+//   Input,
+//   Space,
+//   Modal,
+//   Form,
+//   DatePicker,
+//   Select,
+// } from "antd";
+// import Api from "../../Api";
+// import dayjs from "dayjs";
+// import { Popconfirm } from "antd";
+
+// const { Option } = Select;
+
+// function User() {
+//   const [users, setUsers] = useState([]);
+//   const [searchText, setSearchText] = useState("");
+//   const [editUser, setEditUser] = useState(null);
+//   const [showOther, setShowOther] = useState(false);
+//   const [form] = Form.useForm();
+
+//   useEffect(() => {
+//     fetchUsers();
+//   }, []);
+
+//   const fetchUsers = async () => {
+//     const res = await Api.get("/all-users");
+//     setUsers(res.data);
+//   };
+
+//   const handleDelete = async (id) => {
+//     await Api.delete(`/delete-user/${id}`);
+//     fetchUsers();
+//   };
+
+//   const handleEdit = (record) => {
+//     setEditUser(record);
+//     setShowOther(record.referrer === "Other");
+
+//     form.setFieldsValue({
+//       ...record,
+//       dob: dayjs(record.dob),
+//     });
+//   };
+
+//   const handleUpdate = async () => {
+//     const values = await form.validateFields();
+
+//     const payload = {
+//       ...values,
+//       dob: values.dob.format("YYYY-MM-DD"),
+//       referrerDetails:
+//         values.referrer === "Other" ? values.referrerDetails : "",
+//     };
+
+//     await Api.put(`/update-user/${editUser._id}`, payload);
+//     setEditUser(null);
+//     fetchUsers();
+//   };
+
+//   const filteredData = users.filter(
+//     (u) =>
+//       u.name.toLowerCase().includes(searchText.toLowerCase()) ||
+//       u.phone.includes(searchText),
+//   );
+
+//   const columns = [
+//     { title: "Name", dataIndex: "name" },
+//     { title: "Email", dataIndex: "email" },
+//     {
+//       title: "DOB",
+//       dataIndex: "dob",
+//       render: (dob) => dayjs(dob).format("YYYY-MM-DD"),
+//     },
+//     { title: "Phone", dataIndex: "phone" },
+//     {
+//       title: "Referrer",
+//       dataIndex: "referrer",
+//       render: (_, record) => {
+//         if (record.referrer === "Other") {
+//           return (
+//             <span>
+//               <b>Other</b>
+//               {record.referrerDetails ? ` (${record.referrerDetails})` : ""}
+//             </span>
+//           );
+//         }
+//         return record.referrer;
+//       },
+//     },
+
+//     {
+//       title: "Action",
+//       render: (_, record) => (
+//         <Space>
+//           <Button type="primary" onClick={() => handleEdit(record)}>
+//             Edit
+//           </Button>
+
+//           <Popconfirm
+//             title="Delete User"
+//             description="Are you sure you want to delete this user?"
+//             onConfirm={() => handleDelete(record._id)}
+//             okText="Yes"
+//             cancelText="No"
+//           >
+//             <Button danger>Delete</Button>
+//           </Popconfirm>
+//         </Space>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <div
+//       style={{
+//         width: "100%",
+//         maxWidth: "100%",
+//         overflowX: "auto", // 👈 tablet la scroll allow
+//         padding: "10px",
+//       }}
+//     >
+//       <h2
+//         style={{
+//           marginBottom: "20px",
+//           display: "flex",
+//           justifyContent: "center",
+//           fontSize: "22px",
+//           fontWeight: "bold",
+//         }}
+//       >
+//         Customer List
+//       </h2>
+
+//       <div
+//         style={{
+//           display: "flex",
+//           justifyContent: "center",
+//           marginBottom: 15,
+//         }}
+//       >
+//         <Input
+//           placeholder="Search by Name or Phone"
+//           style={{ width: 300, marginLeft: "auto" }}
+//           onChange={(e) => setSearchText(e.target.value)}
+//         />
+//       </div>
+
+//       <Table
+//         columns={columns}
+//         dataSource={filteredData}
+//         rowKey="_id"
+//         pagination={{ pageSize: 5 }}
+//         scroll={{ x: "max-content" }}
+//       />
+
+//       <Modal
+//         title="Edit User"
+//         open={!!editUser}
+//         onOk={handleUpdate}
+//         onCancel={() => setEditUser(null)}
+//       >
+//         <Form form={form} layout="vertical">
+//           <Form.Item name="name" label="Name">
+//             <Input />
+//           </Form.Item>
+
+//           <Form.Item name="email" label="Email">
+//             <Input />
+//           </Form.Item>
+
+//           <Form.Item name="dob" label="DOB">
+//             <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
+//           </Form.Item>
+
+//           <Form.Item name="phone" label="Phone">
+//             <Input />
+//           </Form.Item>
+
+//           <Form.Item name="referrer" label="Referrer">
+//             <Select onChange={(val) => setShowOther(val === "Other")}>
+//               <Option value="Instagram">Instagram</Option>
+//               <Option value="Facebook">Facebook</Option>
+//               <Option value="Twitter">Twitter</Option>
+//               <Option value="Youtube">Youtube</Option>
+//               <Option value="Other">Other</Option>
+//             </Select>
+//           </Form.Item>
+
+//           {showOther && (
+//             <Form.Item
+//               name="referrerDetails"
+//               label="Other Referrer (Name / Phone)"
+//             >
+//               <Input placeholder="Enter person name or phone number" />
+//             </Form.Item>
+//           )}
+//         </Form>
+//       </Modal>
+//     </div>
+//   );
+// }
+
+// export default User;
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -8,10 +215,11 @@ import {
   Form,
   DatePicker,
   Select,
+  message,
+  Popconfirm,
 } from "antd";
 import Api from "../../Api";
 import dayjs from "dayjs";
-import { Popconfirm } from "antd";
 
 const { Option } = Select;
 
@@ -20,6 +228,7 @@ function User() {
   const [searchText, setSearchText] = useState("");
   const [editUser, setEditUser] = useState(null);
   const [showOther, setShowOther] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); // modal state
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -27,8 +236,12 @@ function User() {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await Api.get("/all-users");
-    setUsers(res.data);
+    try {
+      const res = await Api.get("/all-users");
+      setUsers(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -36,29 +249,53 @@ function User() {
     fetchUsers();
   };
 
+  const openCreateModal = () => {
+    setEditUser(null); // reset edit user
+    setShowOther(false);
+    form.resetFields();
+    setModalVisible(true);
+  };
+
   const handleEdit = (record) => {
     setEditUser(record);
-    setShowOther(record.referrer === "Other");
+    // Show referrerDetails field if referrer is Other or referrerDetails exists
+    setShowOther(record.referrer === "Other" || !!record.referrerDetails);
 
     form.setFieldsValue({
       ...record,
       dob: dayjs(record.dob),
+      password: "", // don't fill password when editing
     });
+    setModalVisible(true);
   };
 
-  const handleUpdate = async () => {
-    const values = await form.validateFields();
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      const payload = {
+        ...values,
+        dob: values.dob.format("YYYY-MM-DD"),
+        referrerDetails:
+          values.referrer === "Other" || values.referrerDetails
+            ? values.referrerDetails
+            : "",
+      };
 
-    const payload = {
-      ...values,
-      dob: values.dob.format("YYYY-MM-DD"),
-      referrerDetails:
-        values.referrer === "Other" ? values.referrerDetails : "",
-    };
+      if (editUser) {
+        await Api.put(`/update-user/${editUser._id}`, payload);
+        message.success("User updated successfully");
+      } else {
+        await Api.post("/user/register", payload);
+        message.success("User created successfully");
+      }
 
-    await Api.put(`/update-user/${editUser._id}`, payload);
-    setEditUser(null);
-    fetchUsers();
+      setModalVisible(false);
+      setEditUser(null);
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      message.error("user already exit");
+    }
   };
 
   const filteredData = users.filter(
@@ -68,6 +305,7 @@ function User() {
   );
 
   const columns = [
+    { title: "CustomerID", dataIndex: "_id" },
     { title: "Name", dataIndex: "name" },
     { title: "Email", dataIndex: "email" },
     {
@@ -79,19 +317,13 @@ function User() {
     {
       title: "Referrer",
       dataIndex: "referrer",
-      render: (_, record) => {
-        if (record.referrer === "Other") {
-          return (
-            <span>
-              <b>Other</b>
-              {record.referrerDetails ? ` (${record.referrerDetails})` : ""}
-            </span>
-          );
-        }
-        return record.referrer;
-      },
+      render: (_, record) => (
+        <span>
+          {record.referrer}
+          {record.referrerDetails ? ` (${record.referrerDetails})` : ""}
+        </span>
+      ),
     },
-
     {
       title: "Action",
       render: (_, record) => (
@@ -119,7 +351,7 @@ function User() {
       style={{
         width: "100%",
         maxWidth: "100%",
-        overflowX: "auto", // 👈 tablet la scroll allow
+        overflowX: "auto",
         padding: "10px",
       }}
     >
@@ -138,13 +370,17 @@ function User() {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           marginBottom: 15,
         }}
       >
+        <Button type="primary" onClick={openCreateModal}>
+          Create User
+        </Button>
+
         <Input
           placeholder="Search by Name or Phone"
-          style={{ width: 300, marginLeft: "auto" }}
+          style={{ width: 300 }}
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
@@ -158,26 +394,69 @@ function User() {
       />
 
       <Modal
-        title="Edit User"
-        open={!!editUser}
-        onOk={handleUpdate}
-        onCancel={() => setEditUser(null)}
+        title={editUser ? "Edit User" : "Create User"}
+        open={modalVisible}
+        onOk={handleSave}
+        onCancel={() => setModalVisible(false)}
       >
         <Form form={form} layout="vertical">
-          <Form.Item name="name" label="Name">
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: "Please enter name" }]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item name="email" label="Email">
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[{ required: true, message: "Please enter email" }]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item name="dob" label="DOB">
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: !editUser,
+                message: "Please enter password",
+              },
+            ]}
+          >
+            <Input type="password" />
+          </Form.Item>
+
+          <Form.Item
+            name="dob"
+            label="DOB"
+            rules={[{ required: true, message: "Please select DOB" }]}
+          >
             <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
           </Form.Item>
 
-          <Form.Item name="phone" label="Phone">
+          <Form.Item
+            name="phone"
+            label="Phone"
+            rules={[
+              { required: true, message: "Please enter phone" },
+              { pattern: /^[0-9]{10}$/, message: "Phone must be 10 digits" },
+            ]}
+          >
             <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              { required: !editUser, message: "Please enter password" },
+              { min: 6, message: "Password must be at least 6 characters" },
+            ]}
+          >
+            <Input type="password" />
           </Form.Item>
 
           <Form.Item name="referrer" label="Referrer">
@@ -190,7 +469,7 @@ function User() {
             </Select>
           </Form.Item>
 
-          {showOther && (
+          {(showOther || form.getFieldValue("referrerDetails")) && (
             <Form.Item
               name="referrerDetails"
               label="Other Referrer (Name / Phone)"

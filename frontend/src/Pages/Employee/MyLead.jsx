@@ -431,11 +431,11 @@ function MyLead() {
 
           <Form.Item name="enquiryType" label="Enquiry Type">
             <Select>
-              <Option value="  New Solar Power Plan Installation">
-                New Solar Power Plan Installation
+              <Option value="  New Solar Power Plant Installation">
+                New Solar Power Plant Installation
               </Option>
-              <Option value="  Solar Power Plan Service">
-                Solar Power Plan Service
+              <Option value="  Solar Power Plant Service">
+                Solar Power Plant Service
               </Option>
               <Option value="Operation & Maintanence Service">
                 Operation & Maintanence Service

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   adminLogin,
+  assignEmployeeByAdmin,
   createEmployee,
   deleteEmployee,
   getAllEmployees,
@@ -24,4 +25,6 @@ router.get("/getemployeecount", getEmployeeCount);
 
 router.get("/employee-work-summary", getEmployeeWorkSummary);
 
+//assign work
+router.post("/assign-enquiry", assignEmployeeByAdmin);
 export default router;

@@ -1,19 +1,45 @@
 import User from "../model/UserModel.js";
 import bcrypt from "bcryptjs";
+import Counter from "../model/CounterModel.js";
+import xlsx from "xlsx";
 // import Employee from "../model/employeeModel.js";
 import nodemailer from "nodemailer";
+import { promises as fs } from "fs";
 
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, dob, phone, role, referrer } = req.body; // include dob and phone
+    const {
+      name,
+      email,
+      password,
+      dob,
+      phone,
+      role,
+      referrer,
+      referrerDetails,
+    } = req.body; // include dob and phone
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ msg: "User already exists" });
     }
+    // Check if phone already exists
+    const existingPhone = await User.findOne({ phone });
+    if (existingPhone) {
+      return res.status(400).json({ msg: "Phone number already exists" });
+    }
+
+    // 🔥 AUTO INCREMENT
+    const counter = await Counter.findOneAndUpdate(
+      { name: "leadId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true },
+    );
+
+    const leadId = `4MSolarLead${String(counter.seq).padStart(2, "0")}`;
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
@@ -24,11 +50,13 @@ export const register = async (req, res) => {
     //   employees[Math.floor(Math.random() * employees.length)];
     // Create new user
     const newUser = new User({
+      leadId,
       name,
       email,
       dob, // <<< add this
       phone,
       referrer,
+      referrerDetails,
       password: hashedPassword,
       role: "user",
       // assignedTo: assignedEmployee._id,
@@ -36,7 +64,11 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json({ msg: "User registered successfully" });
+    res.status(201).json({
+      msg: "User registered successfully",
+      leadId,
+      user: newUser, // <--- this contains name, email, dob, phone, referrer, referrerDetails, _id, etc.
+    });
   } catch (err) {
     console.error("Register Error:", err.message);
     res.status(500).json({ msg: "Server error" });
@@ -72,6 +104,7 @@ export const login = async (req, res) => {
       token,
       user: {
         id: user._id,
+        leadId: user.leadId,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -217,5 +250,102 @@ export const resetPasswordWithOtp = async (req, res) => {
   } catch (err) {
     console.error("Error in resetPasswordWithOtp:", err);
     res.status(500).json({ msg: "Server error" });
+  }
+};
+// UserController.js
+export const uploadUsersFromExcel = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ msg: "No Excel file uploaded" });
+    }
+
+    // Multer-ஆ upload ஆன file-ஐ படி
+    const workbook = xlsx.readFile(req.file.path);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const rows = xlsx.utils.sheet_to_json(sheet);
+
+    let success = 0;
+    let failed = [];
+
+    for (let row of rows) {
+      // column names case-sensitive ஆக இருக்கலாம் → lowercase ஆக்கி எடு (safe)
+      const data = {
+        name: row.name || row.Name || "",
+        email: row.email || row.Email || "",
+        phone: String(row.phone || row.Phone || ""),
+        dob: row.dob || row.DOB || row.dateOfBirth || "",
+        password: row.password || row.Password || "",
+        referrer: row.referrer || row.Referrer || "Other",
+        referrerDetails: row.referrerDetails || row.ReferrerDetails || "",
+      };
+
+      if (!data.name || !data.email || !data.phone) {
+        failed.push({ row, reason: "Missing name, email or phone" });
+        continue;
+      }
+
+      // phone-ஐ string ஆகவே வை (leading zero issue வராம)
+      data.phone = data.phone.trim();
+
+      let user = await User.findOne({
+        $or: [{ email: data.email }, { phone: data.phone }],
+      });
+
+      const hashedPassword = data.password
+        ? await bcrypt.hash(data.password.toString(), 10)
+        : await bcrypt.hash("welcome123", 10);
+
+      let dobParsed = null;
+      if (data.dob) {
+        dobParsed = new Date(data.dob);
+        if (isNaN(dobParsed)) dobParsed = null;
+      }
+
+      if (user) {
+        // update
+        user.name = data.name || user.name;
+        user.phone = data.phone || user.phone;
+        user.dob = dobParsed || user.dob;
+        user.referrer = data.referrer || user.referrer;
+        user.referrerDetails = data.referrerDetails || user.referrerDetails;
+        user.password = hashedPassword; // ← optional – புது password இருந்தா மட்டும் மாத்து
+        await user.save();
+      } else {
+        // create new
+        const counter = await Counter.findOneAndUpdate(
+          { name: "leadId" },
+          { $inc: { seq: 1 } },
+          { new: true, upsert: true },
+        );
+
+        const leadId = `4MSolarLead${String(counter.seq).padStart(4, "0")}`; // 0001, 0002 style
+
+        await User.create({
+          leadId,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          dob: dobParsed,
+          referrer: data.referrer,
+          referrerDetails: data.referrerDetails,
+          password: hashedPassword,
+          role: "user",
+        });
+      }
+
+      success++;
+    }
+    await fs.unlink(req.file.path).catch(() => {});
+
+    res.status(200).json({
+      message: "Excel processing completed",
+      successCount: success,
+      failedCount: failed.length,
+      failedRows: failed,
+    });
+  } catch (err) {
+    console.error("Excel upload error:", err);
+    res.status(500).json({ msg: "Server error while processing excel" });
   }
 };

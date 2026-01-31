@@ -33,7 +33,7 @@ function Leads() {
       const res = await Api.get(`/enquiry/getcustomerenquiries/${userId}`);
 
       const onlySolarPlan = res.data.filter(
-        (enq) => enq.enquiryType === "New Solar Power Plan Installation",
+        (enq) => enq.enquiryType === "New Solar Power Plant Installation",
       );
 
       setEnquiries(onlySolarPlan);
@@ -176,7 +176,7 @@ function Leads() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2 className="front-title">New Solar Power Plan Installation</h2>
+      <h2 className="front-title">New Solar Power Plant Installation</h2>
 
       <div className="filter-create-wrapper">
         {/* Status Filter */}

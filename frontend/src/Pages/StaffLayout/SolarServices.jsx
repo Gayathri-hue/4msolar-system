@@ -33,7 +33,7 @@ function SolarServices() {
       const res = await Api.get(`/enquiry/getcustomerenquiries/${userId}`);
 
       const onlySolarPlan = res.data.filter(
-        (enq) => enq.enquiryType === "Solar Power Plan Service",
+        (enq) => enq.enquiryType === "Solar Power Plant Service",
       );
 
       setEnquiries(onlySolarPlan);
@@ -155,7 +155,7 @@ function SolarServices() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2 className="front-title">Solar Power Plan Service</h2>
+      <h2 className="front-title">Solar Power Plant Service</h2>
 
       <div className="filter-create-wrapper">
         {/* Status Filter */}

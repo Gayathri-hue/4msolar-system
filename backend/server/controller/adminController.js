@@ -186,3 +186,22 @@ export const getEmployeeWorkSummary = async (req, res) => {
     res.status(500).json({ msg: "Server Error" });
   }
 };
+
+export const assignEmployeeByAdmin = async (req, res) => {
+  try {
+    const { enquiryId, employeeId, dueDate } = req.body;
+
+    const enquiry = await enquiryfromModel.findById(enquiryId);
+    if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
+
+    enquiry.assignedEmployee = employeeId;
+    enquiry.dueDate = dueDate;
+    enquiry.status = "Assigned";
+
+    await enquiry.save();
+
+    res.json({ msg: "Employee assigned successfully" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server Error" });
+  }
+};

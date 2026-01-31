@@ -13,8 +13,8 @@ const { Title, Paragraph } = Typography;
 function HomePage() {
   const [index, setIndex] = useState(0);
   const services = [
-    "New Solar Power Plan Installation",
-    "Solar Power Plan Service",
+    "New Solar Power Plant Installation",
+    "Solar Power Plant Service",
     "Operation & Maintanence Service",
   ];
 

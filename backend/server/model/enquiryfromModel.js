@@ -16,8 +16,8 @@ const enquirySchema = new mongoose.Schema(
     enquiryType: {
       type: String,
       enum: [
-        "New Solar Power Plan Installation",
-        "Solar Power Plan Service",
+        "New Solar Power Plant Installation",
+        "Solar Power Plant Service",
         "Operation & Maintanence Service",
       ],
       required: true,

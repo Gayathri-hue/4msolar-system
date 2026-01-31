@@ -309,11 +309,11 @@
 
 //           <Form.Item name="enquiryType" label="Enquiry Type">
 //             <Select>
-//               <Option value="  New Solar Power Plan Installation">
-//                 New Solar Power Plan Installation
+//               <Option value="  New Solar Power Plant Installation">
+//                 New Solar Power Plant Installation
 //               </Option>
-//               <Option value="  Solar Power Plan Service">
-//                 Solar Power Plan Service
+//               <Option value="  Solar Power Plant Service">
+//                 Solar Power Plant Service
 //               </Option>
 //               <Option value="Operation & Maintanence Service">
 //                 Operation & Maintanence Service
@@ -366,13 +366,13 @@ function CustomerEnquiry() {
   const [searchText, setSearchText] = useState("");
   const [editEnquiry, setEditEnquiry] = useState(null);
   const [selectedType, setSelectedType] = useState(
-    "New Solar Power Plan Installation",
+    "New Solar Power Plant Installation",
   );
   const [form] = Form.useForm();
 
   const enquiryTypes = [
-    "New Solar Power Plan Installation",
-    "Solar Power Plan Service",
+    "New Solar Power Plant Installation",
+    "Solar Power Plant Service",
     "Operation & Maintanence Service",
   ];
 
@@ -516,9 +516,9 @@ function CustomerEnquiry() {
   ];
 
   let dynamicCols = [];
-  if (selectedType === "New Solar Power Plan Installation")
+  if (selectedType === "New Solar Power Plant Installation")
     dynamicCols = installCols;
-  else if (selectedType === "Solar Power Plan Service")
+  else if (selectedType === "Solar Power Plant Service")
     dynamicCols = serviceCols;
   else dynamicCols = maintenanceCols;
 
@@ -648,7 +648,7 @@ function CustomerEnquiry() {
           </Form.Item>
 
           {/* Only for New Solar Installation */}
-          {selectedType === "New Solar Power Plan Installation" && (
+          {selectedType === "New Solar Power Plant Installation" && (
             <>
               <Form.Item name="ebServiceNo" label="EB Service No">
                 <Input />
@@ -675,7 +675,7 @@ function CustomerEnquiry() {
           )}
 
           {/* Only for Solar Service */}
-          {selectedType === "Solar Power Plan Service" && (
+          {selectedType === "Solar Power Plant Service" && (
             <>
               <Form.Item name="issueDescription" label="Issue Description">
                 <Input.TextArea rows={3} />

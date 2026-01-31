@@ -50,19 +50,29 @@ const AdminLayout = () => {
       </NavLink>
       <NavLink to="users" onClick={closeDrawer}>
         <UserOutlined /> <span>Customers</span>
+      </NavLink>{" "}
+      <NavLink to="upload-excel" onClick={closeDrawer}>
+        <TeamOutlined /> <span>Upload User(EXcel)</span>
       </NavLink>
       <NavLink to="employee" onClick={closeDrawer}>
         <TeamOutlined /> <span>Employees</span>
+      </NavLink>
+      <NavLink to="create-customer-enquiry" onClick={closeDrawer}>
+        <FormOutlined />
+        <span>Create Customer Enquiry</span>
       </NavLink>
       <NavLink to="enquriyform" onClick={closeDrawer}>
         <FormOutlined />
         <span>Customer Enquiry Form</span>
       </NavLink>
+      <NavLink to="assign-work" onClick={closeDrawer}>
+        <FileWordOutlined />
+        <span>Assign Task</span>
+      </NavLink>
       <NavLink to="employeework" onClick={closeDrawer}>
         <FileWordOutlined />
         <span>Employee Leads</span>
       </NavLink>
-
       {/* You can add more links here */}
     </>
   );

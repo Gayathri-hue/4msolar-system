@@ -10,8 +10,10 @@ import {
   resendOtp,
   resetPasswordWithOtp,
   updateUser,
+  uploadUsersFromExcel,
 } from "../controller/UserController.js";
 import verifyToken from "../controller/middleware.js";
+import { upload } from "../middleware/upload.js";
 
 const router = Router();
 
@@ -29,4 +31,9 @@ router.post("/send-otp-email", resendOtp);
 // Reset password
 router.post("/reset-password", resetPasswordWithOtp);
 
+router.post(
+  "/admin/upload-users",
+  upload.single("users"), // frontend form-data key = "users"
+  uploadUsersFromExcel,
+);
 export default router;

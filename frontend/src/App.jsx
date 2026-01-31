@@ -29,9 +29,13 @@ import PostEnquiryForm from "./Pages/StaffLayout/PostEnquiryForm";
 import Followup from "./Pages/StaffLayout/Followup";
 import OurServices from "./Pages/OurServices";
 import AboutUs from "./Pages/AboutUs";
-import GetQuote from "./Pages/GetQuote";
 import SolarServices from "./Pages/StaffLayout/SolarServices";
 import OperationMaintanence from "./Pages/StaffLayout/OperationMaintanence";
+import AssignWork from "./Pages/Admin/AssignWork";
+import Upload from "./Pages/Admin/Upload";
+
+import CreateCustomerEnquiry from "./Pages/Admin/CreateCustomerEnquiry";
+import ServiceRequest from "./Pages/StaffLayout/ServiceRequest";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo }) => {
@@ -60,7 +64,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/ourservices" element={<OurServices />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/getquote" element={<GetQuote />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
@@ -78,6 +81,13 @@ function App() {
             <Route path="employee" element={<Employee />} />
             <Route path="enquriyform" element={<CustomerEnquiryForm />} />
             <Route path="employeework" element={<EmployeeWork />} />
+            <Route path="assign-work" element={<AssignWork />} />
+            <Route path="upload-excel" element={<Upload />} />
+
+            <Route
+              path="create-customer-enquiry"
+              element={<CreateCustomerEnquiry />}
+            />
           </Route>
         </Route>
 
@@ -113,6 +123,7 @@ function App() {
 
             <Route path="postform" element={<PostEnquiryForm />} />
             <Route path="trackstatus" element={<TrackStatus />} />
+            <Route path="service-request" element={<ServiceRequest />} />
           </Route>
         </Route>
         {/* 

@@ -1,168 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { Outlet, NavLink, useNavigate } from "react-router-dom";
-// import {
-//   UserOutlined,
-//   LogoutOutlined,
-//   MenuOutlined,
-//   CloseOutlined,
-//   SwapOutlined,
-//   MenuUnfoldOutlined,
-//   AppstoreOutlined,
-// } from "@ant-design/icons";
-// import "../../styles/Admin/Admin.scss";
-// import "../../styles/layouts/StaffLayout.scss";
-// import { Avatar, Modal } from "antd";
-// import logo from "../../../public/Image/4m logo.webp";
-
-// function StaffLayout() {
-//   const navigate = useNavigate();
-//   const [collapsed, setCollapsed] = useState(false);
-//   const [drawerVisible, setDrawerVisible] = useState(false);
-
-//   const [user, setUser] = useState({
-//     id: null,
-//     name: null,
-//     email: null,
-//   });
-
-//   useEffect(() => {
-//     setUser({
-//       id: localStorage.getItem("UserID"),
-//       name: localStorage.getItem("name"),
-//       email: localStorage.getItem("email"),
-//     });
-//   }, []);
-
-//   const handleLogout = () => {
-//     Modal.confirm({
-//       title: "Confirm Logout",
-//       content: "Are you sure you want to logout?",
-//       okText: "Yes",
-//       cancelText: "No",
-//       onOk: () => {
-//         localStorage.clear();
-//         navigate("/");
-//       },
-//     });
-//   };
-
-//   useEffect(() => {
-//     const handleBackButton = (e) => {
-//       if (user?.id) {
-//         e.preventDefault();
-//         e.returnValue = ""; // Chrome requires this to trigger the confirmation
-//       }
-//     };
-//     window.addEventListener("beforeunload", handleBackButton);
-
-//     return () => window.removeEventListener("beforeunload", handleBackButton);
-//   }, [user]);
-
-//   const toggleSidebar = () => {
-//     if (window.innerWidth <= 992) {
-//       setDrawerVisible(!drawerVisible);
-//     } else {
-//       setCollapsed(!collapsed);
-//     }
-//   };
-
-//   const closeDrawer = () => setDrawerVisible(false);
-
-//   const sidebarMenu = (
-//     <>
-//       <div className="sidebar-profile">
-//         <Avatar
-//           size={72}
-//           icon={<UserOutlined />}
-//           style={{
-//             border: "3px solid #1677ff",
-//             backgroundColor: "#1677ff",
-//             color: "#fff",
-//             marginBottom: 8,
-//           }}
-//         />
-//         <div className="profile-name ">{user.name}</div>
-//         <div className="profile-name ">{user.email}</div>
-//         <br />
-//         <div className="profile-id ">
-//           Customer ID:<span>{user.id}</span>
-//         </div>
-//       </div>
-
-//       <NavLink to="dashboard" onClick={closeDrawer}>
-//         <AppstoreOutlined />
-//         <span>Dashboard</span>
-//       </NavLink>
-
-//       <NavLink to="enquiryform" onClick={closeDrawer}>
-//         <MenuUnfoldOutlined />
-//         <span>My Enquiry</span>
-//       </NavLink>
-
-//       <NavLink to="trackstatus" onClick={closeDrawer}>
-//         <SwapOutlined />
-//         <span>My Status</span>
-//       </NavLink>
-//     </>
-//   );
-
-//   return (
-//     <div className="admin-container">
-//       {/* Header */}
-//       <header className="admin-header">
-//         <div className="header-left">
-//           <MenuOutlined className="toggle-btn" onClick={toggleSidebar} />
-//           <img
-//             src={logo}
-//             alt="Logo"
-//             style={{ width: "40px", height: "40px" }}
-//             onClick={() => navigate("/")}
-//           />
-//           <h2>Customer Dashboard</h2>
-//         </div>
-//         <button className="logout-btn" onClick={handleLogout}>
-//           <LogoutOutlined /> Logout
-//         </button>
-//       </header>
-
-//       <div className="admin-body">
-//         {/* Desktop Sidebar */}
-//         <aside
-//           className={`admin-sidebar desktop-sidebar ${
-//             collapsed ? "collapsed" : ""
-//           }`}
-//         >
-//           {sidebarMenu}
-//         </aside>
-
-//         {/* Mobile Drawer */}
-//         <div
-//           className={`mobile-drawer-overlay ${drawerVisible ? "visible" : ""}`}
-//           onClick={closeDrawer}
-//         >
-//           <div
-//             className={`mobile-drawer ${drawerVisible ? "visible" : ""}`}
-//             onClick={(e) => e.stopPropagation()}
-//           >
-//             <div className="drawer-header">
-//               <h3>Menu</h3>
-//               <CloseOutlined className="close-btn" onClick={closeDrawer} />
-//             </div>
-//             {sidebarMenu}
-//           </div>
-//         </div>
-
-//         {/* Main Content */}
-//         <main className="admin-content">
-//           <Outlet />
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default StaffLayout;
-
 import React, { useEffect, useState } from "react";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -193,6 +28,7 @@ function StaffLayout() {
 
   const [user, setUser] = useState({
     id: null,
+    leadId: null,
     name: null,
     email: null,
   });
@@ -203,6 +39,7 @@ function StaffLayout() {
       id: localStorage.getItem("UserID"),
       name: localStorage.getItem("name"),
       email: localStorage.getItem("email"),
+      leadId: localStorage.getItem("leadId"),
     };
 
     if (!loggedUser.id) {
@@ -263,7 +100,7 @@ function StaffLayout() {
         <div className="user-profile-name ">{user.email}</div>
         <br />
         <div className="user-profile-id ">
-          Customer ID:<span>{user.id}</span>
+          Customer ID:<span>{user.leadId}</span>
         </div>
       </div>
       <NavLink to="dashboard" onClick={closeDrawer}>
@@ -298,7 +135,7 @@ function StaffLayout() {
           onClick={closeDrawer}
         >
           <PlusCircleOutlined />
-          <span>New Solar Power Plan Installation</span>
+          <span>New Solar Power Plant Installation</span>
         </NavLink>
 
         <NavLink
@@ -309,7 +146,7 @@ function StaffLayout() {
           onClick={closeDrawer}
         >
           <SwapOutlined />
-          <span>Solar Power Plan Service</span>
+          <span>Solar Power Plant Service</span>
         </NavLink>
 
         <NavLink
@@ -326,6 +163,10 @@ function StaffLayout() {
       <NavLink to="trackstatus" onClick={closeDrawer}>
         <SwapOutlined />
         <span className="menu-text">My Status</span>
+      </NavLink>
+      <NavLink to="service-request" onClick={closeDrawer}>
+        <SwapOutlined />
+        <span className="menu-text">Service Request</span>
       </NavLink>
     </>
   );
