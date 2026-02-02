@@ -355,6 +355,7 @@ import {
   Form,
   Select,
   message,
+  DatePicker,
 } from "antd";
 import Api from "../../Api";
 import dayjs from "dayjs";
@@ -421,6 +422,8 @@ function CustomerEnquiry() {
   // Common columns
   const commonCols = [
     { title: "Customer ID", dataIndex: "customer" },
+    { title: "Lead ID", dataIndex: "leadId" },
+
     { title: "Order ID", dataIndex: "_id" },
 
     { title: "Name", dataIndex: "fullName" },
@@ -606,6 +609,15 @@ function CustomerEnquiry() {
             <Input.TextArea rows={2} />
           </Form.Item>
 
+          <Form.Item name="dueDate" label="Due Date">
+            <DatePicker
+              style={{ width: "100%" }}
+              format="YYYY-MM-DD"
+              onChange={(date, dateString) => {
+                console.log("Selected due date:", dateString);
+              }}
+            />
+          </Form.Item>
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>

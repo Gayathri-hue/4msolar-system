@@ -155,6 +155,7 @@ export const getEmployeeWorkSummary = async (req, res) => {
       {
         $project: {
           name: 1,
+          employeeId: 1,
           phone: 1,
           email: 1,
           totalWorks: { $size: "$works" },
@@ -187,20 +188,99 @@ export const getEmployeeWorkSummary = async (req, res) => {
   }
 };
 
-export const assignEmployeeByAdmin = async (req, res) => {
+// // export const assignEmployeeByAdmin = async (req, res) => {
+// //   try {
+// //     const { enquiryId, employeeId, dueDate } = req.body;
+
+// //     const enquiry = await enquiryfromModel.findById(enquiryId);
+// //     if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
+
+// //     enquiry.assignedEmployee = employeeId;
+// //     enquiry.dueDate = dueDate;
+// //     enquiry.status = "Assigned";
+
+// //     await enquiry.save();
+
+// //     res.json({ msg: "Employee assigned successfully" });
+// //   } catch (err) {
+// //     res.status(500).json({ msg: "Server Error" });
+// //   }
+// // };
+
+// export const assignEmployeeByAdmin = async (req, res) => {
+//   try {
+//     const { enquiryId, employeeId, dueDate } = req.body;
+
+//     const enquiry = await enquiryfromModel.findById(enquiryId);
+//     if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
+
+//     // ✅ Already assigned check
+//     if (enquiry.assignedEmployee) {
+//       return res
+//         .status(400)
+//         .json({ msg: "This enquiry is already assigned to an employee" });
+//     }
+
+//     enquiry.assignedEmployee = employeeId;
+//     enquiry.dueDate = dueDate;
+//     enquiry.status = "Assigned";
+
+//     await enquiry.save();
+
+//     res.json({ msg: "Employee assigned successfully" });
+//   } catch (err) {
+//     res.status(500).json({ msg: "Server Error" });
+//   }
+// };
+
+export const setEnquiryAmount = async (req, res) => {
+  try {
+    const { enquiryId, amount } = req.body;
+
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ msg: "Valid amount required" });
+    }
+
+    const enquiry = await enquiryfromModel.findById(enquiryId);
+    if (!enquiry) {
+      return res.status(404).json({ msg: "Enquiry not found" });
+    }
+
+    enquiry.amount = amount;
+    enquiry.quotationStatus = "AMOUNT_SET";
+
+    await enquiry.save();
+
+    res.json({
+      msg: "Amount set successfully",
+      enquiry,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+export const assignOrReassignEmployeeByAdmin = async (req, res) => {
   try {
     const { enquiryId, employeeId, dueDate } = req.body;
 
     const enquiry = await enquiryfromModel.findById(enquiryId);
     if (!enquiry) return res.status(404).json({ msg: "Enquiry not found" });
 
+    const oldEmployeeId = enquiry.assignedEmployee;
+
     enquiry.assignedEmployee = employeeId;
-    enquiry.dueDate = dueDate;
+    enquiry.dueDate = dueDate || enquiry.dueDate;
     enquiry.status = "Assigned";
 
     await enquiry.save();
 
-    res.json({ msg: "Employee assigned successfully" });
+    const msg = oldEmployeeId
+      ? `Enquiry reassigned from employee ${oldEmployeeId} to ${employeeId}`
+      : "Employee assigned successfully";
+
+    res.json({ msg, enquiry });
   } catch (err) {
     res.status(500).json({ msg: "Server Error" });
   }

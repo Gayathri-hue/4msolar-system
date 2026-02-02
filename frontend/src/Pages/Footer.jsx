@@ -55,11 +55,11 @@ function Footer({ scrollToServices, scrollToAbout, scrollToContact }) {
                 <ArrowRightOutlined /> About Us
               </a>
             </li>
-            <li>
+            {/* <li>
               <a onClick={scrollToContact}>
                 <ArrowRightOutlined /> Get a Quote
               </a>
-            </li>
+            </li> */}
           </ul>
         </Col>
 

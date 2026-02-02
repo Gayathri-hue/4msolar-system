@@ -82,26 +82,27 @@ function SolarServices() {
   }, [statusFilter, enquiries]);
 
   const columns = [
-    { title: "Customer ID", dataIndex: "customer" },
+    // { title: "Customer ID", dataIndex: "customer" },
+    { title: "Customer ID", dataIndex: "leadId" },
     { title: "Order ID", dataIndex: "_id" },
     { title: "Name", dataIndex: "fullName" },
     { title: "Mobile", dataIndex: "mobile" },
-    { title: "Email", dataIndex: "email" },
-    { title: "Address", dataIndex: "address" },
+    // { title: "Email", dataIndex: "email" },
+    // { title: "Address", dataIndex: "address" },
     { title: "Enquiry Type", dataIndex: "enquiryType" },
-    { title: "Category", dataIndex: "category" },
-    { title: "Product Type", dataIndex: "productType" },
+    // { title: "Category", dataIndex: "category" },
+    // { title: "Product Type", dataIndex: "productType" },
 
-    { title: "System", dataIndex: "systemType" },
-    { title: "Capacity", dataIndex: "capacity" },
-    { title: "Roof Type", dataIndex: "roofType" },
-    { title: "Preferrred Time", dataIndex: "preferredTime" },
-    { title: "Preferred Date&Time", dataIndex: "preferredDateTime" },
+    // { title: "System", dataIndex: "systemType" },
+    // { title: "Capacity", dataIndex: "capacity" },
+    // { title: "Roof Type", dataIndex: "roofType" },
+    // { title: "Preferrred Time", dataIndex: "preferredTime" },
+    // { title: "Preferred Date&Time", dataIndex: "preferredDateTime" },
 
     { title: "Issue Description", dataIndex: "issueDescription" },
 
     { title: "Google Location", dataIndex: "googleLocation" },
-    { title: "Message", dataIndex: "message" },
+    // { title: "Message", dataIndex: "message" },
 
     {
       title: "Image",
@@ -129,13 +130,24 @@ function SolarServices() {
     {
       title: "Applied Date",
       dataIndex: "appliedDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short", // "Feb"
+          day: "numeric",
+        }),
     },
     {
-      title: "Delivered date",
+      title: "Delivered Date",
       dataIndex: "dueDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }),
     },
+
     {
       title: "Action",
       render: (_, record) => (

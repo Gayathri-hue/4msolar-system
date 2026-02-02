@@ -1,248 +1,379 @@
-.enquiry-track-wrapper {
-  padding: 24px 16px;
+// .enquiry-track-wrapper {
+//   padding: 24px 16px;
+//   max-width: 1400px;
+//   margin: 0 auto;
+//   min-height: calc(100vh - 140px);
+// }
+
+// .front-title {
+//   margin-bottom: 28px;
+//   text-align: center;
+
+//   h2 {
+//     margin: 0 0 8px;
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #111827;
+//   }
+
+//   .subtitle {
+//     margin: 0;
+//     color: #6b7280;
+//     font-size: 15px;
+//   }
+// }
+
+// .filter-bar {
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   gap: 16px;
+//   margin-bottom: 32px;
+//   padding: 12px 0;
+
+//   .refresh-btn {
+//     border: none !important;
+//     border-radius: 8px;
+//     padding: 0 20px;
+//     height: 42px;
+//     font-size: 15px;
+//     font-weight: 600;
+//     cursor: pointer;
+//     transition: all 0.25s ease;
+//     background: #3b82f6;
+//     color: white;
+
+//     &:hover {
+//       background: #2563eb;
+//       transform: translateY(-1px);
+//       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+//     }
+
+//     &:active {
+//       transform: translateY(0);
+//       box-shadow: none;
+//     }
+
+//     &::after {
+//       display: none !important;
+//     }
+
+//     &[disabled] {
+//       background: #d1d5db !important;
+//       color: #9ca3af !important;
+//       cursor: not-allowed;
+//     }
+//   }
+
+//   .status-select {
+//     min-width: 220px;
+//     max-width: 300px;
+//   }
+// }
+
+// .loading-center,
+// .empty-state {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 40vh;
+//   color: #6b7280;
+//   font-size: 16px;
+//   flex-direction: column;
+//   gap: 12px;
+// }
+
+// .empty-state {
+//   background: #f9fafb;
+//   border-radius: 12px;
+//   padding: 60px 20px;
+//   text-align: center;
+// }
+
+// .enquiries-grid {
+//   margin-top: 8px;
+// }
+
+// .enquiry-card {
+//   background: #ffffff;
+//   border-radius: 12px;
+//   overflow: hidden;
+//   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+//   border: 1px solid #e5e7eb;
+//   transition: all 0.25s ease;
+//   height: 100%;
+
+//   &:hover {
+//     transform: translateY(-6px);
+//     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+//     border-color: #cbd5e1;
+//   }
+// }
+
+// .card-top-section {
+//   padding: 16px 20px;
+//   background: linear-gradient(135deg, #f9fafb 0%, #f1f5f9 100%);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 12px;
+//   border-bottom: 1px solid #e5e7eb;
+
+//   h3 {
+//     margin: 0;
+//     font-size: 17px;
+//     font-weight: 600;
+//     color: #111827;
+//     line-height: 1.4;
+//     flex: 1;
+//   }
+// }
+
+// .enquiry-status-badge {
+//   font-size: 12px !important;
+//   padding: 4px 12px;
+//   border-radius: 999px;
+//   font-weight: 600;
+//   white-space: nowrap;
+// }
+
+// .enquiry-details {
+//   padding: 16px 20px;
+// }
+
+// .detail-row {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: baseline;
+//   margin-bottom: 10px;
+//   gap: 12px;
+//   flex-wrap: wrap;
+
+//   &:last-of-type {
+//     margin-bottom: 0;
+//   }
+// }
+
+// .detail-label {
+//   font-weight: 500;
+//   color: #6b7280;
+//   min-width: 110px;
+//   flex-shrink: 0;
+//   font-size: 14px;
+// }
+
+// .detail-value {
+//   flex: 1;
+//   text-align: right;
+//   color: #111827;
+//   font-weight: 400;
+//   word-break: break-word;
+//   hyphens: auto;
+//   font-size: 14px;
+// }
+
+// .dates-section {
+//   margin-top: 16px;
+//   padding-top: 16px;
+//   border-top: 1px dashed #d1d5db;
+
+//   .detail-row {
+//     margin-bottom: 8px;
+
+//     &:last-of-type {
+//       margin-bottom: 0;
+//     }
+//   }
+// }
+
+// @media (max-width: 1199px) {
+//   .front-title {
+//     text-align: left;
+//   }
+// }
+
+// @media (max-width: 991px) {
+//   .filter-bar {
+//     flex-direction: column;
+//     align-items: stretch;
+
+//     .status-select {
+//       width: 100%;
+//     }
+//   }
+
+//   .enquiry-details {
+//     padding: 14px 16px;
+//   }
+
+//   .detail-label {
+//     min-width: 100px;
+//   }
+// }
+
+// @media (max-width: 575px) {
+//   .enquiry-track-wrapper {
+//     padding: 16px 12px;
+//   }
+
+//   .front-title h2 {
+//     font-size: 22px;
+//   }
+
+//   .detail-row {
+//     flex-direction: column;
+//     align-items: flex-start;
+//     gap: 4px;
+//     margin-bottom: 12px;
+
+//     .detail-value {
+//       text-align: left;
+//     }
+//   }
+
+//   .dates-section .detail-row {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+
+//   .enquiry-card:hover {
+//     transform: none;
+//   }
+
+//   .filter-bar {
+//     .refresh-btn {
+//       width: 100%;
+//     }
+//   }
+// }
+
+.track-status-container {
+  padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
-  min-height: calc(100vh - 140px);
 }
 
-.front-title {
-  margin-bottom: 28px;
+.page-header {
+  margin-bottom: 32px;
   text-align: center;
 
-  h2 {
-    margin: 0 0 8px;
-    font-size: 26px;
-    font-weight: 700;
-    color: #111827;
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    color: #1a1a1a;
   }
-
-  .subtitle {
-    margin: 0;
-    color: #6b7280;
-    font-size: 15px;
+  p {
+    color: #666;
+    font-size: 1.1rem;
   }
 }
 
-.filter-bar {
+.filter-section {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   gap: 16px;
   margin-bottom: 32px;
-  padding: 12px 0;
-
-  .refresh-btn {
-    border: none !important;
-    border-radius: 8px;
-    padding: 0 20px;
-    height: 42px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    background: #3b82f6;
-    color: white;
-
-    &:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    &:active {
-      transform: translateY(0);
-      box-shadow: none;
-    }
-
-    &::after {
-      display: none !important;
-    }
-
-    &[disabled] {
-      background: #d1d5db !important;
-      color: #9ca3af !important;
-      cursor: not-allowed;
-    }
-  }
-
-  .status-select {
-    min-width: 220px;
-    max-width: 300px;
-  }
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.loading-center,
-.empty-state {
+.loading-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40vh;
-  color: #6b7280;
-  font-size: 16px;
-  flex-direction: column;
-  gap: 12px;
+  min-height: 50vh;
 }
 
 .empty-state {
-  background: #f9fafb;
-  border-radius: 12px;
-  padding: 60px 20px;
+  margin: 60px auto;
   text-align: center;
 }
 
-.enquiries-grid {
-  margin-top: 8px;
-}
-
 .enquiry-card {
-  background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
-  border: 1px solid #e5e7eb;
-  transition: all 0.25s ease;
-  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-    border-color: #cbd5e1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #1f1f1f;
+    }
+  }
+
+  .card-details {
+    margin-bottom: 20px;
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+
+    .label {
+      color: #555;
+      font-weight: 500;
+    }
+  }
+
+  .amount-section {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 16px 0;
+
+    .amount-label {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .amount-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2f54eb;
+    }
+  }
+
+  .download-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+
+    .ant-btn {
+      height: 42px;
+      font-weight: 500;
+    }
+
+    .ant-btn[disabled] {
+      opacity: 0.6;
+    }
   }
 }
 
-.card-top-section {
-  padding: 16px 20px;
-  background: linear-gradient(135deg, #f9fafb 0%, #f1f5f9 100%);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  border-bottom: 1px solid #e5e7eb;
-
-  h3 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 600;
-    color: #111827;
-    line-height: 1.4;
-    flex: 1;
-  }
-}
-
-.enquiry-status-badge {
-  font-size: 12px !important;
+.status-tag {
+  font-size: 0.9rem;
   padding: 4px 12px;
-  border-radius: 999px;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
-.enquiry-details {
-  padding: 16px 20px;
-}
-
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
-  gap: 12px;
-  flex-wrap: wrap;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-}
-
-.detail-label {
-  font-weight: 500;
-  color: #6b7280;
-  min-width: 110px;
-  flex-shrink: 0;
-  font-size: 14px;
-}
-
-.detail-value {
-  flex: 1;
-  text-align: right;
-  color: #111827;
-  font-weight: 400;
-  word-break: break-word;
-  hyphens: auto;
-  font-size: 14px;
-}
-
-.dates-section {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed #d1d5db;
-
-  .detail-row {
-    margin-bottom: 8px;
-
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-}
-
-@media (max-width: 1199px) {
-  .front-title {
-    text-align: left;
-  }
-}
-
-@media (max-width: 991px) {
-  .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
-
-    .status-select {
-      width: 100%;
-    }
-  }
-
-  .enquiry-details {
-    padding: 14px 16px;
-  }
-
-  .detail-label {
-    min-width: 100px;
-  }
-}
-
-@media (max-width: 575px) {
-  .enquiry-track-wrapper {
-    padding: 16px 12px;
-  }
-
-  .front-title h2 {
-    font-size: 22px;
-  }
-
-  .detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    margin-bottom: 12px;
-
-    .detail-value {
-      text-align: left;
-    }
-  }
-
-  .dates-section .detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .enquiry-card:hover {
-    transform: none;
-  }
-
-  .filter-bar {
-    .refresh-btn {
-      width: 100%;
-    }
-  }
+.enquiry-card.disabled {
+  cursor: not-allowed;
+  pointer-events: painted; // disable all click events inside
+  opacity: 0.6;
 }

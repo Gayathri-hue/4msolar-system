@@ -9,6 +9,7 @@ import {
   RadiusUprightOutlined,
   FormOutlined,
   WechatWorkOutlined,
+  WeiboOutlined,
 } from "@ant-design/icons";
 import "../../styles/Admin/Admin.scss";
 import { Modal } from "antd";
@@ -43,11 +44,75 @@ const EmployeeLayout = () => {
 
   const closeDrawer = () => setDrawerVisible(false);
 
+  // inside EmployeeLayout component
+  const employeeData = JSON.parse(localStorage.getItem("employeeData")) || {};
+
+  const sidebarProfile = (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "20px 10px",
+        borderBottom: "1px solid #eee",
+      }}
+    >
+      <div
+        style={{
+          width: "60px",
+          height: "60px",
+          margin: "0 auto 10px",
+          borderRadius: "50%",
+          backgroundColor: "#f0f0f0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "30px",
+          color: "#555",
+        }}
+      >
+        {employeeData.avatar ? (
+          <img
+            src={employeeData.avatar}
+            alt="Employee Avatar"
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+        ) : (
+          <UserOutlined style={{ fontSize: "30px" }} />
+        )}
+      </div>
+      <div>
+        <h4
+          style={{
+            margin: "0",
+            fontSize: "16px",
+            fontWeight: "bold",
+            wordWrap: "break-word",
+          }}
+        >
+          {employeeData.name || "Employee Name"}
+        </h4>
+        <p style={{ margin: "2px 0 0", fontSize: "14px", color: "#555" }}>
+          Employee ID: {employeeData.employeeId || "EMPXXX"}
+        </p>
+      </div>
+    </div>
+  );
+
   const sidebarContent = (
     <>
+      {sidebarProfile}
       <NavLink to="dashboard" onClick={closeDrawer}>
-        <RadiusUprightOutlined /> <span>Dashboard</span>
+        <RadiusUprightOutlined /> <span>Overview</span>
       </NavLink>
+      <NavLink to="followup" onClick={closeDrawer} className="menu-link">
+        <WeiboOutlined />
+        <span className="menu-text">Follow Up</span>
+      </NavLink>
+
       <NavLink to="mylead" onClick={closeDrawer}>
         <WechatWorkOutlined />
         <span>My Leads</span>

@@ -80,45 +80,46 @@ function OperationMaintanence() {
   }, [statusFilter, enquiries]);
 
   const columns = [
-    { title: "Customer ID", dataIndex: "customer" },
+    // { title: "Customer ID", dataIndex: "customer" },
+    { title: "Customer ID", dataIndex: "leadId" },
     { title: "Order ID", dataIndex: "_id" },
 
     { title: "Name", dataIndex: "fullName" },
-    { title: "Mobile", dataIndex: "mobile" },
-    { title: "Email", dataIndex: "email" },
-    { title: "Address", dataIndex: "address" },
+    // { title: "Mobile", dataIndex: "mobile" },
+    // { title: "Email", dataIndex: "email" },
+    // { title: "Address", dataIndex: "address" },
 
     { title: "Enquiry Type", dataIndex: "enquiryType" },
-    { title: "Category", dataIndex: "category" },
+    // { title: "Category", dataIndex: "category" },
 
-    { title: "System", dataIndex: "systemType" },
-    { title: "Capacity", dataIndex: "capacity" },
-    { title: "Roof Type", dataIndex: "roofType" },
+    // { title: "System", dataIndex: "systemType" },
+    // { title: "Capacity", dataIndex: "capacity" },
+    // { title: "Roof Type", dataIndex: "roofType" },
 
-    {
-      title: "Site Visit",
-      dataIndex: "siteVisit",
-      render: (value) => (value ? "Yes" : "No"),
-    },
+    // {
+    //   title: "Site Visit",
+    //   dataIndex: "siteVisit",
+    //   render: (value) => (value ? "Yes" : "No"),
+    // },
 
-    {
-      title: "Site Visit Date & Time",
-      dataIndex: "siteVisitDateTime",
-      render: (dateTime) =>
-        dateTime
-          ? new Date(dateTime).toLocaleString("en-IN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            })
-          : "Not Scheduled",
-    },
+    // {
+    //   title: "Site Visit Date & Time",
+    //   dataIndex: "siteVisitDateTime",
+    //   render: (dateTime) =>
+    //     dateTime
+    //       ? new Date(dateTime).toLocaleString("en-IN", {
+    //           day: "2-digit",
+    //           month: "2-digit",
+    //           year: "numeric",
+    //           hour: "2-digit",
+    //           minute: "2-digit",
+    //           hour12: true,
+    //         })
+    //       : "Not Scheduled",
+    // },
 
     { title: "Google Location", dataIndex: "googleLocation" },
-    { title: "Message", dataIndex: "message" },
+    // { title: "Message", dataIndex: "message" },
 
     {
       title: "Status",
@@ -133,13 +134,24 @@ function OperationMaintanence() {
     {
       title: "Applied Date",
       dataIndex: "appliedDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short", // "Feb"
+          day: "numeric",
+        }),
     },
     {
-      title: "Delivered date",
+      title: "Delivered Date",
       dataIndex: "dueDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }),
     },
+
     {
       title: "Action",
       render: (_, record) => (

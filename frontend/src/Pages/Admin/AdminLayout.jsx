@@ -9,6 +9,10 @@ import {
   RadiusUprightOutlined,
   FormOutlined,
   FileWordOutlined,
+  UpSquareOutlined,
+  FormatPainterOutlined,
+  ScheduleOutlined,
+  IssuesCloseOutlined,
 } from "@ant-design/icons";
 import "../../styles/Admin/Admin.scss";
 import { Modal } from "antd";
@@ -46,13 +50,13 @@ const AdminLayout = () => {
   const sidebarContent = (
     <>
       <NavLink to="dashboard" onClick={closeDrawer}>
-        <RadiusUprightOutlined /> <span>Dashboard</span>
+        <RadiusUprightOutlined /> <span>Overview</span>
       </NavLink>
       <NavLink to="users" onClick={closeDrawer}>
         <UserOutlined /> <span>Customers</span>
       </NavLink>{" "}
       <NavLink to="upload-excel" onClick={closeDrawer}>
-        <TeamOutlined /> <span>Upload User(EXcel)</span>
+        <UpSquareOutlined /> <span>Upload User(EXcel)</span>
       </NavLink>
       <NavLink to="employee" onClick={closeDrawer}>
         <TeamOutlined /> <span>Employees</span>
@@ -62,18 +66,21 @@ const AdminLayout = () => {
         <span>Create Customer Enquiry</span>
       </NavLink>
       <NavLink to="enquriyform" onClick={closeDrawer}>
-        <FormOutlined />
+        <FormatPainterOutlined />
         <span>Customer Enquiry Form</span>
       </NavLink>
       <NavLink to="assign-work" onClick={closeDrawer}>
-        <FileWordOutlined />
-        <span>Assign Task</span>
+        <ScheduleOutlined />
+        <span>Assign Task &Set Payment</span>
       </NavLink>
       <NavLink to="employeework" onClick={closeDrawer}>
         <FileWordOutlined />
         <span>Employee Leads</span>
       </NavLink>
-      {/* You can add more links here */}
+      <NavLink to="service-request" onClick={closeDrawer}>
+        <IssuesCloseOutlined />
+        <span>Service Request</span>
+      </NavLink>
     </>
   );
 

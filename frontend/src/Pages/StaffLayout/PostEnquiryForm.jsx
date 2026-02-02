@@ -502,12 +502,12 @@ function PostEnquiryForm() {
                     <Form.Item
                       name="googleLocation"
                       label="Current Location (Lat, Long)"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please allow location access",
-                        },
-                      ]}
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: "Please allow location access",
+                      //   },
+                      // ]}
                     >
                       <Input
                         placeholder="Click to get your current location"

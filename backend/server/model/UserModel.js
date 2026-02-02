@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema(
     referrerDetails: { type: String },
     role: {
       type: String,
-      default: "user", // default role
+      default: "user",
     },
 
     // OTP Fields
@@ -27,4 +27,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-export default mongoose.model("user", UserSchema);
+// export default mongoose.model("user", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
+
+export default User;

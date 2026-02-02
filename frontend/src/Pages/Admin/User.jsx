@@ -306,6 +306,7 @@ function User() {
 
   const columns = [
     { title: "CustomerID", dataIndex: "_id" },
+    { title: "Lead ID", dataIndex: "leadId" },
     { title: "Name", dataIndex: "name" },
     { title: "Email", dataIndex: "email" },
     {

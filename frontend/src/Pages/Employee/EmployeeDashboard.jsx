@@ -251,10 +251,17 @@ function EmployeeDashboard() {
                   data={barData}
                   options={{
                     responsive: true,
-                    maintainAspectRatio: false, // very important
+                    maintainAspectRatio: false, // keep your card/design size
                     scales: {
                       y: {
                         beginAtZero: true,
+                        ticks: {
+                          // Force integer values on Y-axis
+                          callback: function (value) {
+                            if (Number.isInteger(value)) return value;
+                          },
+                          stepSize: 1, // optional, ensures steps are 1 unit
+                        },
                       },
                     },
                   }}

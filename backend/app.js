@@ -7,6 +7,7 @@ import registerRouter from "./server/router/userrouter.js";
 import enquiryformrouter from "./server/router/enquiryformrouter.js";
 import adminrouter from "./server/router/adminrouter.js";
 import employeerouter from "./server/router/employeerouter.js";
+import complaintrouter from "./server/router/complaintrouter.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/admin", adminrouter);
 app.use("/api/employee", employeerouter);
 
 app.use("/api/enquiry", enquiryformrouter);
+app.use("/api/complaint", complaintrouter);
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 export default app;

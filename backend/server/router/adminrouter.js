@@ -1,12 +1,13 @@
 import express from "express";
 import {
   adminLogin,
-  assignEmployeeByAdmin,
+  assignOrReassignEmployeeByAdmin,
   createEmployee,
   deleteEmployee,
   getAllEmployees,
   getEmployeeCount,
   getEmployeeWorkSummary,
+  setEnquiryAmount,
   updateEmployee,
 } from "../controller/adminController.js";
 
@@ -26,5 +27,10 @@ router.get("/getemployeecount", getEmployeeCount);
 router.get("/employee-work-summary", getEmployeeWorkSummary);
 
 //assign work
-router.post("/assign-enquiry", assignEmployeeByAdmin);
+// router.post("/assign-enquiry", assignEmployeeByAdmin);
+// 🔹 Assign / Reassign Enquiry
+router.post("/assign-or-reassign-enquiry", assignOrReassignEmployeeByAdmin);
+
+//set enquiry amout
+router.post("/set-enquiry-amount", setEnquiryAmount);
 export default router;

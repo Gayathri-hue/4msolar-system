@@ -6,7 +6,10 @@ import express from "express";
 import {
   createEnquiry,
   deleteEnquiry,
+  downloadAgreementPDF,
   downloadEnquiryPDF,
+  downloadInvoicePDF,
+  downloadWarrantyPDF,
   getAllEnquiries,
   getEnquiriesByCustomerId,
   getEnquiriesByEmployee,
@@ -35,6 +38,10 @@ router.delete("/deleteoneenquiry/:id", deleteEnquiry);
 router.get("/getemployeeworks/:employeeId", getEnquiriesByEmployee);
 //pdf download
 router.get("/download/:id", downloadEnquiryPDF);
+//downloadinvoic
+router.get("/invoice/download/:id", downloadInvoicePDF);
+router.get("/agreement/download/:id", downloadAgreementPDF);
+router.get("/warranty/download/:id", downloadWarrantyPDF);
 
 // router.js
 

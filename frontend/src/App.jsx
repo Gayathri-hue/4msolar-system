@@ -26,7 +26,7 @@ import EmployeeLayout from "./Pages/Employee/EmployeeLayout";
 import MyLead from "./Pages/Employee/MyLead";
 import EmployeeWork from "./Pages/Admin/EmployeeWork";
 import PostEnquiryForm from "./Pages/StaffLayout/PostEnquiryForm";
-import Followup from "./Pages/StaffLayout/Followup";
+import Followup from "./Pages/Employee/Followup";
 import OurServices from "./Pages/OurServices";
 import AboutUs from "./Pages/AboutUs";
 import SolarServices from "./Pages/StaffLayout/SolarServices";
@@ -36,6 +36,7 @@ import Upload from "./Pages/Admin/Upload";
 
 import CreateCustomerEnquiry from "./Pages/Admin/CreateCustomerEnquiry";
 import ServiceRequest from "./Pages/StaffLayout/ServiceRequest";
+import CustomerServiceRequest from "./Pages/Admin/CustomerServiceRequest";
 
 function App() {
   const ProtectedRoute = ({ requiredRole, redirectTo }) => {
@@ -83,6 +84,10 @@ function App() {
             <Route path="employeework" element={<EmployeeWork />} />
             <Route path="assign-work" element={<AssignWork />} />
             <Route path="upload-excel" element={<Upload />} />
+            <Route
+              path="service-request"
+              element={<CustomerServiceRequest />}
+            />
 
             <Route
               path="create-customer-enquiry"
@@ -103,6 +108,7 @@ function App() {
             <Route index element={<EmployeeDashboard />} />
             <Route path="dashboard" element={<EmployeeDashboard />} />
             <Route path="mylead" element={<MyLead />} />
+            <Route path="followup" element={<Followup />} />
           </Route>
         </Route>
 
@@ -112,7 +118,6 @@ function App() {
           <Route path="/user" element={<StaffLayout />}>
             <Route index element={<DashboardChart />} />
             <Route path="dashboard" element={<DashboardChart />} />
-            <Route path="followup" element={<Followup />} />
 
             <Route path="enquiryform" element={<Leads />} />
             <Route path="services" element={<SolarServices />} />
@@ -123,7 +128,7 @@ function App() {
 
             <Route path="postform" element={<PostEnquiryForm />} />
             <Route path="trackstatus" element={<TrackStatus />} />
-            <Route path="service-request" element={<ServiceRequest />} />
+            <Route path="resquest-quote" element={<ServiceRequest />} />
           </Route>
         </Route>
         {/* 

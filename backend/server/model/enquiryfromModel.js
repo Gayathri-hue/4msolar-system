@@ -8,6 +8,8 @@ const enquirySchema = new mongoose.Schema(
       required: true,
     },
 
+    leadId: { type: String },
+
     fullName: { type: String, required: true },
     mobile: { type: String, required: true },
     email: { type: String },
@@ -87,6 +89,16 @@ const enquirySchema = new mongoose.Schema(
     assignedEmployee: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "employee",
+    },
+
+    amount: {
+      type: Number,
+      default: null,
+    },
+    quotationStatus: {
+      type: String,
+      enum: ["PENDING", "AMOUNT_SET", "APPROVED"],
+      default: "PENDING",
     },
 
     dueDate: {

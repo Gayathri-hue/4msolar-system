@@ -78,7 +78,7 @@ function EmployeeWork() {
   };
 
   const columns = [
-    { title: "Employee ID", dataIndex: "_id", key: "_id" },
+    { title: "Employee ID", dataIndex: "employeeId" },
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Phone", dataIndex: "phone", key: "phone" },
     { title: "Total Works", dataIndex: "totalWorks", key: "totalWorks" },
@@ -134,6 +134,7 @@ function EmployeeWork() {
           rowKey="_id"
           pagination={{ pageSize: 5 }}
           bordered
+          scroll={{ x: "max-content" }}
         />
       )}
 
