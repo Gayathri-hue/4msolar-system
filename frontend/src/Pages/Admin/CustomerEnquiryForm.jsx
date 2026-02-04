@@ -398,7 +398,11 @@ function CustomerEnquiry() {
 
   const handleEdit = (record) => {
     setEditEnquiry(record);
-    form.setFieldsValue({ ...record, appliedDate: dayjs(record.appliedDate) });
+    form.setFieldsValue({
+      ...record,
+      appliedDate: dayjs(record.appliedDate),
+      dueDate: record.dueDate ? dayjs(record.dueDate) : null,
+    });
   };
 
   const handleUpdate = async () => {

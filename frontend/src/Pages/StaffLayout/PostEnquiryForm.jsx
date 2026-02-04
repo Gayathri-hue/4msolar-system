@@ -185,7 +185,7 @@ function PostEnquiryForm() {
   return (
     <>
       <div style={{ padding: "40px 20px", maxWidth: 1200, margin: "0 auto" }}>
-        <h2 className="front-title">Post Enquiry</h2>
+        <h2 className="front-title">Service Request</h2>
 
         <div className="enquiry-form">
           <Form layout="vertical" onFinish={onFinish} form={form}>

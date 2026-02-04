@@ -110,7 +110,7 @@ function EmployeeLogin() {
       localStorage.setItem("employeeData", JSON.stringify(res.data.employee));
       localStorage.setItem("role", "employee");
 
-      navigate("/employee");
+      navigate("/employee/dashboard");
     } catch (err) {
       message.error(err.response?.data?.message || "Login failed");
     }

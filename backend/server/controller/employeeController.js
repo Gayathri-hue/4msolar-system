@@ -52,6 +52,52 @@ export const getMyLeads = async (req, res) => {
   }
 };
 
+// GET My Leads Count (Employee)
+// export const getMyLeadCount = async (req, res) => {
+//   try {
+//     const employeeId = req.user.id; // protect middleware la irundhu varum
+
+//     const leadCount = await enquiryfromModel.countDocuments({
+//       assignedEmployee: employeeId,
+//     });
+
+//     res.status(200).json({
+//       success: true,
+//       count: leadCount,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, msg: "Server Error" });
+//   }
+// };
+
+export const getMyLeadStatusCount = async (req, res) => {
+  try {
+    const employeeId = req.user.id;
+
+    const leads = await enquiryfromModel.find({
+      assignedEmployee: employeeId,
+    });
+
+    const stats = {
+      Assigned: 0,
+      "In Progress": 0,
+      Completed: 0,
+    };
+
+    leads.forEach((lead) => {
+      if (stats[lead.status] !== undefined) {
+        stats[lead.status]++;
+      }
+    });
+
+    res.status(200).json(stats);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+
 export const resendOtpEmployee = async (req, res) => {
   try {
     const email = req.body.email.trim().toLowerCase();

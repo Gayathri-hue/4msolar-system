@@ -108,9 +108,9 @@ const EmployeeLayout = () => {
       <NavLink to="dashboard" onClick={closeDrawer}>
         <RadiusUprightOutlined /> <span>Overview</span>
       </NavLink>
-      <NavLink to="followup" onClick={closeDrawer} className="menu-link">
+      <NavLink to="followup" onClick={closeDrawer}>
         <WeiboOutlined />
-        <span className="menu-text">Follow Up</span>
+        <span> Today Follow Up</span>
       </NavLink>
 
       <NavLink to="mylead" onClick={closeDrawer}>

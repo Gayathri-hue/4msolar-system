@@ -56,7 +56,7 @@ function Login() {
         localStorage.setItem("name", data.user.name);
         localStorage.setItem("role", data.user.role);
         setTimeout(() => {
-          navigate("/user");
+          navigate("/user/dashboard");
         }, 1500);
       } else {
         message.error(data.msg || "Login failed");

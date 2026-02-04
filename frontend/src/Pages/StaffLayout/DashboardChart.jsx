@@ -165,16 +165,47 @@ function DashboardChart() {
         {greeting},{" "}
         <span style={{ fontWeight: "bold", color: "green" }}>{userName}</span>{" "}
         👋
+        <div
+          style={{
+            fontSize: "13px",
+            color: "gray",
+            wordSpacing: "3px",
+            letterSpacing: "1px",
+            marginLeft: "50px",
+          }}
+        >
+          Welcome to your solar energy dashboard
+        </div>
       </h2>
-      <Row gutter={[24, 24]} align="stretch">
-        <Col xs={24} md={12} lg={12} xl={12}>
+
+      <Card
+        style={{
+          marginBottom: 24,
+          borderRadius: 12,
+          background: "linear-gradient(135deg, #e6f7ff, #ffffff)",
+          border: "1px solid #d9f2ff",
+        }}
+      >
+        <Title level={4} style={{ color: "#1677ff" }}>
+          Powering Your Future with Solar Energy ☀️
+        </Title>
+
+        <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#444" }}>
+          We deliver reliable, high-quality solar solutions tailored to your
+          needs — from initial consultation through installation and long-term
+          support. Monitor enquiry progress and stay updated at every stage.
+        </p>
+      </Card>
+
+      <Row gutter={[24, 24]} align="stretch" justify="center">
+        {/* <Col xs={24} md={12} lg={12} xl={12}>
           {renderNormalPieCard(
             "Overall Enquiry Status",
             overallData,
             overallStats,
           )}
-        </Col>
-        <Col xs={24} md={12} lg={12} xl={12}>
+        </Col> */}
+        <Col xs={24} md={24} lg={24} xl={24} style={{ padding: "0px 100px" }}>
           {renderRoundPieCard(
             "Your Enquiry Status",
             customerData,

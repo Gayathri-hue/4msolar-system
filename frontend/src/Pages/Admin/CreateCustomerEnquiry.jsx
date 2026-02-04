@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Select, Row, Col, message } from "antd";
+import { Form, Input, Button, Select, Row, Col, message, Upload } from "antd";
 import Api from "../../Api";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -53,15 +54,27 @@ function CreateCustomerEnquiry() {
       // customer-a first-la append pannidu
       formData.append("customer", customerId);
 
-      // remaining fields
-      for (const key in values) {
-        if (key === "customer") continue; // already panniten
+      // Inside handleFinish, after creating formData
 
-        if (key === "image" && values.image?.file?.originFileObj) {
-          formData.append("image", values.image.file.originFileObj);
-        } else if (values[key] !== undefined && values[key] !== null) {
-          formData.append(key, values[key]);
+      // Normal fields (skip image & customer)
+      Object.keys(values).forEach((key) => {
+        if (key === "customer" || key === "image") return;
+
+        const value = values[key];
+        if (value !== undefined && value !== null && value !== "") {
+          formData.append(key, value);
         }
+      });
+
+      // Handle image properly
+      if (values.image && values.image.length > 0) {
+        const file = values.image[0].originFileObj; // ← this is the real File
+        if (file) {
+          formData.append("image", file);
+          console.log("Appending file →", file.name, file.size); // debug
+        }
+      } else {
+        console.log("No image selected");
       }
 
       await Api.post("/enquiry/createenquiry", formData, {
@@ -252,9 +265,26 @@ function CreateCustomerEnquiry() {
               </Col>
 
               <Col xs={24} sm={12} md={8}>
-                <Form.Item name="image" label="Site / Problem Photo">
-                  <Input type="file" accept="image/*" name="image" />
-                </Form.Item>
+                <Col xs={24} sm={12} md={8}>
+                  <Form.Item
+                    name="image"
+                    label="Site / Problem Photo"
+                    valuePropName="fileList"
+                    getValueFromEvent={(e) =>
+                      Array.isArray(e) ? e : e?.fileList || []
+                    }
+                    rules={[{ required: true, message: "Please upload photo" }]}
+                  >
+                    <Upload
+                      beforeUpload={() => false}
+                      maxCount={1}
+                      accept="image/*"
+                      listType="picture"
+                    >
+                      <Button icon={<UploadOutlined />}>Choose Image</Button>
+                    </Upload>
+                  </Form.Item>
+                </Col>
               </Col>
 
               <Col xs={24} sm={12} md={8}>
@@ -387,19 +417,24 @@ function CreateCustomerEnquiry() {
               </Col>
 
               <Col xs={24} sm={12} md={8}>
-                <Form.Item label="Upload Image" name="image">
-                  <Input type="file" />
+                <Form.Item
+                  name="image"
+                  label="Upload Image"
+                  valuePropName="fileList"
+                  getValueFromEvent={(e) =>
+                    Array.isArray(e) ? e : e?.fileList || []
+                  }
+                  rules={[{ required: true, message: "Image upload pannu da" }]} // optional
+                >
+                  <Upload
+                    beforeUpload={() => false} // ← stops auto-upload / prevents axios/fetch confusion
+                    maxCount={1}
+                    accept="image/*"
+                    listType="picture" // shows thumbnail preview – nice UX
+                  >
+                    <Button icon={<UploadOutlined />}>Choose Image</Button>
+                  </Upload>
                 </Form.Item>
-                {/* <Form.Item
-                              name="image"
-                              label="Site / Problem Photo"
-                              valuePropName="file"
-                              getValueFromEvent={(e) => e}
-                            >
-                              <Upload beforeUpload={() => false} maxCount={1}>
-                                <Button>Select Image</Button>
-                              </Upload>
-                            </Form.Item> */}
               </Col>
 
               <Col xs={24} sm={12} md={8}>

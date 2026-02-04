@@ -199,7 +199,7 @@ function TrackStatus() {
           {filteredEnquiries.map((enq) => {
             const cardDisabled = !enq.amount; // ✅ disable card if no amount
             return (
-              <Col xs={24} sm={12} md={8} lg={6} key={enq._id}>
+              <Col xs={24} sm={12} md={12} lg={8} key={enq._id}>
                 <Card
                   hoverable={!cardDisabled}
                   className={`enquiry-card ${cardDisabled ? "disabled" : ""}`}

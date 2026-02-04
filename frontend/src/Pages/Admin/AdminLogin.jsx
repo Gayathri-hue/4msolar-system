@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, Card, Typography, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import Api from "../../Api.js"; // adjust path if needed
+import Api from "../../Api.js";
 
 const { Title } = Typography;
 
@@ -23,7 +23,7 @@ function AdminLogin() {
       localStorage.setItem("adminEmail", res.data.email);
       localStorage.setItem("role", "admin");
 
-      navigate("/admin"); // go to admin dashboard
+      navigate("/admin");
     } catch (err) {
       message.error(err.response?.data?.message || "Login failed");
     }
@@ -74,7 +74,15 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f0f2f5",
+    // backgroundColor: "#25259f",
+
+    backgroundImage: `
+      linear-gradient(rgb(11 89 206 / 95%), rgb(11 89 206 / 91%)),
+      url("https://img.freepik.com/premium-psd/enter-world-imagination-3d-fun-kids_1013393-15.jpg?ga=GA1.1.957273099.1723532135&w=740&q=80")
+    `,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   },
   card: {
     width: 360,
